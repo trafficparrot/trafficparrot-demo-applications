@@ -7,345 +7,22 @@
     <option name="SERVER_URL" value="http://buildserver" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5a62c59-6682-4907-865c-fdfc4ab1ded6" name="Default" comment="Switch from IBM MQ to RabbitMQ.">
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/proguard-rules.pro" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/androidTest/java/financeapp/example/trafficparrot/com/mobilefinanceapplication/ExampleInstrumentedTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/java/financeapp/example/trafficparrot/com/mobilefinanceapplication/HomeScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/layout/activity_home_screen.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/app/src/test/java/financeapp/example/trafficparrot/com/mobilefinanceapplication/ExampleUnitTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MobileFinanceApplication/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/java/com/wbsoftwareconsutlancy/BuyEuroApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/java/com/wbsoftwareconsutlancy/GbpToEurHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/buyeuro-application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/assets/js/ie10-viewport-bug-workaround.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/assets/js/vendor/jquery-1.11.3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/assets/navbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/bootstrap-3.3.6-dist/js/npm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/src/main/resources/html/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/buyeuro-application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/assets/js/ie10-viewport-bug-workaround.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/assets/js/vendor/jquery-1.11.3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/assets/navbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/bootstrap-3.3.6-dist/js/npm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/classes/html/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../example-buy-euro-application/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/grpc-shop.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__com_google_api_grpc_proto_google_common_protos_1_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__com_google_guava_guava_20_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__com_google_protobuf_protobuf_java_util_3_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_grpc_grpc_context_1_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_grpc_grpc_core_1_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_grpc_grpc_netty_1_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_grpc_grpc_protobuf_1_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_grpc_grpc_protobuf_lite_1_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_grpc_grpc_stub_1_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_buffer_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_codec_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_codec_http2_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_codec_http_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_codec_socks_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_common_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_handler_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_handler_proxy_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_resolver_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_netty_netty_transport_4_1_22_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_opencensus_opencensus_api_0_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__io_opencensus_opencensus_contrib_grpc_metrics_0_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/grpc-shop.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/assembly.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/java/com/trafficparrot/examples/shop/ShopBackendServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/java/com/trafficparrot/examples/shop/ShopFrontendClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/java/com/trafficparrot/examples/shop/util/Logger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/proto/order-service.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/resources/start-client.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/resources/start-client.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/resources/start-server.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/src/main/resources/start-server.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/classes/start-client.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/classes/start-client.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/classes/start-server.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/classes/start-server.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/generated-sources/protobuf/grpc-java/com/trafficparrot/examples/shop/proto/OrderGrpc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/generated-sources/protobuf/java/com/trafficparrot/examples/shop/proto/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/generated-sources/protobuf/java/com/trafficparrot/examples/shop/proto/ItemOrBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/generated-sources/protobuf/java/com/trafficparrot/examples/shop/proto/OrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/generated-sources/protobuf/java/com/trafficparrot/examples/shop/proto/OrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/generated-sources/protobuf/java/com/trafficparrot/examples/shop/proto/OrderStatusOrBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/generated-sources/protobuf/java/com/trafficparrot/examples/shop/proto/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/grpc-shop-1.0-bin.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/any.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/api.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/compiler/plugin.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/descriptor.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/duration.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/empty.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/field_mask.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/source_context.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/struct.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/timestamp.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/type.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-dependencies/2242b96261b98d62458ae5002cf7d785/google/protobuf/wrappers.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-plugins/protoc-3.5.1-1-linux-x86_64.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../grpc-shop/target/protoc-plugins/protoc-gen-grpc-java-1.11.0-linux-x86_64.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/java/com/wbsoftwareconsutlancy/PropertiesLoadingException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/java/com/wbsoftwareconsutlancy/ShutdownException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/java/com/wbsoftwareconsutlancy/StartupException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/java/com/wbsoftwareconsutlancy/UnitConverterApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/java/com/wbsoftwareconsutlancy/UnitHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/assets/js/ie10-viewport-bug-workaround.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/assets/js/vendor/jquery-1.11.3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/assets/navbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/bootstrap-3.3.6-dist/js/npm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/html/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../unit-converter-application/src/main/resources/unit-converter-application.properties" afterDir="false" />
+    <list default="true" id="c5a62c59-6682-4907-865c-fdfc4ab1ded6" name="Default" comment="make queue names configurable">
       <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_9.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_rabbitmq_amqp_client_5_14_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_13.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/release/vegetables-order-system/application.properties" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/release/vegetables-order-system/example-response.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/assembly/jar-with-dependencies.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/assembly/release.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/main/java/com/wbsoftwareconsutlancy/PropertiesLoadingException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/main/java/com/wbsoftwareconsutlancy/WeatherApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/main/java/com/wbsoftwareconsutlancy/WebServerShutdownException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/main/java/com/wbsoftwareconsutlancy/WebServerStartupException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/main/java/com/wbsoftwareconsutlancy/WindHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/main/resources/startWeatherApplication.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-in-london-application/src/main/resources/weather-application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__com_flipkart_zjsonpatch_zjsonpatch_0_2_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__com_github_tomakehurst_wiremock_2_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__com_google_guava_guava_18_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__com_googlecode_yatspec_yatspec_1_27.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__junit_junit_4_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__net_minidev_accessors_smart_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__net_minidev_json_smart_2_2_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__net_sf_jopt_simple_jopt_simple_4_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__net_sourceforge_plantuml_plantuml_8048.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_apache_commons_commons_collections4_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_apache_httpcomponents_fluent_hc_4_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_continuation_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_http_9_2_3_v20140905.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_io_9_2_3_v20140905.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_security_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_server_9_2_3_v20140905.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_servlet_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_servlets_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_util_9_2_3_v20140905.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_webapp_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_eclipse_jetty_jetty_xml_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_jdom_jdom_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_json_json_20090211.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_ow2_asm_asm_5_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_slf4j_slf4j_log4j12_1_7_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_xmlunit_xmlunit_legacy_2_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/main/java/com/wbsoftwareconsutlancy/PropertiesLoadingException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/main/java/com/wbsoftwareconsutlancy/WeatherApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/main/java/com/wbsoftwareconsutlancy/WebServerShutdownException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/main/java/com/wbsoftwareconsutlancy/WebServerStartupException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/main/java/com/wbsoftwareconsutlancy/WindHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/main/resources/weather-application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/test/java/com/wbsoftwareconsutlancy/LogWiremockInYatspecRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/test/java/com/wbsoftwareconsutlancy/WeatherApplicationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/src/test/resources/darksky-response-body.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/classes/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/classes/weather-application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/surefire-reports/TEST-com.wbsoftwareconsutlancy.WeatherApplicationTest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/surefire-reports/com.wbsoftwareconsutlancy.WeatherApplicationTest.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/target/test-classes/darksky-response-body.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../weather-yatspec-example/wiremock-weather-application.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/java/com/wbsoftwareconsutlancy/PropertiesLoadingException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/java/com/wbsoftwareconsutlancy/WeatherApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/java/com/wbsoftwareconsutlancy/WebServerShutdownException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/java/com/wbsoftwareconsutlancy/WebServerStartupException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/java/com/wbsoftwareconsutlancy/WindHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/assets/js/ie10-viewport-bug-workaround.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/assets/js/vendor/jquery-1.11.3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/assets/navbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/bootstrap-3.3.6-dist/js/npm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/html/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/main/resources/weather-application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/src/test/java/com/wbsoftwareconsutlancy/WeatherApplicationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/assets/js/ie10-viewport-bug-workaround.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/assets/js/vendor/jquery-1.11.3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/assets/navbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap-theme.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/bootstrap-3.3.6-dist/js/npm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/html/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/classes/weather-application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/surefire-reports/TEST-com.wbsoftwareconsutlancy.WeatherApplicationTest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../wiremock-weaither-application/target/surefire-reports/com.wbsoftwareconsutlancy.WeatherApplicationTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../grpc-shop/.idea/libraries/Maven__com_google_code_gson_gson_2_7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__commons_io_commons_io_2_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_jms_javax_jms_api_2_0_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_fluent_hc_4_3_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_13.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-yatspec-example/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_13.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fruit-order-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/fruit-order-system.iml" afterDir="false" />
@@ -482,6 +159,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="GO_FMT" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -629,7 +307,7 @@
       <workItem from="1513443992451" duration="640000" />
       <workItem from="1514989240038" duration="649000" />
       <workItem from="1593442725312" duration="1089000" />
-      <workItem from="1640015736207" duration="6187000" />
+      <workItem from="1640015736207" duration="5166000" />
     </task>
     <task id="LOCAL-00001" summary="generated project">
       <created>1513166409029</created>
@@ -694,14 +372,7 @@
       <option name="project" value="LOCAL" />
       <updated>1513444329852</updated>
     </task>
-    <task id="LOCAL-00010" summary="Switch from IBM MQ to RabbitMQ.">
-      <created>1640021087789</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1640021087789</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -766,8 +437,7 @@
     <MESSAGE value="created a release directory manually" />
     <MESSAGE value="better UX" />
     <MESSAGE value="make queue names configurable" />
-    <MESSAGE value="Switch from IBM MQ to RabbitMQ." />
-    <option name="LAST_COMMIT_MESSAGE" value="Switch from IBM MQ to RabbitMQ." />
+    <option name="LAST_COMMIT_MESSAGE" value="make queue names configurable" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/.gitignore">
