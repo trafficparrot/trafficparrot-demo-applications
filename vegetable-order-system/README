@@ -1,0 +1,3 @@
+In order for this project to work you will have to obtain a file "com.ibm.mq.allclient.jar"
+provided by IBM and copy it to the "fruit-order-system\lib" directory.
+Follow these instructions to obtain that file: http://trafficparrot.com/documentation/3.10.x/jms.html#ibm-mq-libs
