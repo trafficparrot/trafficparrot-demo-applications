@@ -11,14 +11,14 @@ import java.io.*;
 import java.util.Date;
 import java.util.Properties;
 
-public class OrderFruitApplication {
+public class OrderVegetablesApplication {
     private Server server;
     public final int port = 8282;
 
     public static void main(String[] args) throws Exception {
-        OrderFruitApplication orderFruitApplication = new OrderFruitApplication();
-        orderFruitApplication.start();
-        orderFruitApplication.join();
+        OrderVegetablesApplication orderVegetablesApplication = new OrderVegetablesApplication();
+        orderVegetablesApplication.start();
+        orderVegetablesApplication.join();
     }
 
     public void start() throws Exception {
@@ -63,7 +63,7 @@ public class OrderFruitApplication {
             return new FileInputStream(new File(fileLocation));
         } else {
             String classpathFileName = "application.properties";
-            InputStream resourceAsStream = OrderFruitApplication.class.getClassLoader().getResourceAsStream(classpathFileName);
+            InputStream resourceAsStream = OrderVegetablesApplication.class.getClassLoader().getResourceAsStream(classpathFileName);
             if (resourceAsStream != null) {
                 return resourceAsStream;
             } else {
