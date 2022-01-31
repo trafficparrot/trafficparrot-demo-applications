@@ -7,9 +7,8 @@
     <option name="SERVER_URL" value="http://buildserver" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5a62c59-6682-4907-865c-fdfc4ab1ded6" name="Default" comment="make queue names configurable">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trafficparrot/example/SendOrderHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trafficparrot/example/SendOrderHandler.java" afterDir="false" />
+    <list default="true" id="c5a62c59-6682-4907-865c-fdfc4ab1ded6" name="Default" comment="Rename.">
+      <change beforePath="$PROJECT_DIR$/release/vegetables-order-system/lib/vegetable-order-system-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/release/vegetables-order-system/lib/vegetable-order-system-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +127,6 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="GO_FMT" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -278,6 +276,7 @@
       <workItem from="1593442725312" duration="1089000" />
       <workItem from="1640015736207" duration="5166000" />
       <workItem from="1642434651097" duration="2394000" />
+      <workItem from="1643621013654" duration="741000" />
     </task>
     <task id="LOCAL-00001" summary="generated project">
       <created>1513166409029</created>
@@ -342,7 +341,21 @@
       <option name="project" value="LOCAL" />
       <updated>1513444329852</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Readme.">
+      <created>1643621074759</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1643621074759</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Rename.">
+      <created>1643621101231</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1643621101231</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -407,7 +420,9 @@
     <MESSAGE value="created a release directory manually" />
     <MESSAGE value="better UX" />
     <MESSAGE value="make queue names configurable" />
-    <option name="LAST_COMMIT_MESSAGE" value="make queue names configurable" />
+    <MESSAGE value="Readme." />
+    <MESSAGE value="Rename." />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/.gitignore">
