@@ -1,7 +1,7 @@
 package com.trafficparrot.example;
 
 import com.google.gson.Gson;
-import com.rabbitmq.client.*;
+import io.vertx.amqp.*;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -9,21 +9,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.TimeoutException;
 
+import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.parseInt;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 class SendOrderHandler extends AbstractHandler {
     private final Properties properties;
     private final CopyOnWriteArrayList<OrderConfirmation> orderConfirmations = new CopyOnWriteArrayList<>();
 
-    public SendOrderHandler(Properties properties) throws IOException, TimeoutException {
+    private volatile AmqpSender sender;
+
+    public SendOrderHandler(Properties properties) {
         this.properties = properties;
-        startOrderOrderConfirmationsThread();
+        startSenderAndReceiver();
     }
 
     public void handle(String target,
@@ -48,31 +52,54 @@ class SendOrderHandler extends AbstractHandler {
         }
     }
 
-    private void startOrderOrderConfirmationsThread() throws IOException, TimeoutException {
-        ConnectionFactory factory = createFactory();
-
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
-        String queueName = properties.getProperty("rabbitmq.confirmation.queue");
-        channel.queueDeclare(queueName, true, false, false, null);
-        System.out.println("Receiving confirmation messages form queue named '" + queueName + "'");
-        DefaultConsumer consumer = new DefaultConsumer(channel) {
-            @Override
-            public void handleDelivery(
-                    String consumerTag,
-                    Envelope envelope,
-                    AMQP.BasicProperties properties,
-                    byte[] body) {
-                String message = new String(body, UTF_8);
-                System.out.println(new Date() + " Received: " + message);
-                orderConfirmations.add(new Gson().fromJson(message, OrderConfirmation.class));
+    private void startSenderAndReceiver() {
+        AmqpClient client = createClient();
+        client.connect(conn -> {
+            if (conn.failed()) {
+                throw new IllegalStateException(conn.cause());
             }
-        };
-        channel.basicConsume(queueName, true, consumer);
-        System.out.println("Started received thread for queue '" + queueName + "'");
+            String confirmationQueueName = properties.getProperty("amqp.broker.confirmation.queue");
+            conn.result().createReceiver(confirmationQueueName,
+                    done -> {
+                        if (done.failed()) {
+                            System.out.println("Unable to create receiver to queue '" + confirmationQueueName + "'");
+                            throw new IllegalStateException(done.cause());
+                        } else {
+                            AmqpReceiver receiver = done.result();
+                            receiver.handler(msg -> {
+                                String message = msg.bodyAsString();
+                                System.out.println(new Date() + " Received: " + message);
+                                orderConfirmations.add(new Gson().fromJson(message, OrderConfirmation.class));
+                            });
+                        }
+                    }
+            );
+            System.out.println("Started receiver thread for queue '" + confirmationQueueName + "'");
+
+            String orderQueueName = properties.getProperty("amqp.broker.order.queue");
+            conn.result().createSender(orderQueueName, done -> {
+                if (done.failed()) {
+                    System.out.println("Unable to create a sender for '" + orderQueueName + "' ");
+                    throw new IllegalStateException(done.cause());
+                } else {
+                    sender = done.result();
+                    System.out.println("Sender created for '" + orderQueueName + "'");
+                }
+            });
+            System.out.println("Started sender thread for queue '" + orderQueueName + "'");
+        });
     }
 
-    private boolean sendOrder(HttpServletRequest request) throws IOException, TimeoutException {
+    private AmqpClient createClient() {
+        AmqpClientOptions amqpClientOptions = new AmqpClientOptions()
+                .setHost(properties.getProperty("amqp.broker.hostname"))
+                .setPort(parseInt(properties.getProperty("amqp.broker.port")));
+//                .setUsername(properties.getProperty("amqp.broker.username"))
+//                .setPassword(properties.getProperty("amqp.broker.password"));
+        return AmqpClient.create(amqpClientOptions);
+    }
+
+    private boolean sendOrder(HttpServletRequest request) {
         Map<String, String> requestMessageMap = new HashMap<>();
         requestMessageMap.put("orderItemName", request.getParameter("orderItemName"));
         requestMessageMap.put("quantity", request.getParameter("quantity"));
@@ -80,25 +107,11 @@ class SendOrderHandler extends AbstractHandler {
         return true;
     }
 
-    public void sendMessage(String message) throws IOException, TimeoutException {
-        ConnectionFactory factory = createFactory();
-        try (Connection connection = factory.newConnection();
-             Channel channel = connection.createChannel()) {
-            String queueName = properties.getProperty("rabbitmq.order.queue");
-            channel.queueDeclare(queueName, true, false, false, null);
-
-            channel.basicPublish("", queueName, null, message.getBytes());
-            System.out.println("Sent '" + message + "'");
-        }
-    }
-
-    private ConnectionFactory createFactory() {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost(properties.getProperty("rabbitmq.hostname"));
-        factory.setPort(parseInt(properties.getProperty("rabbitmq.port")));
-        factory.setUsername(properties.getProperty("rabbitmq.username"));
-        factory.setPassword(properties.getProperty("rabbitmq.password"));
-        return factory;
+    public void sendMessage(String message) {
+        AmqpMessageBuilder builder = AmqpMessage.create();
+        AmqpMessage m1 = builder.withBody(message).build();
+        sender.send(m1);
+        System.out.println("Sent '" + message + "'");
     }
 
     private static class OrderConfirmation {
