@@ -8,39 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5a62c59-6682-4907-865c-fdfc4ab1ded6" name="Default" comment="make queue names configurable">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_rabbitmq_amqp_client_5_14_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/release/vegetables-order-system/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/release/vegetables-order-system/example-response.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_9.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_jms_javax_jms_api_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_fluent_hc_4_3_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_13.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_13.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fruit-order-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/fruit-order-system.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/fruit-order-system/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/fruit-order-system/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/fruit-order-system/example-response.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/fruit-order-system/lib/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/release/vegetables-order-system/lib/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/fruit-order-system/lib/fruit-order-system-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/release/vegetables-order-system/lib/vegetable-order-system-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/fruit-order-system/lib/thrift-calculator-1.0.0-jar-with-dependencies.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/fruit-order-system/start.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/release/vegetables-order-system/start.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/fruit-order-system/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/release/vegetables-order-system/start.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/trafficparrot/example/OrderFruitApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trafficparrot/example/OrderVegetablesApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/trafficparrot/example/SendOrderHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/trafficparrot/example/SendOrderHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/start.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/start.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/start.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,6 +277,7 @@
       <workItem from="1514989240038" duration="649000" />
       <workItem from="1593442725312" duration="1089000" />
       <workItem from="1640015736207" duration="5166000" />
+      <workItem from="1642434651097" duration="2394000" />
     </task>
     <task id="LOCAL-00001" summary="generated project">
       <created>1513166409029</created>
