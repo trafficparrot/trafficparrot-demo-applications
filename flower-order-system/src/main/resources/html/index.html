@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vegetables order system</title>
+    <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/navbar.css" rel="stylesheet">
+</head>
+<style>
+    span.warning {
+        color: red;
+        font-weight: bold;
+        display: none;
+    }
+</style>
+<body>
+
+<div class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Vegetable order system</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <h1>Send order</h1>
+
+        <form id="send-form">
+            <div class="form-group  form-inline">
+                <label for="quantity">Order</label>
+                <input id="quantity" name="quantity" type="text" placeholder="e.g. 3" class="form-control"/>
+                of
+                <select id="order-item-name" name="orderItemName" class="form-control">
+                    <option value="carrot">Carrot</option>
+                    <option value="potato">Potato</option>
+                    <option value="tomato">Tomato</option>
+                </select>
+                <button type="submit" value="send" class="form-control">Send</button>
+            </div>
+        </form>
+
+        <h1>Order confirmations</h1>
+        <div id="order-confirmations">
+            Loading...
+        </div>
+    </div>
+</div>
+
+<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+<script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+<script>
+    $("#send-form").submit(function(e) {
+        $.ajax({
+            type: "POST",
+            url: "/send-order",
+            data: $("#send-form").serialize(),
+            success: function(data) {
+                alert(data);
+            }
+        });
+        e.preventDefault();
+    });
+
+    setInterval(function () {
+        $.ajax({
+            url: "/order-confirmations",
+            cache: false,
+            success: function (result) {
+                var orderConfirmations = result;
+                if (orderConfirmations.length === 0) {
+                    $('#order-confirmations').html("No confirmations found.");
+                } else {
+                    $('#order-confirmations').html("<ol></ol>");
+                    $.each(orderConfirmations, function (indtex, item) {
+                        $('#order-confirmations').append("<li>Ordered '" + item.quantity + "' items of '" + item.orderItemName + "' on '" + item.date + "'</li>");
+                    });
+                }
+            }
+        });
+    }, 1000);
+</script>
+</body>
+</html>
