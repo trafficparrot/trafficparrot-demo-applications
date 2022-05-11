@@ -63,7 +63,7 @@ public class FedExTrackingService {
                 String errorMessage = responseJson.read(FEDEX_JSON_PATH_ERROR_MESSAGE);
                 return new LogInResponse(true, errorMessage);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             LOGGER.error("Uncaught exception", e);
             return logInTechnicalErrorResponse();
         }
@@ -112,7 +112,7 @@ public class FedExTrackingService {
                 String errorMessage = responseJson.read(FEDEX_JSON_PATH_ERROR_MESSAGE);
                 return new TrackingResponse(true, errorMessage, "");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             LOGGER.error("Uncaught exception", e);
             return trackingTechnicalErrorResponse();
         }
@@ -123,11 +123,11 @@ public class FedExTrackingService {
     }
 
     private TrackingResponse trackingTechnicalErrorResponse() {
-        return new TrackingResponse(true, "Technical error communicating with FedEx", "");
+        return new TrackingResponse(true, "Technical error, see logs for details", "");
     }
 
     private LogInResponse logInTechnicalErrorResponse() {
-        return new LogInResponse(true, "Technical error communicating with FedEx");
+        return new LogInResponse(true, "Technical error, see logs for details");
     }
 
     private OkHttpClient okHttpClient() {

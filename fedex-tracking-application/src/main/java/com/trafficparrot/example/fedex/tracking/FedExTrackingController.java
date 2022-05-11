@@ -76,7 +76,7 @@ public class FedExTrackingController {
         } else {
             model.addAttribute("status", trackingResponse.latestStatus);
         }
-        model.addAttribute(trackingNumber);
+        model.addAttribute("trackingNumber", trackingNumber);
         return "track";
     }
 }
