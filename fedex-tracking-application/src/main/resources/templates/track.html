@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Track</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Track</h1>
+<form action="/track" method="POST">
+    <input type="hidden" id="action" name="action" value="track">
+    <label for="fedex-tracking-number">Tracking Number</label><br>
+    <input type="text" id="fedex-tracking-number" name="fedex-tracking-number"><br>
+    <input type="submit" value="Submit">
+    <p th:if="${!#strings.isEmpty(error)}" th:text="${error}" class="error"></p>
+    <p th:if="${!#strings.isEmpty(status)}" th:text="${status}"></p>
+</form>
+</body>
+</html>

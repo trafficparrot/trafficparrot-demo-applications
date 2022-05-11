@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Login</h1>
+<form action="/login" method="POST">
+    <input type="hidden" id="action" name="action" value="login">
+    <label for="fedex-api-key">FedEx&reg; API Key</label><br>
+    <input type="text" id="fedex-api-key" name="fedex-api-key"><br>
+    <label for="fedex-secret-key">FedEx&reg; Secret Key</label><br>
+    <input type="text" id="fedex-secret-key" name="fedex-secret-key"><br>
+    <label for="fedex-api-base-url">FedEx&reg; API Base URL</label><br>
+    <input type="text" id="fedex-api-base-url" name="fedex-api-base-url" placeholder="e.g. https://apis-sandbox.fedex.com"><br>
+    <input type="submit" value="Submit">
+    <p th:if="${!#strings.isEmpty(error)}" th:text="${error}" class="error"></p>
+</form>
+</body>
+</html>
