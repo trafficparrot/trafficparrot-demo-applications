@@ -21,7 +21,7 @@ public class FedExTrackingService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FedExTrackingService.class);
     private static final String FEDEX_JSON_PATH_FIRST_TRACK_RESULT = "$.output.completeTrackResults[0].trackResults[0]";
     private static final String FEDEX_JSON_PATH_TRACK_MOST_RECENT_SCAN_EVENT = FEDEX_JSON_PATH_FIRST_TRACK_RESULT + ".scanEvents[0]";
-    public static final String FEDEX_JSON_PATH_ERROR_MESSAGE = "$.errors[0].message";
+    private static final String FEDEX_JSON_PATH_ERROR_MESSAGE = "$.errors[0].message";
 
     private final FedExApiCredentials fedExApiCredentials;
 
