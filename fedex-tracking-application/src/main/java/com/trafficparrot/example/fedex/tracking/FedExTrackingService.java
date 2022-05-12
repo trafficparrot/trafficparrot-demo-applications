@@ -118,7 +118,7 @@ public class FedExTrackingService {
         }
     }
 
-    private DocumentContext parseJson(String responseBody) throws IOException {
+    private DocumentContext parseJson(String responseBody) {
         return JsonPath.parse(responseBody, Configuration.builder().options(SUPPRESS_EXCEPTIONS).build());
     }
 
