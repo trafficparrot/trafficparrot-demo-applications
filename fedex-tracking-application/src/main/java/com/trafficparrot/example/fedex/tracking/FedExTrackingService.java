@@ -4,14 +4,12 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import okhttp3.*;
-import okhttp3.logging.HttpLoggingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.jayway.jsonpath.Option.SUPPRESS_EXCEPTIONS;
-import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Service
@@ -22,10 +20,12 @@ public class FedExTrackingService {
     private static final String FEDEX_JSON_PATH_ERROR_MESSAGE = "$.errors[0].message";
 
     private final FedExApiCredentials fedExApiCredentials;
+    private final HttpClientFactory httpClientFactory;
 
     @Autowired
-    public FedExTrackingService(FedExApiCredentials fedExApiCredentials) {
+    public FedExTrackingService(FedExApiCredentials fedExApiCredentials, HttpClientFactory httpClientFactory) {
         this.fedExApiCredentials = fedExApiCredentials;
+        this.httpClientFactory = httpClientFactory;
     }
 
     public boolean isLoggedIn() {
@@ -34,7 +34,7 @@ public class FedExTrackingService {
 
     public LogInResponse loginToApi(String apiKey, String secretKey, String apiBaseUrl) {
         try {
-            OkHttpClient client = okHttpClient();
+            OkHttpClient client = httpClientFactory.httpClient();
             RequestBody body = new FormBody.Builder()
                     .add("grant_type", "client_credentials")
                     .add("client_id", apiKey)
@@ -79,7 +79,7 @@ public class FedExTrackingService {
                 "  ]\n" +
                 "}";
         try {
-            OkHttpClient client = okHttpClient();
+            OkHttpClient client = httpClientFactory.httpClient();
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, requestJson);
             Request request = new Request.Builder()
@@ -126,11 +126,5 @@ public class FedExTrackingService {
 
     private LogInResponse logInTechnicalErrorResponse() {
         return new LogInResponse(true, "Technical error, see logs for details");
-    }
-
-    private OkHttpClient okHttpClient() {
-        return new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(BODY))
-                .build();
     }
 }

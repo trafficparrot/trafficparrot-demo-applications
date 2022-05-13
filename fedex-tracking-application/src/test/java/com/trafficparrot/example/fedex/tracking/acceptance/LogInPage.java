@@ -1,5 +1,6 @@
 package com.trafficparrot.example.fedex.tracking.acceptance;
 
+import com.trafficparrot.example.fedex.tracking.FedExApiUser;
 import com.trafficparrot.example.testing.framework.Password;
 import io.qameta.allure.Step;
 

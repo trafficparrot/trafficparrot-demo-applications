@@ -9,7 +9,7 @@ public class TestDataGenerator {
         return FAKER.random().hex(20).toLowerCase();
     }
 
-    public static String apiSecret() {
+    public static String secretKey() {
         return FAKER.random().hex(20).toLowerCase();
     }
 }

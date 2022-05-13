@@ -31,11 +31,6 @@ public class FedExTrackingController {
         return "login";
     }
 
-    @GetMapping("error")
-    public String getError() {
-        return "login";
-    }
-
     @GetMapping("*")
     public String getCurrent() {
         if (trackingService.isLoggedIn()) {
@@ -47,9 +42,9 @@ public class FedExTrackingController {
 
     @PostMapping("/login")
     public String postLogin(
-            @RequestParam(name = "fedex-api-base-url") String apiBaseUrl,
             @RequestParam(name = "fedex-api-key") String apiKey,
             @RequestParam(name = "fedex-secret-key") String secretKey,
+            @RequestParam(name = "fedex-api-base-url") String apiBaseUrl,
             Model model) {
 
         LogInResponse logInResponse = trackingService.loginToApi(apiKey, secretKey, apiBaseUrl);

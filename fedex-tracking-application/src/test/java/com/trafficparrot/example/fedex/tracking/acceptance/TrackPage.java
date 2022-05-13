@@ -2,12 +2,11 @@ package com.trafficparrot.example.fedex.tracking.acceptance;
 
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.Condition.matchText;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverConditions.url;
-import static com.trafficparrot.example.testing.framework.TestState.testState;
+import static com.codeborne.selenide.Selenide.$;
 import static org.openqa.selenium.By.name;
 
 public class TrackPage {
@@ -29,7 +28,7 @@ public class TrackPage {
 
     @Step
     public static void thenTheLatestTrackingStatusIsDisplayed(String status) {
-        $(byClassName("valid-feedback")).shouldHave(text(status));
+        $(byClassName("valid-feedback")).shouldHave(matchText(status));
     }
 
     @Step

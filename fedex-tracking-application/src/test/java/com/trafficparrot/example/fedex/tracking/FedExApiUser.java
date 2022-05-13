@@ -1,4 +1,4 @@
-package com.trafficparrot.example.fedex.tracking.acceptance;
+package com.trafficparrot.example.fedex.tracking;
 
 
 import com.trafficparrot.example.testing.framework.Password;

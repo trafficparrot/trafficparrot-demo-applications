@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
+import static com.trafficparrot.example.fedex.tracking.FedExApiUsers.FED_EX_API_USER;
 import static com.trafficparrot.example.fedex.tracking.acceptance.Epics.FEDEX_TRACKING;
 import static com.trafficparrot.example.fedex.tracking.acceptance.Features.TRACK;
-import static com.trafficparrot.example.fedex.tracking.acceptance.FedExApiUsers.FED_EX_API_USER;
 import static com.trafficparrot.example.fedex.tracking.acceptance.LogInPage.givenUserHasLoggedIn;
 import static com.trafficparrot.example.fedex.tracking.acceptance.TrackPage.*;
 import static com.trafficparrot.example.testing.framework.TestData.usingTestData;
@@ -25,7 +25,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @Tag(ACCEPTANCE_TEST)
 @ExtendWith(AcceptanceTestFramework.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class TrackTest {
+public class TrackAcceptanceTest {
 
     @Test
     void trackUsingTrackingNumberSuccess() {
@@ -49,7 +49,7 @@ public class TrackTest {
     private final int port;
 
     @Autowired
-    public TrackTest(@LocalServerPort int port) {
+    public TrackAcceptanceTest(@LocalServerPort int port) {
         this.port = port;
     }
 }
