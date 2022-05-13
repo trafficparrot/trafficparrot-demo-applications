@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Appenders>
+        <Routing name="RoutingAppender">
+            <Routes pattern="$${ctx:testName}">
+                <Route key="$${ctx:testName}">
+                    <File name="default" fileName="target/logs/default.log">
+                        <PatternLayout>
+                            <pattern>%d{ISO8601} [%t] %p %c{3} - %m%n</pattern>
+                        </PatternLayout>
+                    </File>
+                </Route>
+                <Route>
+                    <File name="${ctx:testName}" fileName="target/logs/${ctx:testName}.log">
+                        <PatternLayout>
+                            <pattern>%d{ISO8601} [%t] %p %c{3} - %m%n</pattern>
+                        </PatternLayout>
+                    </File>
+                </Route>
+            </Routes>
+        </Routing>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="RoutingAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -16,11 +16,43 @@
 	<description>Demo project for FedEx Tracking</description>
 
 	<properties>
+		<!-- Project encoding -->
+		<project.encoding>UTF-8</project.encoding>
+		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
+
+		<!-- Java minimum version -->
 		<java.version>1.8</java.version>
+
+		<!-- Dependency versions -->
+		<selenide.version>6.4.0</selenide.version>
+		<selenium.version>4.1.4</selenium.version>
+		<allure.version>2.17.3</allure.version>
+		<junit.version>5.8.2</junit.version>
+		<aspectj.version>1.9.9.1</aspectj.version>
+		<jcodec.version>0.2.5</jcodec.version>
+		<commons.lang3.version>3.11</commons.lang3.version>
+		<java.faker.version>1.0.2</java.faker.version>
+		<browserup.proxy.version>2.1.2</browserup.proxy.version>
+		<log4j.version>2.13.3</log4j.version>
+		<slf4j.version>1.7.30</slf4j.version>
+
+		<!-- Plugin versions -->
+		<failsafe.plugin.version>2.22.2</failsafe.plugin.version>
+		<allure.plugin.version>2.10.0</allure.plugin.version>
+		<versions.maven.plugin.version>2.10.0</versions.maven.plugin.version>
+		<maven.site.plugin.version>3.10.0</maven.site.plugin.version>
+
+		<!-- Artifact directories -->
+		<allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+		<allure.report.directory>${project.build.directory}/allure-report</allure.report.directory>
+
+		<!-- Test categories -->
+		<acceptance.tests.category>com.trafficparrot.example.testing.framework.AcceptanceTest</acceptance.tests.category>
 	</properties>
 
-
 	<dependencies>
+		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -29,6 +61,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
+		<!-- HTTP client -->
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
@@ -37,20 +71,107 @@
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>logging-interceptor</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
+
+		<!-- JSONPath -->
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
 		</dependency>
+
+		<!-- Tools -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Selenium WebDriver -->
+		<dependency>
+			<groupId>com.codeborne</groupId>
+			<artifactId>selenide</artifactId>
+			<version>${selenide.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JUnit -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Allure -->
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-junit5</artifactId>
+			<version>${allure.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-selenide</artifactId>
+			<version>${allure.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Record browser video -->
+		<dependency>
+			<groupId>org.jcodec</groupId>
+			<artifactId>jcodec</artifactId>
+			<version>${jcodec.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jcodec</groupId>
+			<artifactId>jcodec-javase</artifactId>
+			<version>${jcodec.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Browser proxy -->
+		<dependency>
+			<groupId>com.browserup</groupId>
+			<artifactId>browserup-proxy-core</artifactId>
+			<version>${browserup.proxy.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Test data -->
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>${java.faker.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Utilities -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+
 
 	<build>
 		<resources>
@@ -62,6 +183,21 @@
 			</resource>
 		</resources>
 
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven.site.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -71,6 +207,63 @@
 				</configuration>
 			</plugin>
 
+			<!-- Execute unit tests using surefire plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludedGroups>acceptance</excludedGroups>
+				</configuration>
+			</plugin>
+
+			<!-- Execute acceptance tests using failsafe plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<groups>acceptance</groups>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<argLine>
+						-Dfile.encoding=${project.encoding}
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+					</argLine>
+					<systemPropertyVariables>
+						<allure.results.directory>${allure.results.directory}</allure.results.directory>
+					</systemPropertyVariables>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<!-- Generate test reports -->
+			<plugin>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>${allure.plugin.version}</version>
+				<configuration>
+					<reportVersion>${allure.version}</reportVersion>
+					<resultsDirectory>${allure.results.directory}</resultsDirectory>
+					<reportingOutputDirectory>${allure.report.directory}</reportingOutputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>allure-report</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>serve</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Build release .zip file -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -90,6 +283,52 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>3.0.5</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>check-for-updates</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>versions-maven-plugin</artifactId>
+						<version>${versions.maven.plugin.version}</version>
+						<executions>
+							<execution>
+								<id>check-for-updates</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>display-dependency-updates</goal>
+									<goal>display-plugin-updates</goal>
+									<goal>display-property-updates</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
