@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.TestWatcher;
 import java.util.logging.Level;
 
 import static com.codeborne.selenide.WebDriverRunner.getAndCheckWebDriver;
-import static com.codeborne.selenide.WebDriverRunner.getSelenideProxy;
 import static com.trafficparrot.example.testing.framework.RecordBrowser.recordBrowser;
 import static com.trafficparrot.example.testing.framework.ReportBrowser.reportBrowserInformation;
 import static com.trafficparrot.example.testing.framework.TestData.renderTestData;
@@ -25,7 +24,6 @@ import static com.trafficparrot.example.testing.framework.TestState.resetTestSta
 public class AcceptanceTestFramework implements TestWatcher, BeforeEachCallback, AfterEachCallback {
 
     private static final String LOGGING_TEST_NAME = "testName";
-    private final RecordNetworkActivity recordNetworkActivity = new RecordNetworkActivity();
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
@@ -42,9 +40,6 @@ public class AcceptanceTestFramework implements TestWatcher, BeforeEachCallback,
         resetTestState();
 
         getAndCheckWebDriver();
-        if (getSelenideProxy().responseFilter(recordNetworkActivity.getClass().getSimpleName()) == null) {
-            getSelenideProxy().addResponseFilter(recordNetworkActivity.getClass().getSimpleName(), recordNetworkActivity);
-        }
         recordBrowser().testStarted(testName);
         SelenideLogger.addListener(AllureSelenide.class.getSimpleName(), new AllureSelenide()
                 .enableLogs(LogType.BROWSER, Level.ALL)
@@ -60,7 +55,6 @@ public class AcceptanceTestFramework implements TestWatcher, BeforeEachCallback,
         renderTestData();
         renderTestState();
 
-        recordNetworkActivity.renderNetworkActivity();
         recordBrowser().testFinished();
 
         ThreadContext.remove(LOGGING_TEST_NAME);

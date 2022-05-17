@@ -20,6 +20,11 @@ public class RecordBrowserAspect {
         recordOneFrame();
     }
 
+    @AfterReturning("execution(public com.codeborne.selenide.Conditional com.codeborne.selenide.Conditional+.*(..))")
+    public void screenshotAfterConditional() {
+        recordOneFrame();
+    }
+
     private void recordOneFrame() {
         if (notRecordingFrame(Thread.currentThread().getStackTrace())) {
             recordBrowser().recordFrame();
