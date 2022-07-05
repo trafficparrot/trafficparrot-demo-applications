@@ -26,7 +26,7 @@ public class FinanceApplication {
         server = new Server(port);
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{
-                new StockQuoteLastPriceHandler(loadProperties()),
+                new StockQuoteLastPriceHandler(),
                 new ReadyHandler(),
                 getResourceHandler("html"),
                 new DefaultHandler()});
@@ -49,28 +49,6 @@ public class FinanceApplication {
 
     public void join() throws InterruptedException {
         server.join();
-    }
-
-    private static Properties loadProperties() throws IOException {
-        InputStream propertiesInputStream = getPropertiesInputStream();
-        Properties properties = new Properties();
-        properties.load(propertiesInputStream);
-        return properties;
-    }
-
-    private static InputStream getPropertiesInputStream() throws FileNotFoundException {
-        String fileLocation = System.getProperty("finance.application.properties", System.getenv("finance.application.properties"));
-        if (fileLocation != null) {
-            return new FileInputStream(new File(fileLocation));
-        } else {
-            String classpathFileName = "finance-application.properties";
-            InputStream resourceAsStream = FinanceApplication.class.getClassLoader().getResourceAsStream(classpathFileName);
-            if (resourceAsStream != null) {
-                return resourceAsStream;
-            } else {
-                throw new FileNotFoundException("property file '" + classpathFileName + "' not found in the classpath");
-            }
-        }
     }
 
     public void stop() throws Exception {

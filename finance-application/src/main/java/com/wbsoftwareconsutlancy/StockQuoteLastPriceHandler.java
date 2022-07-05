@@ -17,17 +17,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Properties;
 
+import static com.wbsoftwareconsutlancy.AppProperties.loadProperties;
 import static java.lang.String.format;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 class StockQuoteLastPriceHandler extends AbstractHandler {
     private static final String APPLE_SYMBOL = "AAPL";
-    private final Properties properties;
 
-    public StockQuoteLastPriceHandler(Properties properties) {
-        this.properties = properties;
+    public StockQuoteLastPriceHandler() {
     }
 
     @Override
@@ -81,6 +79,6 @@ class StockQuoteLastPriceHandler extends AbstractHandler {
     }
 
     private String getMarkitUrl() {
-        return properties.getProperty("finance-application.markit.url");
+        return loadProperties().getProperty("finance-application.markit.url");
     }
 }
