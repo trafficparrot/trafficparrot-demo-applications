@@ -1,2 +1,3 @@
 Requirements:
 * http://thrift.apache.org/docs/install
+* Java 11+
