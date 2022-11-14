@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020
+ * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020-2022
  */
 package com.trafficparrot.example;
 
@@ -24,14 +24,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ThriftCalculatorHandler implements Calculator.Iface {
     private static final Logger LOGGER = LoggerFactory.getLogger(ThriftCalculatorHandler.class);
 
-    private HashMap<Integer, SharedStruct> log;
+    private final AtomicInteger nextLog = new AtomicInteger();
+    private HashMap<Integer, SharedStruct> log = new HashMap<>();
 
     public ThriftCalculatorHandler() {
-        log = new HashMap<>();
+        log.put(0, new SharedStruct(0, "0"));
     }
 
     @Override
@@ -40,15 +42,9 @@ public class ThriftCalculatorHandler implements Calculator.Iface {
     }
 
     @Override
-    public int add(int n1, int n2) {
-        LOGGER.info("add(" + n1 + "," + n2 + ")");
-        return n1 + n2;
-    }
-
-    @Override
-    public int calculate(int logid, Work work) throws InvalidOperation {
-        LOGGER.info("calculate(" + logid + ", {" + work.op + "," + work.num1 + "," + work.num2 + "})");
-        int val = 0;
+    public int calculate(Work work) throws InvalidOperation {
+        LOGGER.info("calculate({" + work.op + "," + work.num1 + "," + work.num2 + "})");
+        int val;
         switch (work.op) {
             case ADD:
                 val = work.num1 + work.num2;
@@ -76,21 +72,18 @@ public class ThriftCalculatorHandler implements Calculator.Iface {
         }
 
         SharedStruct entry = new SharedStruct();
-        entry.key = logid;
+        entry.key = nextLog.incrementAndGet();
         entry.value = Integer.toString(val);
-        log.put(logid, entry);
-
+        LOGGER.info("History index " + entry.key + ": " + entry.value);
+        log.put(entry.key, entry);
         return val;
     }
 
     @Override
     public SharedStruct getStruct(int key) {
-        LOGGER.info("getStruct(" + key + ")");
-        return log.get(key);
-    }
-
-    @Override
-    public void zip() {
-        LOGGER.info("zip()");
+        SharedStruct entry = log.get(key);
+        LOGGER.info("History index " + entry.key + ": " + entry.value);
+        nextLog.set(key);
+        return entry;
     }
 }

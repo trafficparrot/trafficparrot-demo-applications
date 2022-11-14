@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020
+ * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020-2022
  */
 include "shared.thrift"
 
@@ -44,7 +44,5 @@ exception InvalidOperation {
 
 service Calculator extends shared.SharedService {
    void ping(),
-   i32 add(1:i32 num1, 2:i32 num2),
-   i32 calculate(1:i32 logid, 2:Work w) throws (1:InvalidOperation ouch),
-   oneway void zip()
+   i32 calculate(1:Work w) throws (1:InvalidOperation ouch),
 }

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020
+ * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020-2022
  */
 namespace * com.trafficparrot.example
 

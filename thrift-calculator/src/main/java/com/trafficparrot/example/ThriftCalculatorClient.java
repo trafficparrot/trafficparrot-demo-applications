@@ -37,8 +37,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020
- * Based on https://github.com/HenryBrown0/simple-calculator modifications copyright Traffic Parrot 2020
+ * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020-2022
+ * Based on https://github.com/HenryBrown0/simple-calculator modifications copyright Traffic Parrot 2020-2022
  */
 package com.trafficparrot.example;
 
@@ -54,6 +54,7 @@ import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.layered.TFramedTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,6 +69,7 @@ public class ThriftCalculatorClient extends Application {
     private final Label messageLabel = new Label();
     private final Label currentLabel = new Label();
     private final Label totalLabel = new Label();
+    private final Button[] digits = new Button[10];
 
     public static void main(String[] args) {
         LOGGER.info("Starting Thrift calculator client");
@@ -108,7 +110,6 @@ public class ThriftCalculatorClient extends Application {
 
     private GridPane addNumberButtons() {
         GridPane layout = new GridPane();
-        Button[] btnArray = new Button[10];
         RowConstraints[] rowConst = new RowConstraints[5];
         ColumnConstraints[] colConst = new ColumnConstraints[4];
 
@@ -129,33 +130,34 @@ public class ThriftCalculatorClient extends Application {
         // Create 0-9 buttons
         for (int i = 0; i <= 9; i++) {
             int value = i;
-            btnArray[i] = new Button(Integer.toString(i));
-            btnArray[i].setMaxWidth(Double.MAX_VALUE);
-            btnArray[i].setMaxHeight(Double.MAX_VALUE);
-            btnArray[i].setOnAction(e -> {
+            digits[i] = new Button(Integer.toString(i));
+            digits[i].setMaxWidth(Double.MAX_VALUE);
+            digits[i].setMaxHeight(Double.MAX_VALUE);
+            digits[i].setOnAction(e -> {
                 display.inputNumber(value);
                 display.paint();
             });
         }
 
         // Place 0-9 buttons
-        layout.add(btnArray[7], 0, 1);
-        layout.add(btnArray[8], 1, 1);
-        layout.add(btnArray[9], 2, 1);
-        layout.add(btnArray[4], 0, 2);
-        layout.add(btnArray[5], 1, 2);
-        layout.add(btnArray[6], 2, 2);
-        layout.add(btnArray[1], 0, 3);
-        layout.add(btnArray[2], 1, 3);
-        layout.add(btnArray[3], 2, 3);
-        layout.add(btnArray[0], 0, 4);
-        GridPane.setColumnSpan(btnArray[0], 3);
+        layout.add(digits[7], 0, 1);
+        layout.add(digits[8], 1, 1);
+        layout.add(digits[9], 2, 1);
+        layout.add(digits[4], 0, 2);
+        layout.add(digits[5], 1, 2);
+        layout.add(digits[6], 2, 2);
+        layout.add(digits[1], 0, 3);
+        layout.add(digits[2], 1, 3);
+        layout.add(digits[3], 2, 3);
+        layout.add(digits[0], 0, 4);
+        GridPane.setColumnSpan(digits[0], 3);
 
         // Divide button
         Button divide = new Button(Display.DISPLAY_DIVIDE);
         divide.setMaxWidth(Double.MAX_VALUE);
         divide.setMaxHeight(Double.MAX_VALUE);
         divide.setOnAction(e -> {
+            display.enableDigits();
             display.setMethod(Display.DISPLAY_DIVIDE);
             display.paint();
         });
@@ -166,6 +168,7 @@ public class ThriftCalculatorClient extends Application {
         multiple.setMaxWidth(Double.MAX_VALUE);
         multiple.setMaxHeight(Double.MAX_VALUE);
         multiple.setOnAction(e -> {
+            display.enableDigits();
             display.setMethod(Display.DISPLAY_MULTIPLY);
             display.paint();
         });
@@ -176,6 +179,7 @@ public class ThriftCalculatorClient extends Application {
         minus.setMaxWidth(Double.MAX_VALUE);
         minus.setMaxHeight(Double.MAX_VALUE);
         minus.setOnAction(e -> {
+            display.enableDigits();
             display.setMethod(Display.DISPLAY_SUBTRACT);
             display.paint();
         });
@@ -186,6 +190,7 @@ public class ThriftCalculatorClient extends Application {
         add.setMaxWidth(Double.MAX_VALUE);
         add.setMaxHeight(Double.MAX_VALUE);
         add.setOnAction(e -> {
+            display.enableDigits();
             display.setMethod(Display.DISPLAY_ADD);
             display.paint();
         });
@@ -196,6 +201,7 @@ public class ThriftCalculatorClient extends Application {
         clear.setMaxWidth(Double.MAX_VALUE);
         clear.setMaxHeight(Double.MAX_VALUE);
         clear.setOnAction(e -> {
+            display.enableDigits();
             display.setMethod(Display.DISPLAY_CANCEL);
             display.calculate();
             display.paint();
@@ -207,6 +213,7 @@ public class ThriftCalculatorClient extends Application {
         equal.setMaxWidth(Double.MAX_VALUE);
         equal.setMaxHeight(Double.MAX_VALUE);
         equal.setOnAction(e -> {
+            display.disableDigits();
             display.calculate();
             display.paint();
         });
@@ -327,18 +334,23 @@ public class ThriftCalculatorClient extends Application {
         }
 
         public void previous() {
+            int original = historySequence.get();
             try {
-                int previous = historySequence.decrementAndGet();
-                if (previous > 0) {
+                if (original == 0) {
+                    message = "No previous total";
+                } else {
+                    int previous = historySequence.decrementAndGet();
                     total = historyOnServer(previous);
                     message = "Moved to previous total " + total;
-                } else {
-                    message = "No previous total";
+                    LOGGER.info("History index " + historySequence.get() + ": " + total);
                 }
             } catch (TException e) {
                 LOGGER.error("Problem communicating with Thrift calculator server {}:{}", host, port, e);
                 message = e.getMessage();
-                historySequence.incrementAndGet();
+                historySequence.set(original);
+            }
+            if (historySequence.get() == 0) {
+                enableDigits();
             }
         }
 
@@ -354,7 +366,7 @@ public class ThriftCalculatorClient extends Application {
                 if (!socket.isOpen()) {
                     socket.open();
                 }
-                TProtocol protocol = new TBinaryProtocol(socket);
+                TProtocol protocol = new TBinaryProtocol(new TFramedTransport(socket));
                 Calculator.Client client = new Calculator.Client(protocol);
                 return Integer.parseInt(client.getStruct(key).value);
             }
@@ -365,9 +377,12 @@ public class ThriftCalculatorClient extends Application {
                 if (!socket.isOpen()) {
                     socket.open();
                 }
-                TProtocol protocol = new TBinaryProtocol(socket);
+                TProtocol protocol = new TBinaryProtocol(new TFramedTransport(socket));
                 Calculator.Client client = new Calculator.Client(protocol);
-                return client.calculate(historySequence.incrementAndGet(), new Work(num1, num2, operation));
+                int result = client.calculate(new Work(num1, num2, operation));
+                historySequence.incrementAndGet();
+                LOGGER.info("History index " + historySequence.get() + ": " + result);
+                return result;
             }
         }
 
@@ -375,6 +390,8 @@ public class ThriftCalculatorClient extends Application {
             current = 0;
             total = 0;
             method = "";
+            historySequence.set(1);
+            previous();
         }
 
         private void paintMessage() {
@@ -394,6 +411,18 @@ public class ThriftCalculatorClient extends Application {
                 hostAndPortField.setPromptText("Enter host:port of Thrift calculator server");
             } else {
                 hostAndPortField.setText(host + ":" + port);
+            }
+        }
+
+        public void disableDigits() {
+            for (Button digit : digits) {
+                digit.setDisable(true);
+            }
+        }
+
+        public void enableDigits() {
+            for (Button digit : digits) {
+                digit.setDisable(false);
             }
         }
     }

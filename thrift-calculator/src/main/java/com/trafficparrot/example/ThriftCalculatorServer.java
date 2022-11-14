@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *
- * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020
+ * Based on https://thrift.apache.org/tutorial/java modifications copyright Traffic Parrot 2020-2022
  */
 package com.trafficparrot.example;
 
@@ -26,6 +26,7 @@ import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import org.apache.thrift.transport.TTransportException;
+import org.apache.thrift.transport.layered.TFramedTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +43,9 @@ public class ThriftCalculatorServer {
 
         Processor<Calculator.Iface> processor = new Processor<>(new ThriftCalculatorHandler());
         TServerTransport serverTransport = new TServerSocket(nonTlsPort);
-        TServer server = new TSimpleServer(new TServer.Args(serverTransport).processor(processor));
+        TServer server = new TSimpleServer(new TServer.Args(serverTransport)
+                .transportFactory(new TFramedTransport.Factory())
+                .processor(processor));
         LOGGER.info("Starting Thrift calculator server on non TLS port " + nonTlsPort);
         server.serve();
     }
