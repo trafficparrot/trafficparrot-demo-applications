@@ -1,3 +1,4 @@
 Requirements:
-* http://thrift.apache.org/docs/install
+* https://thrift.apache.org/docs/install/
 * Java 11+
+* Traffic Parrot
