@@ -1,6 +1,6 @@
 Requirements:
 * Install [Thrift](https://thrift.apache.org/docs/install/)
-* Java JDK 11+ is required to build and run the demo application
+* Java JDK 11+ is required to build and run the demo application since JavaFX is used for the UI
 * Java JDK 8+ is required to run Traffic Parrot with Thrift capability
 * Download Traffic Parrot (you can [request a trial here](https://trafficparrot.com/trial.html?utm_source=thrift-calculator))
 
