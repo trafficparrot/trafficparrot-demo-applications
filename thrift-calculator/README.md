@@ -13,4 +13,4 @@ Instructions:
 * Traffic Parrot can now be used to record the real server localhost:5572
 * The client can either talk directly to the real server localhost:5572 or to Traffic Parrot on localhost:5562
 
-* Contact us for more details https://trafficparrot.com/contact.html
+Contact us for more details https://trafficparrot.com/contact.html
