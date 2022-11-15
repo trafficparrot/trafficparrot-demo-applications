@@ -4,13 +4,13 @@ Requirements:
 * Traffic Parrot
 
 Instructions:
-* ./mvnw clean install
-* unzip thrift-calculator-1.1.0-release.zip
-* cd thrift-calculator-1.1.0/
-* ./start-server.sh
-* ./start-client.sh
-* Start Traffic Parrot (you can request a trial here https://trafficparrot.com/trial.html)
-* Traffic Parrot can now be used to record the real server localhost:5572
-* The client can either talk directly to the real server localhost:5572 or to Traffic Parrot on localhost:5562
+1. ./mvnw clean install
+2. unzip thrift-calculator-1.1.0-release.zip
+3. cd thrift-calculator-1.1.0/
+4. ./start-server.sh
+5. ./start-client.sh
+6. Start Traffic Parrot (you can [request a trial here](https://trafficparrot.com/trial.html?utm_source=thrift-calculator))
+7. Traffic Parrot can now be used to record the real server localhost:5572
+8. The client can either talk directly to the real server localhost:5572 or to Traffic Parrot on localhost:5562
 
-Contact us for more details https://trafficparrot.com/contact.html
+[Contact us](https://trafficparrot.com/contact.html?utm_source=thrift-calculator) for more details
