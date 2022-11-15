@@ -1,6 +1,6 @@
 Requirements:
 * https://thrift.apache.org/docs/install/
-* Java 11+
+* Java 11+ is required to build and run the demo application
 * Traffic Parrot
 
 Instructions:
