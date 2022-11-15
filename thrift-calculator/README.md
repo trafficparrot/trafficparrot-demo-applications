@@ -1,3 +1,5 @@
+![Traffic Parrot thrift calculator demo client screenshot](screenshot.png)
+
 Requirements:
 * Install [Thrift](https://thrift.apache.org/docs/install/)
 * Java JDK 11+ is required to build and run the demo application since JavaFX is used for the UI
