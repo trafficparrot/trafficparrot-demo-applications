@@ -1,3 +1,8 @@
+# Demo project for testing Thrift service simulators using Traffic Parrot
+
+You can create [Thrift service/server simulators (Thrift API mocks) using Traffic Parrot](https://trafficparrot.com/documentation/?redirectToLatest=true&path=/thrift.html).
+This calculator project is a simple demo that you can use to test Traffic Parrot simulators.
+
 ![Traffic Parrot thrift calculator demo client screenshot](screenshot.png)
 
 Requirements:
