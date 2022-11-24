@@ -3,6 +3,8 @@
 You can create [Thrift service/server simulators (also called Thrift API mocks and Thrift service virtualization) using Traffic Parrot](https://trafficparrot.com/documentation/?redirectToLatest=true&path=/thrift.html).
 This calculator project is a simple demo that you can use to test Traffic Parrot simulators.
 
+[![Create Thrift service simulators in 6 minutes](https://img.youtube.com/vi/pJTdDH20o3c/0.jpg)](https://www.youtube.com/watch?v=pJTdDH20o3c)
+
 ![Traffic Parrot thrift calculator demo client screenshot](screenshot.png)
 
 Requirements:
