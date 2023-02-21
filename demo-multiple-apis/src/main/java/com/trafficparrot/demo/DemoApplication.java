@@ -1,13 +1,13 @@
-package com.trafficparrot.demo.product.details;
+package com.trafficparrot.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProductDetailsApplication {
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProductDetailsApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 
 }

@@ -6,7 +6,7 @@ import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomExceptionResolver extends DataFetcherExceptionResolverAdapter {
+public class GraphQLErrorExceptionResolver extends DataFetcherExceptionResolverAdapter {
 
     @Override
     protected GraphQLError resolveToSingleError(Throwable exception, DataFetchingEnvironment environment) {
