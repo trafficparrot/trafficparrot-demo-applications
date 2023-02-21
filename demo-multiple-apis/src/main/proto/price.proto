@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package com.trafficparrot.demo.product.price;
+
+message PriceRequest {
+    string productId = 1;
+}
+
+message PriceResponse {
+    string productId = 1;
+    double price = 2;
+}
