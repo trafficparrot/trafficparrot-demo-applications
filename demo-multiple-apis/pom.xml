@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.trafficparrot.demo.product</groupId>
-	<artifactId>product-details-backend</artifactId>
+	<artifactId>demo-multiple-apis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>product-details</name>
 	<description>Demo project for Spring Boot</description>
