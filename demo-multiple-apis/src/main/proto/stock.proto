@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package com.trafficparrot.demo.product.stock;
+
+service StockService {
+  rpc queryStock(StockRequest) returns (StockResponse) {}
+}
+
+message StockRequest {
+    string productId = 1;
+}
+
+message StockResponse {
+    string productId = 1;
+    uint32 available = 2;
+}

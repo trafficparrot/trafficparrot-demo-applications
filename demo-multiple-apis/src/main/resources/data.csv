@@ -1,4 +1,4 @@
-productId,name,description
-1,product 1 name,product 1 description
-2,product 2 name,product 2 description
-3,product 3 name,product 3 description
+productId,name,description,price,stock
+1,product 1 name,product 1 description,12.99,4
+2,product 2 name,product 2 description,8.55,0
+3,product 3 name,product 3 description,2.00,5
