@@ -1,0 +1,9 @@
+type Query {
+    product(searchTerm: String!): Product
+}
+
+type Product {
+    productId: ID!
+    name: String!
+    description: String
+}
