@@ -3,5 +3,5 @@
   -X POST \
   -H "Content-Type: application/json" \
   -d '{"query":"{ product(searchTerm: \"1\") { productId name description } }"}' \
-  http://localhost:8080/graphql
+  http://localhost:8085/graphql
 
