@@ -1,3 +1,9 @@
+# Build and run demo application
+
+./mvnw clean install
+
+java -jar target/demo-multiple-apis-*.jar
+
 # Product Details
 curl -v -g \
   -X POST \
