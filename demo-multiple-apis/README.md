@@ -14,15 +14,26 @@ curl -v -g \
 # Product Price
 docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 
-price-request-queue
+## Listen to queue: price-request-queue
 message PriceRequest {
   string productId = 1;
 }
 
-price-response-queue
+## Respond to queue: request message RPC replyTo queue
 message PriceResponse {
+  oneof response {
+    PriceResponseSuccess success = 1;
+    PriceResponseError error = 2;
+  }
+}
+
+message PriceResponseSuccess {
   string productId = 1;
   double price = 2;
+}
+
+message PriceResponseError {
+  string message = 1;
 }
 
 # Product Stock
