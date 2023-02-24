@@ -7,6 +7,17 @@ message PriceRequest {
 }
 
 message PriceResponse {
+    oneof response {
+        PriceResponseSuccess success = 1;
+        PriceResponseError error = 2;
+    }
+}
+
+message PriceResponseSuccess {
     string productId = 1;
     double price = 2;
+}
+
+message PriceResponseError {
+    string message = 1;
 }

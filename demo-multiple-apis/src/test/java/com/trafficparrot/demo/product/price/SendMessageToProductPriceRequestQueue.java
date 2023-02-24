@@ -3,20 +3,21 @@ package com.trafficparrot.demo.product.price;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeoutException;
 
 import static com.trafficparrot.demo.product.price.ProductPriceQueueConfiguration.PRICE_REQUEST_QUEUE;
-import static com.trafficparrot.demo.product.price.ProductPriceQueueConfiguration.PRICE_RESPONSE_QUEUE;
+import static java.util.Collections.emptyMap;
 
 /**
  * Use a RabbitMQ docker image to run this script, with {@link com.trafficparrot.demo.DemoApplication} running
  * docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
  */
 public class SendMessageToProductPriceRequestQueue {
+    private static final String PRICE_RESPONSE_QUEUE = "price-response-queue";
+    private static final String PRODUCT_ID = "1";
 
     public static void main(String[] args) throws IOException, TimeoutException {
-        new SendMessageToProductPriceRequestQueue().sendPriceRequest("product-id-" + ThreadLocalRandom.current().nextInt(100,999));
+        new SendMessageToProductPriceRequestQueue().sendPriceRequest(PRODUCT_ID);
     }
 
     private void sendPriceRequest(String productId) throws IOException, TimeoutException {
@@ -28,6 +29,7 @@ public class SendMessageToProductPriceRequestQueue {
 
         Connection connection = connectionFactory.newConnection();
         Channel channel = connection.createChannel();
+        channel.queueDeclare(PRICE_RESPONSE_QUEUE, false, false, false, emptyMap());
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             Price.PriceResponse response = Price.PriceResponse.parseFrom(delivery.getBody());
@@ -45,6 +47,9 @@ public class SendMessageToProductPriceRequestQueue {
                 .setProductId(productId)
                 .build();
         byte[] requestBytes = request.toByteArray();
-        channel.basicPublish("", PRICE_REQUEST_QUEUE, new AMQP.BasicProperties(), requestBytes);
+        AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
+                .replyTo(PRICE_RESPONSE_QUEUE)
+                .build();
+        channel.basicPublish("", PRICE_REQUEST_QUEUE, properties, requestBytes);
     }
 }
