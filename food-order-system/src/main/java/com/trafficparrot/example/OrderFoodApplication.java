@@ -13,8 +13,6 @@ import java.util.Properties;
 
 public class OrderFoodApplication {
     private Server server;
-    public final int port = 8282;
-
     public static void main(String[] args) throws Exception {
         OrderFoodApplication orderFoodApplication = new OrderFoodApplication();
         orderFoodApplication.start();
@@ -23,10 +21,12 @@ public class OrderFoodApplication {
 
     public void start() throws Exception {
         info("Starting...");
+        Properties properties = loadProperties();
+        int port = Integer.parseInt(properties.get("application.http.port").toString());
         server = new Server(port);
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{
-                new SendOrderHandler(loadProperties()),
+                new SendOrderHandler(properties),
                 getResourceHandler("html"),
                 new DefaultHandler()});
         server.setHandler(handlers);
