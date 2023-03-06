@@ -7,10 +7,16 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.openqa.selenium.support.ui.ExpectedConditions.not;
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
 public class FinanceApplicationTest {
+    public static final By STOCK_PRICE_LOCATOR = By.id("stock-quote-last-price");
     private FinanceApplication financeApplication = new FinanceApplication();
     private ChromeDriver driver;
 
@@ -27,18 +33,12 @@ public class FinanceApplicationTest {
     }
 
     @Test
-    public void parsesLastPriceFromStockQuote() throws Exception {
-        whenUserOpensTheFinanceApplicationMainPage();
-        thenThePriceIsShown();
-    }
-
-    private void thenThePriceIsShown() {
-        WebElement span = driver.findElement(By.id("stock-quote-last-price"));
-        assertEquals("103.17", span.getText());
-    }
-
-    private void whenUserOpensTheFinanceApplicationMainPage() {
+    public void showsAppleStockLastPriceFromQuoteFetchedFromMarketDataApi() throws Exception {
         driver = new ChromeDriver();
         driver.get("http://localhost:8282");
+        WebElement span = driver.findElement(STOCK_PRICE_LOCATOR);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(not(textToBePresentInElement(span, "(please wait...)")));
+        assertEquals("103.17", span.getText());
     }
 }
