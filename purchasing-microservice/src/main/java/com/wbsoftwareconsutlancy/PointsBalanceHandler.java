@@ -22,17 +22,17 @@ import static com.wbsoftwareconsutlancy.AppProperties.loadProperties;
 import static java.lang.String.format;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
-class StockQuoteLastPriceHandler extends AbstractHandler {
-    private static final String APPLE_SYMBOL = "AAPL";
+class PointsBalanceHandler extends AbstractHandler {
+    private static final String LOGGED_IN_USERNAME = "bobsmith";
 
-    public StockQuoteLastPriceHandler() {
+    public PointsBalanceHandler() {
     }
 
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if ("/stock-quote-last-price".equals(target)) {
+        if ("/points-balance".equals(target)) {
             try {
-                double lastPrice = parseStockQuoteLastPrice(markitStockQuoteFor(APPLE_SYMBOL));
+                double lastPrice = pointsBalance(pointsFor(LOGGED_IN_USERNAME));
 
                 response.setContentType("text/html; charset=utf-8");
                 response.setStatus(SC_OK);
@@ -45,13 +45,13 @@ class StockQuoteLastPriceHandler extends AbstractHandler {
         }
     }
 
-    private double parseStockQuoteLastPrice(String markitStockQuoteJson) throws JSONException {
-        return new JSONObject(markitStockQuoteJson).getDouble("LastPrice");
+    private double pointsBalance(String username) throws JSONException {
+        return new JSONObject(username).getDouble("LoyaltyPoints");
     }
 
-    private String markitStockQuoteFor(String symbol) throws IOException {
+    private String pointsFor(String username) throws IOException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpGet httpget = new HttpGet(format(getMarkitUrl(), symbol));
+            HttpGet httpget = new HttpGet(format(getLoyaltyPointsUrl(), username));
             httpget.addHeader("accept-encoding", "identity");
             System.out.println("Executing request " + httpget.getRequestLine());
 
@@ -78,7 +78,7 @@ class StockQuoteLastPriceHandler extends AbstractHandler {
         return EntityUtils.toString(entity);
     }
 
-    private String getMarkitUrl() {
-        return loadProperties().getProperty("finance-application-selenium.stock.quote.url");
+    private String getLoyaltyPointsUrl() {
+        return loadProperties().getProperty("purchasing-microservice.stock.quote.url");
     }
 }

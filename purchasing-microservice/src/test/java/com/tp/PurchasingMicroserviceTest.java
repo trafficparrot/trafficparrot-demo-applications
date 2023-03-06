@@ -1,6 +1,6 @@
 package com.tp;
 
-import com.wbsoftwareconsutlancy.FinanceApplication;
+import com.wbsoftwareconsutlancy.PurchasingMicroservice;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,20 +15,20 @@ import static junit.framework.TestCase.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
-public class FinanceApplicationTest {
+public class PurchasingMicroserviceTest {
     public static final By STOCK_PRICE_LOCATOR = By.id("stock-quote-last-price");
-    private FinanceApplication financeApplication = new FinanceApplication();
+    private PurchasingMicroservice purchasingMicroservice = new PurchasingMicroservice();
     private ChromeDriver driver;
 
     @Before
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver","/optf/chromedriver_linux64/chromedriver");
-        financeApplication.start();
+        purchasingMicroservice.start();
     }
 
     @After
     public void tearDown() throws Exception {
-        financeApplication.stop();
+        purchasingMicroservice.stop();
         driver.quit();
     }
 

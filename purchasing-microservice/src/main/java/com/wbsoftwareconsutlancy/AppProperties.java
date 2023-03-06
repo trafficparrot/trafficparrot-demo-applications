@@ -16,14 +16,13 @@ public class AppProperties {
         }
     }
 
-
     private static InputStream getPropertiesInputStream() throws IOException {
-        String fileLocation = System.getProperty("finance.application.properties", System.getenv("finance.application.properties"));
+        String fileLocation = System.getProperty("purchasing.microservice.properties", System.getenv("purchasing.microservice.properties"));
         if (fileLocation != null) {
             return Files.newInputStream(new File(fileLocation).toPath());
         } else {
-            String classpathFileName = "finance-application-selenium.properties";
-            InputStream resourceAsStream = FinanceApplication.class.getClassLoader().getResourceAsStream(classpathFileName);
+            String classpathFileName = "purchasing-microservice.properties";
+            InputStream resourceAsStream = PurchasingMicroservice.class.getClassLoader().getResourceAsStream(classpathFileName);
             if (resourceAsStream != null) {
                 return resourceAsStream;
             } else {

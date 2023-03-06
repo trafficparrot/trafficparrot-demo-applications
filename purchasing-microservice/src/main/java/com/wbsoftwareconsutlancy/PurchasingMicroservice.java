@@ -7,18 +7,16 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.util.resource.Resource;
 
-import java.io.*;
 import java.util.Date;
-import java.util.Properties;
 
-public class FinanceApplication {
+public class PurchasingMicroservice {
     private Server server;
     public final int port = 8282;
 
     public static void main(String[] args) throws Exception {
-        FinanceApplication financeApplication = new FinanceApplication();
-        financeApplication.start();
-        financeApplication.join();
+        PurchasingMicroservice purchasingMicroservice = new PurchasingMicroservice();
+        purchasingMicroservice.start();
+        purchasingMicroservice.join();
     }
 
     public void start() throws Exception {
@@ -26,13 +24,13 @@ public class FinanceApplication {
         server = new Server(port);
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{
-                new StockQuoteLastPriceHandler(),
+                new PointsBalanceHandler(),
                 new ReadyHandler(),
                 getResourceHandler("html"),
                 new DefaultHandler()});
         server.setHandler(handlers);
         server.start();
-        info("Finance application GUI started on http://localhost:" + port);
+        info("Purchasing microservice GUI started on http://localhost:" + port);
     }
 
     private static void info(String msg) {
