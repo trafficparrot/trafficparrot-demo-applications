@@ -1,1 +1,1 @@
-java -cp .;lib/* -Dapplication.properties=.\application.properties com.trafficparrot.example.PurchasingMicroservice
+java -cp .;lib/* -Dpurchasing-microservice.properties=.\purchasing-microservice.properties com.trafficparrot.example.PurchasingMicroservice

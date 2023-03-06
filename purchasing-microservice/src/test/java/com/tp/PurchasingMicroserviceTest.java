@@ -1,6 +1,6 @@
 package com.tp;
 
-import com.wbsoftwareconsutlancy.PurchasingMicroservice;
+import com.trafficparrot.example.PurchasingMicroservice;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

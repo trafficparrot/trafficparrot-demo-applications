@@ -1,4 +1,4 @@
-package com.wbsoftwareconsutlancy;
+package com.trafficparrot.example;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.wbsoftwareconsutlancy.AppProperties.loadProperties;
+import static com.trafficparrot.example.AppProperties.loadProperties;
 import static java.lang.String.format;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 

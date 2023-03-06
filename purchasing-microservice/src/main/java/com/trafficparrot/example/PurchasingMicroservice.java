@@ -1,4 +1,4 @@
-package com.wbsoftwareconsutlancy;
+package com.trafficparrot.example;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
