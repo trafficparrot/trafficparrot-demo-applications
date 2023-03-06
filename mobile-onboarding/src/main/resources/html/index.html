@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User onboarding microservice</title>
+    <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/navbar.css" rel="stylesheet">
+</head>
+<style>
+    span.warning {
+        color: red;
+        font-weight: bold;
+        display: none;
+    }
+</style>
+<body>
+
+<div class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Mobile onboarding microservice</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <h2>Onboarding</h2>
+
+        <form id="send-form">
+            <div class="form-group form-inline">
+                <label for="mobile-number">Create mobile number</label>
+                <input id="mobile-number" name="mobileNumber" type="text" placeholder="e.g. 741 578 3737" class="form-control"/>
+                <select id="mobile-type" name="mobileType" class="form-control">
+                    <option value="data-only">Data only</option>
+                    <option value="voice-only">Voice only</option>
+                    <option value="data-and-voice">Data and voice</option>
+                </select>
+                <button type="submit" value="send" class="form-control">Send</button>
+            </div>
+        </form>
+
+        <h2>Confirmations</h2>
+        <div id="provision-confirmations">
+            Loading...
+        </div>
+    </div>
+</div>
+
+<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+<script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+<script>
+    $("#send-form").submit(function(e) {
+        $.ajax({
+            type: "POST",
+            url: "/provision-mobile",
+            data: $("#send-form").serialize(),
+            success: function(data) {
+                alert(data);
+            }
+        });
+        e.preventDefault();
+    });
+
+    setInterval(function () {
+        $.ajax({
+            url: "/provision-confirmations",
+            cache: false,
+            success: function (result) {
+                var paymentConfirmations = result;
+                if (paymentConfirmations.length === 0) {
+                    $('#provision-confirmations').html("No mobile provision confirmations found.");
+                } else {
+                    $('#provision-confirmations').html("<ol></ol>");
+                    $.each(paymentConfirmations, function (indtex, item) {
+                        $('#provision-confirmations').append("<li> Provisioned '" + item.mobileNumber + "' of type '" + item.mobileType + "' on device '" + item.deviceId + "' starting on '" + item.date + "'</li>");
+                    });
+                }
+            }
+        });
+    }, 1000);
+</script>
+</body>
+</html>
