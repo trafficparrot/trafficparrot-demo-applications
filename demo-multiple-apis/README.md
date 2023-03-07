@@ -1,10 +1,11 @@
 # Build and run demo application
-
+```
 ./mvnw clean install
-
 java -jar target/demo-multiple-apis-*.jar
+```
 
 # Product Details
+```
 SERVER_HOST=localhost
 SERVER_HTTP_PORT=8085
 curl -v -g \
@@ -12,16 +13,22 @@ curl -v -g \
   -H "Content-Type: application/json" \
   -d '{"query":"{ product(searchTerm: \"Headphones\") { productId name description } }"}' \
   http://${SERVER_HOST}:${SERVER_HTTP_PORT}/graphql
+```
 
 # Product Price
+```
 docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+```
 
 ## Listen to queue: price-request-queue
+```
 message PriceRequest {
   string productId = 1;
 }
+```
 
 ## Respond to queue: request message RPC replyTo queue
+```
 message PriceResponse {
   oneof response {
     PriceResponseSuccess success = 1;
@@ -37,15 +44,19 @@ message PriceResponseSuccess {
 message PriceResponseError {
   string message = 1;
 }
+```
 
 # Product Stock
+```
 SERVER_HOST=localhost
 SERVER_GRPC_PORT=8086
 grpcurl -d '{"productId":"1"}' \
   -plaintext ${SERVER_HOST}:${SERVER_GRPC_PORT} \
   com.trafficparrot.demo.product.stock.StockService/queryStock
+```
 
 # Sample GCP deployment commands
+```
 PROJECT=fill-in-project-name
 SERVICE_ACCOUNT=fill-in-account@developer.gserviceaccount.com
 INSTANCE_NAME=fill-in-instance-name
@@ -104,3 +115,4 @@ export RABBITMQ_PASSWORD=fill-in-password
 test -f process.pid && pkill -F process.pid && while ps -p $(cat process.pid); do sleep 1; done
 nohup java -jar application.jar >nohup.out 2>&1 &
 echo $! > process.pid
+``
