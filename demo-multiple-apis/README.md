@@ -115,4 +115,4 @@ export RABBITMQ_PASSWORD=fill-in-password
 test -f process.pid && pkill -F process.pid && while ps -p $(cat process.pid); do sleep 1; done
 nohup java -jar application.jar >nohup.out 2>&1 &
 echo $! > process.pid
-``
+```
