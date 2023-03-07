@@ -1,0 +1,32 @@
+== To this microservice ==
+
+POST /transfer-number
+
+{
+  "username": "bobsmith",
+  "authToken": "108425ea-bce6-11ed-afa1-0242ac120002",
+  "mobileNumber": "600 9327 892",
+  "mobilePlan": "sunshine-and-rainbows"
+}
+
+{
+  "status": "SUCCESS",
+  "message": "Successfully requested user mobile number transfer to our mobile network",
+  "date": "Mar 7, 2023 1:33:51 PM"
+}
+
+== To dependency ==
+
+POST /portNumber
+
+{
+  "mobileNumber": "600 9327 892",
+  "mobileType": "data-and-voice"
+}
+
+{
+  "status": "SUCCESS",
+  "message": "Successfully requested user mobile number transfer to our mobile network",
+  "deviceId": "ebfc8cda-bcea-11ed-afa1-0242ac120002",
+  "date": "Mar 7, 2023 1:33:51 PM"
+}

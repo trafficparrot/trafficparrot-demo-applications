@@ -1,6 +1,6 @@
 package com.tp;
 
-import com.trafficparrot.example.PurchasingMicroservice;
+import com.trafficparrot.example.MobileNumbersMicroservice;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,20 +15,20 @@ import static junit.framework.TestCase.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
-public class PurchasingMicroserviceTest {
+public class MobileNumbersMicroserviceTest {
     public static final By STOCK_PRICE_LOCATOR = By.id("stock-quote-last-price");
-    private PurchasingMicroservice purchasingMicroservice = new PurchasingMicroservice();
+    private MobileNumbersMicroservice mobileNumbersMicroservice = new MobileNumbersMicroservice();
     private ChromeDriver driver;
 
     @Before
     public void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver","/optf/chromedriver_linux64/chromedriver");
-        purchasingMicroservice.start();
+        mobileNumbersMicroservice.start();
     }
 
     @After
     public void tearDown() throws Exception {
-        purchasingMicroservice.stop();
+        mobileNumbersMicroservice.stop();
         driver.quit();
     }
 

@@ -1,8 +1,0 @@
-/loyaltyPoints?user=bobsmith
-
-{
-  "Status": "SUCCESS",
-  "Username": "bobsmith",
-  "TotalSpend": "12211.23",
-  "LoyaltyPoints": 103
-}

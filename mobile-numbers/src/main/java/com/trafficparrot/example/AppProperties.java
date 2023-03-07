@@ -17,12 +17,12 @@ public class AppProperties {
     }
 
     private static InputStream getPropertiesInputStream() throws IOException {
-        String fileLocation = System.getProperty("purchasing.microservice.properties", System.getenv("purchasing.microservice.properties"));
+        String fileLocation = System.getProperty("application.properties", System.getenv("application.properties"));
         if (fileLocation != null) {
             return Files.newInputStream(new File(fileLocation).toPath());
         } else {
-            String classpathFileName = "purchasing-microservice.properties";
-            InputStream resourceAsStream = PurchasingMicroservice.class.getClassLoader().getResourceAsStream(classpathFileName);
+            String classpathFileName = "application.properties";
+            InputStream resourceAsStream = MobileNumbersMicroservice.class.getClassLoader().getResourceAsStream(classpathFileName);
             if (resourceAsStream != null) {
                 return resourceAsStream;
             } else {

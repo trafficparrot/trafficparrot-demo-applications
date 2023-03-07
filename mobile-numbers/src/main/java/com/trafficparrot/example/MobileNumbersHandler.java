@@ -5,6 +5,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -16,27 +18,28 @@ import org.json.JSONObject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.DataInput;
 import java.io.IOException;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 import static com.trafficparrot.example.AppProperties.loadProperties;
 import static java.lang.String.format;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
-class PointsBalanceHandler extends AbstractHandler {
-    private static final String LOGGED_IN_USERNAME = "bobsmith";
-
-    public PointsBalanceHandler() {
+class MobileNumbersHandler extends AbstractHandler {
+    public MobileNumbersHandler() {
     }
 
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if ("/points-balance".equals(target)) {
+        if ("/transfer-number".equals(target)) {
             try {
-                double lastPrice = pointsBalance(pointsFor(LOGGED_IN_USERNAME));
+                String responseBody = transferNumber(request);
 
                 response.setContentType("text/html; charset=utf-8");
                 response.setStatus(SC_OK);
-                response.getWriter().print(lastPrice);
+                response.getWriter().print(responseBody);
 
                 baseRequest.setHandled(true);
             } catch (JSONException e) {
@@ -45,15 +48,30 @@ class PointsBalanceHandler extends AbstractHandler {
         }
     }
 
-    private double pointsBalance(String username) throws JSONException {
-        return new JSONObject(username).getDouble("LoyaltyPoints");
+    private String transferNumber(HttpServletRequest request) throws JSONException, IOException {
+        String mobileNumber = request.getParameter("mobileNumber");
+        String responseBody = transferNumber(mobileNumber);
+        // ignore on purpose to demo sad path scenarios
+        JSONObject response = new JSONObject(responseBody);
+        return "{\n" +
+                "  \"status\": \"SUCCESS\",\n" +
+                "  \"mobileNumber\": \"" + mobileNumber + "\",\n" +
+                "  \"message\": \"Successfully requested user mobile number transfer to our mobile network\",\n" +
+                "  \"date\": \"" + new Date() + "\"\n" +
+                "}";
     }
 
-    private String pointsFor(String username) throws IOException {
+    private String transferNumber(String mobileNumber) throws IOException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpGet httpget = new HttpGet(format(getLoyaltyPointsUrl(), username));
-            httpget.addHeader("accept-encoding", "identity");
-            System.out.println("Executing request " + httpget.getRequestLine());
+            HttpPost httpPost = new HttpPost(getPortNumberUrl());
+
+            String json = " {\"mobileNumber\":\"" + mobileNumber + "\",\"mobileType\":\"data-and-voice\"}";
+            StringEntity entity = new StringEntity(json);
+            httpPost.setEntity(entity);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            System.out.println("Sending request to " + httpPost.getURI());
 
             ResponseHandler<String> responseHandler = response -> {
                 int status = response.getStatusLine().getStatusCode();
@@ -63,7 +81,7 @@ class PointsBalanceHandler extends AbstractHandler {
                     throw new ClientProtocolException("Unexpected response status: " + status + " with response body: " + responseString(response));
                 }
             };
-            String responseBody = httpclient.execute(httpget, responseHandler);
+            String responseBody = httpclient.execute(httpPost, responseHandler);
             System.out.println("----------------------------------------");
             System.out.println(responseBody);
             return responseBody;
@@ -78,7 +96,7 @@ class PointsBalanceHandler extends AbstractHandler {
         return EntityUtils.toString(entity);
     }
 
-    private String getLoyaltyPointsUrl() {
-        return loadProperties().getProperty("purchasing-microservice.stock.quote.url");
+    private String getPortNumberUrl() {
+        return loadProperties().getProperty("port.number.url");
     }
 }

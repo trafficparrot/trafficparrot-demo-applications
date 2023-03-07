@@ -9,14 +9,14 @@ import org.eclipse.jetty.util.resource.Resource;
 
 import java.util.Date;
 
-public class PurchasingMicroservice {
+public class MobileNumbersMicroservice {
     private Server server;
     public final int port = 8282;
 
     public static void main(String[] args) throws Exception {
-        PurchasingMicroservice purchasingMicroservice = new PurchasingMicroservice();
-        purchasingMicroservice.start();
-        purchasingMicroservice.join();
+        MobileNumbersMicroservice mobileNumbersMicroservice = new MobileNumbersMicroservice();
+        mobileNumbersMicroservice.start();
+        mobileNumbersMicroservice.join();
     }
 
     public void start() throws Exception {
@@ -24,13 +24,13 @@ public class PurchasingMicroservice {
         server = new Server(port);
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{
-                new PointsBalanceHandler(),
+                new MobileNumbersHandler(),
                 new ReadyHandler(),
                 getResourceHandler("html"),
                 new DefaultHandler()});
         server.setHandler(handlers);
         server.start();
-        info("Purchasing microservice GUI started on http://localhost:" + port);
+        info("GUI started on http://localhost:" + port);
     }
 
     private static void info(String msg) {
