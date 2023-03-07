@@ -1,0 +1,11 @@
+PROVISION_REQUESTS
+
+PROVISION_CONFIRMATIONS
+
+{
+  "status": "MOBILE_PROVISIONED",
+  "mobileNumber": "{{jsonPath request.body '$.mobileNumber'}}",
+  "mobileType": "{{jsonPath request.body '$.mobileType'}}",
+  "deviceId": "{{randomUUID}}",
+  "date": "{{now format="yyyy-MM-dd'T'HH:mm:ssZ"}}"
+}
