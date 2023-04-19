@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package com.trafficparrot.demo.product.logging;
+
+enum LOG_LEVEL {
+    DEBUG = 0;
+    INFO = 1;
+    ERROR = 2;
+}
+
+message LoggingRequest {
+    LOG_LEVEL level = 1;
+    string message = 2;
+}
+
+message LoggingResponse {
+    oneof response {
+        LoggingResponseSuccess success = 1;
+        LoggingResponseError error = 2;
+    }
+}
+
+message LoggingResponseSuccess {
+}
+
+message LoggingResponseError {
+    string message = 1;
+}
