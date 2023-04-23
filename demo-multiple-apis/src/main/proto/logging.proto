@@ -2,15 +2,16 @@ syntax = "proto3";
 
 package com.trafficparrot.demo.product.logging;
 
-enum LOG_LEVEL {
-    DEBUG = 0;
-    INFO = 1;
-    ERROR = 2;
+message LoggingRequestDebug {
+    string message = 1;
 }
 
-message LoggingRequest {
-    LOG_LEVEL level = 1;
-    string message = 2;
+message LoggingRequestInfo {
+    string message = 1;
+}
+
+message LoggingRequestError {
+    string message = 1;
 }
 
 message LoggingResponse {
