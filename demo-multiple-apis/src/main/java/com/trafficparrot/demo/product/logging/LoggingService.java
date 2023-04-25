@@ -1,8 +1,8 @@
 package com.trafficparrot.demo.product.logging;
 
-import com.google.protobuf.GeneratedMessageV3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +14,23 @@ import static com.trafficparrot.demo.product.logging.LoggingQueueConfiguration.L
  * Receiving/sending a Java serialized object over RabbitMQ, not just the Protobuf content, as per sample client use case.
  */
 @Service
+@RabbitListener(queues = LOGGING_REQUEST_QUEUE)
 public class LoggingService {
     private static final Logger logger = LoggerFactory.getLogger(LoggingService.class);
 
-    @RabbitListener(queues = LOGGING_REQUEST_QUEUE)
-    public Logging.LoggingResponse listen(GeneratedMessageV3 loggingRequest) {
-        if (loggingRequest instanceof Logging.LoggingRequestDebug) {
-            Logging.LoggingRequestDebug loggingRequestDebug = (Logging.LoggingRequestDebug) loggingRequest;
-            return loggingResponse(logger::debug, loggingRequestDebug.getMessage());
-        } else if (loggingRequest instanceof Logging.LoggingRequestInfo) {
-            Logging.LoggingRequestInfo loggingRequestInfo = (Logging.LoggingRequestInfo) loggingRequest;
-            return loggingResponse(logger::info, loggingRequestInfo.getMessage());
-        } else if (loggingRequest instanceof Logging.LoggingRequestError) {
-            Logging.LoggingRequestError loggingRequestError = (Logging.LoggingRequestError) loggingRequest;
-            return loggingResponse(logger::error, loggingRequestError.getMessage());
-        } else {
-            throw new UnsupportedOperationException("Unsupported message type: " + loggingRequest.getClass().getName());
-        }
+    @RabbitHandler
+    public Logging.LoggingResponse listen(Logging.LoggingRequestDebug debug) {
+        return loggingResponse(logger::debug, debug.getMessage());
+    }
+
+    @RabbitHandler
+    public Logging.LoggingResponse debugLogging(Logging.LoggingRequestInfo info) {
+        return loggingResponse(logger::info, info.getMessage());
+    }
+
+    @RabbitHandler
+    public Logging.LoggingResponse errorLogging(Logging.LoggingRequestError error) {
+        return loggingResponse(logger::error, error.getMessage());
     }
 
     private static Logging.LoggingResponse loggingResponse(Consumer<String> logger, String message) {
