@@ -27,7 +27,7 @@ message PriceRequest {
 }
 ```
 
-## Respond to queue: request message RPC replyTo queue
+## Respond to queue: price-request-queue request message RPC replyTo queue
 ```
 message PriceResponse {
   oneof response {
@@ -43,6 +43,38 @@ message PriceResponseSuccess {
 
 message PriceResponseError {
   string message = 1;
+}
+```
+
+## Listen to queue: logging-request-queue
+```
+message LoggingRequestDebug {
+    string message = 1;
+}
+
+message LoggingRequestInfo {
+    string message = 1;
+}
+
+message LoggingRequestError {
+    string message = 1;
+}
+```
+
+## Respond to queue: logging-request-queue request message RPC replyTo queue
+```
+message LoggingResponse {
+    oneof response {
+        LoggingResponseSuccess success = 1;
+        LoggingResponseError error = 2;
+    }
+}
+
+message LoggingResponseSuccess {
+}
+
+message LoggingResponseError {
+    string message = 1;
 }
 ```
 
