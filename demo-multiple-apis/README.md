@@ -129,7 +129,7 @@ gcloud compute scp \
 --project=${PROJECT} \
 --zone=${ZONE} \
 target/*.jar \
-${INSTANCE_NAME}:~/application.jar
+${INSTANCE_NAME}:~/application-new.jar
 
 gcloud compute ssh \
 --project=${PROJECT} \
@@ -145,6 +145,7 @@ export RABBITMQ_VHOST=fill-in-vhost
 export RABBITMQ_USERNAME=fill-in-username
 export RABBITMQ_PASSWORD=fill-in-password
 test -f process.pid && pkill -F process.pid && while ps -p $(cat process.pid); do sleep 1; done
+mv application-new.jar application.jar
 nohup java -jar application.jar >nohup.out 2>&1 &
 echo $! > process.pid
 ```
