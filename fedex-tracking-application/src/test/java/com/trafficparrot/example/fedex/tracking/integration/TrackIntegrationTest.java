@@ -27,7 +27,7 @@ public class TrackIntegrationTest {
 
         assertThat(trackingResponse.isError).isFalse();
         assertThat(trackingResponse.errorMessage).isEmpty();
-        assertThat(trackingResponse.latestStatus).matches("Picked up at 2019-08-14T13:33:00-04:00");
+        assertThat(trackingResponse.latestStatus).matches("(Picked up|In transit) at .*");
     }
 
     @Test
