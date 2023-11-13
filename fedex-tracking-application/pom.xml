@@ -25,15 +25,15 @@
 		<java.version>1.8</java.version>
 
 		<!-- Dependency versions -->
-		<selenide.version>6.4.0</selenide.version>
-		<selenium.version>4.1.4</selenium.version>
+		<selenide.version>6.19.1</selenide.version>
+		<selenium.version>4.13.0</selenium.version>
 		<allure.version>2.17.3</allure.version>
 		<junit.version>5.8.2</junit.version>
 		<aspectj.version>1.9.9.1</aspectj.version>
 		<jcodec.version>0.2.5</jcodec.version>
 		<commons.lang3.version>3.11</commons.lang3.version>
 		<java.faker.version>1.0.2</java.faker.version>
-		<browserup.proxy.version>2.1.2</browserup.proxy.version>
+		<browserup.proxy.version>2.2.14</browserup.proxy.version>
 		<log4j.version>2.13.3</log4j.version>
 		<slf4j.version>1.7.30</slf4j.version>
 
@@ -149,7 +149,7 @@
 
 		<!-- Browser proxy -->
 		<dependency>
-			<groupId>com.browserup</groupId>
+			<groupId>com.github.valfirst.browserup-proxy</groupId>
 			<artifactId>browserup-proxy-core</artifactId>
 			<version>${browserup.proxy.version}</version>
 			<scope>test</scope>
@@ -308,11 +308,15 @@
 				<executions>
 					<execution>
 						<id>enforce-maven</id>
+						<phase>clean</phase>
 						<goals>
 							<goal>enforce</goal>
 						</goals>
 						<configuration>
 							<rules>
+								<requireJavaVersion>
+									<version>[1.8,1.9)</version>
+								</requireJavaVersion>
 								<requireMavenVersion>
 									<version>3.0.5</version>
 								</requireMavenVersion>

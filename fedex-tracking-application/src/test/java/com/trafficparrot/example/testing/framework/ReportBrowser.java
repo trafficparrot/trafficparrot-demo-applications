@@ -13,8 +13,8 @@ class ReportBrowser {
     static String reportBrowserInformation() {
         Capabilities capabilities = ((RemoteWebDriver) getWebDriver()).getCapabilities();
         String browserName = capabilities.getBrowserName();
-        Platform platform = capabilities.getPlatform();
-        String version = capabilities.getVersion();
+        Platform platform = capabilities.getPlatformName();
+        String version = capabilities.getBrowserVersion();
         return String.format(
                 "Browser: %s%n" +
                 "Version: %s%n" +

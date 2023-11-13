@@ -31,7 +31,7 @@ public class TrackAcceptanceTest {
     void trackUsingTrackingNumberSuccess() {
         givenUserHasLoggedIn(FED_EX_API_USER);
         whenTheUserLooksUpTrackingNumber("123456789012");
-        thenTheLatestTrackingStatusIsDisplayed("Picked up at 2019-08-14T13:33:00-04:00");
+        thenTheLatestTrackingStatusIsDisplayed("In transit at 2023-05-19T19:03:00-04:00");
     }
 
     @Test

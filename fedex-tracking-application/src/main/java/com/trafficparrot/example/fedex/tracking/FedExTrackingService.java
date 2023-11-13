@@ -4,12 +4,14 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import okhttp3.*;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.jayway.jsonpath.Option.SUPPRESS_EXCEPTIONS;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Service
@@ -46,20 +48,21 @@ public class FedExTrackingService {
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
                     .build();
 
-            Response response = client.newCall(request).execute();
-            ResponseBody responseBody = response.body();
-            if (responseBody == null) {
-                LOGGER.error("Missing response body");
-                return logInTechnicalErrorResponse();
-            }
-            DocumentContext responseJson = parseJson(responseBody.string());
-            if (response.code() == 200) {
-                String accessToken = responseJson.read("$.access_token");
-                fedExApiCredentials.setApiCredentials(apiBaseUrl, accessToken);
-                return new LogInResponse(false, "");
-            } else {
-                String errorMessage = responseJson.read(FEDEX_JSON_PATH_ERROR_MESSAGE);
-                return new LogInResponse(true, errorMessage);
+            try (Response response = client.newCall(request).execute()) {
+                ResponseBody responseBody = response.body();
+                if (responseBody == null) {
+                    LOGGER.error("Missing response body");
+                    return logInTechnicalErrorResponse();
+                }
+                DocumentContext responseJson = parseJson(responseBody.string());
+                if (response.code() == 200) {
+                    String accessToken = responseJson.read("$.access_token");
+                    fedExApiCredentials.setApiCredentials(apiBaseUrl, accessToken);
+                    return new LogInResponse(false, "");
+                } else {
+                    String errorMessage = responseJson.read(FEDEX_JSON_PATH_ERROR_MESSAGE);
+                    return new LogInResponse(true, errorMessage);
+                }
             }
         } catch (Exception e) {
             LOGGER.error("Uncaught exception", e);
@@ -68,6 +71,9 @@ public class FedExTrackingService {
     }
 
     public TrackingResponse trackByTrackingNumber(String trackingNumber) {
+        if (isBlank(trackingNumber)) {
+            return new TrackingResponse(true, "Please provide tracking number.", "");
+        }
         String requestJson = "{\n" +
                 "  \"includeDetailedScans\": true,\n" +
                 "  \"trackingInfo\": [\n" +
@@ -90,25 +96,26 @@ public class FedExTrackingService {
                     .addHeader("Authorization", "Bearer " + fedExApiCredentials.getBearerToken())
                     .build();
 
-            Response response = client.newCall(request).execute();
-            ResponseBody responseBody = response.body();
-            if (responseBody == null) {
-                LOGGER.error("Missing response body");
-                return trackingTechnicalErrorResponse();
-            }
-            DocumentContext responseJson = parseJson(responseBody.string());
-            if (response.code() == 200) {
-                String errorMessage = responseJson.read(FEDEX_JSON_PATH_FIRST_TRACK_RESULT + ".error.message");
-                if (isNotBlank(errorMessage)) {
+            try (Response response = client.newCall(request).execute()) {
+                ResponseBody responseBody = response.body();
+                if (responseBody == null) {
+                    LOGGER.error("Missing response body");
+                    return trackingTechnicalErrorResponse();
+                }
+                DocumentContext responseJson = parseJson(responseBody.string());
+                if (response.code() == 200) {
+                    String errorMessage = responseJson.read(FEDEX_JSON_PATH_FIRST_TRACK_RESULT + ".error.message");
+                    if (isNotBlank(errorMessage)) {
+                        return new TrackingResponse(true, errorMessage, "");
+                    }
+
+                    String derivedStatus = responseJson.read(FEDEX_JSON_PATH_TRACK_MOST_RECENT_SCAN_EVENT + ".derivedStatus");
+                    String date = responseJson.read(FEDEX_JSON_PATH_TRACK_MOST_RECENT_SCAN_EVENT + ".date");
+                    return new TrackingResponse(false, "", derivedStatus + " at " + date);
+                } else {
+                    String errorMessage = responseJson.read(FEDEX_JSON_PATH_ERROR_MESSAGE);
                     return new TrackingResponse(true, errorMessage, "");
                 }
-
-                String derivedStatus = responseJson.read(FEDEX_JSON_PATH_TRACK_MOST_RECENT_SCAN_EVENT + ".derivedStatus");
-                String date = responseJson.read(FEDEX_JSON_PATH_TRACK_MOST_RECENT_SCAN_EVENT + ".date");
-                return new TrackingResponse(false, "", derivedStatus + " at " + date);
-            } else {
-                String errorMessage = responseJson.read(FEDEX_JSON_PATH_ERROR_MESSAGE);
-                return new TrackingResponse(true, errorMessage, "");
             }
         } catch (Exception e) {
             LOGGER.error("Uncaught exception", e);
