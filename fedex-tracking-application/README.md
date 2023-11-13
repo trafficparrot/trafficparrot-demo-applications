@@ -1,6 +1,6 @@
 # FedEx Tracking Demo Application
 ## Requirements
-- This project runs on Java 8, it has not been tested with higher versions
+- Register for a [FedEx API key](https://developer.fedex.com/api/en-us/catalog.html) for the test environment 
 - Set up `passwords.properties` file with a line like `apikey=password` using your FedEx test API credentials for `https://apis-sandbox.fedex.com`
 - Put the corresponding API key name in `FedExApiUsers.FED_EX_API_USER`
 - Run the Maven build using `./mvnw clean install`
