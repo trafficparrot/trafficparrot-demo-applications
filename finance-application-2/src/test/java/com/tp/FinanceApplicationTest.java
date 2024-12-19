@@ -33,7 +33,7 @@ public class FinanceApplicationTest {
         forecastIoService.stubFor(get(urlEqualTo("/MODApis/Api/v2/Quote/json?symbol=AAPL"))
                 .willReturn(aResponse().withBody("{\"Status\":\"SUCCESS\",\"Name\":\"Apple Inc\",\"Symbol\":\"AAPL\",\"LastPrice\":103.17}")));
 
-        Content content = Request.Get("http://localhost:" + financeApplication.port + "/stock-quote-last-price")
+        Content content = Request.Get("http://localhost:" + financeApplication.port + "/stock-quote-last-price?company=AAPL")
                 .execute()
                 .returnContent();
 
