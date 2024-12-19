@@ -1,6 +1,7 @@
 This example application is used in the partial passthrough and proxy HTTP mocks demo of Traffic Parrot.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/booQROrGlPA?si=K8ozIBrE_vjp18yX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![Watch the video](https://img.youtube.com/vi/booQROrGlPA/maxresdefault.jpg)](https://youtu.be/booQROrGlPA)
+
 
 ### Here are the details needed to replicate the demo
 
