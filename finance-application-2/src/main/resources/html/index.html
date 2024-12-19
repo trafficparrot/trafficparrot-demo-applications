@@ -65,15 +65,7 @@
             $("#stock-title").text(stock + " stock");
             fetchStockPrice(stockSymbol);
         });
-        $.ajax({
-            url: "/stock-quote-last-price",
-            success: function (result) {
-                $("#stock-quote-last-price").html(result);
-                var warning = parseFloat(result) < 10;
-                $("#quote-warning").css("display", warning ? "inline" : "none");
-                $("#stock-quote-last-price").css("color", warning ? "red" : "green");
-            }
-        });
+        fetchStockPrice("AAPL");
     });
 </script>
 </body>
