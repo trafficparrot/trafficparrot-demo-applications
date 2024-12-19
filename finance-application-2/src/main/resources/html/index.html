@@ -25,17 +25,18 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li class="active"><a href="#" class="stock-tab" data-stock="Apple">Apple</a></li>
+                    <li><a href="#" class="stock-tab" data-stock="Google">Google</a></li>
+                    <li><a href="#" class="stock-tab" data-stock="Amazon">Amazon</a></li>
+                    <li><a href="#" class="stock-tab" data-stock="NanoMed">NanoMed</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="jumbotron">
-        <h1>Apple stock</h1>
+        <h1 id="stock-title">Apple stock</h1>
 
-        <p>Apple stock quote last price is <span id="stock-quote-last-price">(please wait...)</span><span id="quote-warning" class="warning">!!!</span></p>
+        <p>Stock quote last price is <span id="stock-quote-last-price">(please wait...)</span><span id="quote-warning" class="warning">!!!</span></p>
     </div>
 </div>
 
@@ -43,7 +44,27 @@
 <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 <script>
-    $().ready(new function () {
+    $().ready(function () {
+        function fetchStockPrice(stockSymbol) {
+            $.ajax({
+                url: "/stock-quote-last-price?company=" + stockSymbol,
+                success: function (result) {
+                    $("#stock-quote-last-price").html(result);
+                    var warning = parseFloat(result) < 10;
+                    $("#quote-warning").css("display", warning ? "inline" : "none");
+                    $("#stock-quote-last-price").css("color", warning ? "red" : "green");
+                }
+            });
+        }
+        $(".stock-tab").click(function (e) {
+            e.preventDefault();
+            $(".nav > li").removeClass("active");
+            $(this).parent().addClass("active");
+            var stock = $(this).data("stock");
+            var stockSymbol = stock === "Apple" ? "AAPL" : stock === "Google" ? "GOOGL" : stock === "Amazon" ? "AMZN" : "NANO";
+            $("#stock-title").text(stock + " stock");
+            fetchStockPrice(stockSymbol);
+        });
         $.ajax({
             url: "/stock-quote-last-price",
             success: function (result) {
@@ -53,7 +74,7 @@
                 $("#stock-quote-last-price").css("color", warning ? "red" : "green");
             }
         });
-    })
+    });
 </script>
 </body>
 </html>

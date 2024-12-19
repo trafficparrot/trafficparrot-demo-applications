@@ -23,8 +23,6 @@ import static java.lang.String.format;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 class StockQuoteLastPriceHandler extends AbstractHandler {
-    private static final String APPLE_SYMBOL = "AAPL";
-
     public StockQuoteLastPriceHandler() {
     }
 
@@ -32,7 +30,7 @@ class StockQuoteLastPriceHandler extends AbstractHandler {
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if ("/stock-quote-last-price".equals(target)) {
             try {
-                double lastPrice = parseStockQuoteLastPrice(markitStockQuoteFor(APPLE_SYMBOL));
+                double lastPrice = parseStockQuoteLastPrice(stockQuoteFor(request.getParameter("company")));
 
                 response.setContentType("text/html; charset=utf-8");
                 response.setStatus(SC_OK);
@@ -49,7 +47,7 @@ class StockQuoteLastPriceHandler extends AbstractHandler {
         return new JSONObject(markitStockQuoteJson).getDouble("LastPrice");
     }
 
-    private String markitStockQuoteFor(String symbol) throws IOException {
+    private String stockQuoteFor(String symbol) throws IOException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpGet httpget = new HttpGet(format(getMarkitUrl(), symbol));
             httpget.addHeader("accept-encoding", "identity");
