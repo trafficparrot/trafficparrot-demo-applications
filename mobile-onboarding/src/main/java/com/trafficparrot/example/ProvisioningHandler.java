@@ -124,13 +124,15 @@ class ProvisioningHandler extends AbstractHandler {
         public final String status;
         public final String mobileNumber;
         public final String mobileType;
+        public final String error;
         public final String deviceId;
         public final Date date;
 
-        private Confirmation(String status, String mobileNumber, String mobileType, String deviceId, Date date) {
+        private Confirmation(String status, String mobileNumber, String mobileType, String error, String deviceId, Date date) {
             this.status = status;
             this.mobileNumber = mobileNumber;
             this.mobileType = mobileType;
+            this.error = error;
             this.deviceId = deviceId;
             this.date = date;
         }
