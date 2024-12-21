@@ -73,11 +73,23 @@ public class MobileNetworkHardwareMicroservice {
     }
 
     private void processProvisionRequest(ProvisionRequest provisionRequest) throws JMSException {
-        sendConfirmation(new ProvisionConfirmation(provisionRequest.getMobileNumber(),
-                provisionRequest.getMobileType(),
-                "MOBILE_PROVISIONED",
-                deviceId.toString(),
-                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date())));
+        info("Received: " + provisionRequest);
+        if (!"data-and-voice".equals(provisionRequest.getMobileType())) {
+            ProvisionConfirmation mobileProvisioned = new ProvisionConfirmation(provisionRequest.getMobileNumber(),
+                    provisionRequest.getMobileType(),
+                    "MOBILE_PROVISIONED",
+                    deviceId.toString(),
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date()));
+            sendConfirmation(mobileProvisioned);
+            info("Sent: " + mobileProvisioned);
+        } else {
+            ProvisionError provisionError = new ProvisionError(provisionRequest.getMobileNumber(),
+                    provisionRequest.getMobileType(),
+                    "UNSUPPORTED_MOBILE_TYPE",
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date()));
+            sendConfirmation(provisionError);
+            info("Sent: " + provisionError);
+        }
     }
 
     public void start() throws Exception {
@@ -121,7 +133,7 @@ public class MobileNetworkHardwareMicroservice {
         }
     }
 
-    private void sendConfirmation(ProvisionConfirmation provisionConfirmation) throws JMSException {
+    private void sendConfirmation(Object provisionConfirmation) throws JMSException {
         sendConfirmation(new Gson().toJson(provisionConfirmation));
     }
 

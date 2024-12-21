@@ -22,4 +22,15 @@ public class ProvisionConfirmation {
     public String getMobileType() {
         return mobileType;
     }
+
+    @Override
+    public String toString() {
+        return "ProvisionConfirmation{" +
+                "mobileNumber='" + mobileNumber + '\'' +
+                ", mobileType='" + mobileType + '\'' +
+                ", status='" + status + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }

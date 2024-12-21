@@ -16,4 +16,12 @@ public class ProvisionRequest {
     public String getMobileType() {
         return mobileType;
     }
+
+    @Override
+    public String toString() {
+        return "ProvisionRequest{" +
+                "mobileNumber='" + mobileNumber + '\'' +
+                ", mobileType='" + mobileType + '\'' +
+                '}';
+    }
 }
