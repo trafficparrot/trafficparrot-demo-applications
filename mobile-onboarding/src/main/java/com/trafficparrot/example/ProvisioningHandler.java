@@ -65,6 +65,13 @@ class ProvisioningHandler extends AbstractHandler {
             while ((message = (TextMessage) messageConsumer.receiveNoWait()) != null) {
                 String text = message.getText();
                 System.out.println(new Date() + " Received: " + text);
+                Enumeration<?> propertyNames = message.getPropertyNames();
+                System.out.println("JMS message properties:");
+                while (propertyNames.hasMoreElements()) {
+                    String propertyName = (String) propertyNames.nextElement();
+                    Object propertyValue = message.getObjectProperty(propertyName);
+                    System.out.println("   " + propertyName + ": " + propertyValue);
+                }
                 confirmations.add(new Gson().fromJson(text, Confirmation.class));
             }
             System.out.println(new Date() + " No new messages");
