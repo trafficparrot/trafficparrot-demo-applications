@@ -56,7 +56,8 @@ exit
   * Request destination: ```MOCK_PROVISION_REQUESTS```
   * Request priority: ```1```
   * Request matching script:
-       ```{{ equal (dataSource '.csv'
+       ```
+       {{ equal (dataSource '.csv'
        'SELECT mobileNumber
        FROM mobiles.csv
        WHERE ssn = :1'
