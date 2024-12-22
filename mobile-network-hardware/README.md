@@ -48,10 +48,13 @@ exit
 * Open ```trafficparrot.properties``` and set property ```trafficparrot.jms.responsetransformers``` value to ```com.trafficparrot.messaging.jms.JmsPassthroughMessage```
 * Open ```jms-connections.json``` and set the password on the first connection to ```passw0rd```
 * Start Traffic Parrot
-* Create mappings in Traffic Parrot
-  * Copy partial-proxy-jms-ibm-mq/jms-mappings to trafficparrot-x.y.z/jms-mappings
-  * Copy partial-proxy-jms-ibm-mq/data to trafficparrot-x.y.z/data
 * Start both "mobile-onboarding" and "mobile-network-hardware" applications
+* Create a csv file in trafficparrot.x.y.z/data
+
+      ```
+      mobileNumber
+      111222333
+      ```
 * Create a JMS mapping in Traffic Parrot
   * Request destination: ```MOCK_PROVISION_REQUESTS```
   * Request priority: ```1```
