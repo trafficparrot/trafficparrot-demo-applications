@@ -3,7 +3,7 @@
 ## Problem
 The ```mobile-onboarding``` application communicates with the ```mobile-network-hardware``` application via IBM MQ request-response queues.
 
-The ```mobile-network-hardware``` application has issues with uptime and availability that make it unsuitable to use for consistent test results.
+The ```mobile-network-hardware``` application has issues with uptime and availability that result in inconsistent test results when testing the ```mobile-onboarding``` application.
 
 ![Problem](problem.png)
 
