@@ -66,7 +66,7 @@ exit
        {{ equal (dataSource '.csv'
        'SELECT mobileNumber
        FROM mobiles.csv
-       WHERE ssn = :1'
+       WHERE mobileNumber = :1'
        (jsonPath request.body '$.mobileNumber')
        single=true
        default=false) (jsonPath request.body '$.mobileNumber') }}
