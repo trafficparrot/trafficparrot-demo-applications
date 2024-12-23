@@ -49,12 +49,11 @@ exit
 * Open ```jms-connections.json``` and set the password on the first connection to ```passw0rd```
 * Start Traffic Parrot
 * Start both "mobile-onboarding" and "mobile-network-hardware" applications
-* Create a csv file in trafficparrot.x.y.z/data
-
-      ```
-      mobileNumber
-      111222333
-      ```
+* Create a ```mobiles.csv``` file in trafficparrot.x.y.z/data:
+  ```
+  mobileNumber
+  111222333
+  ```
 * Create a JMS mapping in Traffic Parrot
   * Request destination: ```MOCK_PROVISION_REQUESTS```
   * Request priority: ```1```
@@ -69,6 +68,16 @@ exit
        default=false) (jsonPath request.body '$.mobileNumber') }}
        ```
   * Response destination: ```MOCK_PROVISION_CONFIRMATIONS```
+  * Response body:
+     ```
+     {
+      "status": "MOBILE_PROVISIONED",
+      "mobileNumber": "{{jsonPath request.body '$.mobileNumber'}}",
+      "mobileType": "{{jsonPath request.body '$.mobileType'}}",
+      "deviceId": "{{randomUUID}}",
+      "date": "{{now format="yyyy-MM-dd'T'HH:mm:ssZ"}}"
+     }
+    ```
   * Advanced Parameters, Response properties: ```TrafficParrotMockedMessage;java.lang.Boolean;true```
 * Create a JMS mapping in Traffic Parrot to passthrough the requests that are mocked to the real service
   * Request destination: ```MOCK_PROVISION_REQUESTS```
