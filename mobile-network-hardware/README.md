@@ -1,7 +1,9 @@
 # This is a sample application used for demonstrating how to create passthrough JMS IBM MQ mocks in Traffic Parrot
 
-## Download this application
-You can download this application here: https://trafficparrot.com/documentation/files/mobile-network-hardware.zip
+## Download the applications used in this tutorial
+You can download the ```mobile-network-hardware``` application here: https://trafficparrot.com/documentation/files/mobile-network-hardware.zip
+
+You can download the ```mobile-onboarding``` application here: https://trafficparrot.com/documentation/files/mobile-onboarding.zip 
 
 
 ## Application setup
@@ -52,7 +54,7 @@ exit
 * Open ```trafficparrot.properties``` and set property ```trafficparrot.jms.responsetransformers``` value to ```com.trafficparrot.messaging.jms.JmsPassthroughMessage```
 * Open ```jms-connections.json``` and set the password on the first connection to ```passw0rd```
 * Start Traffic Parrot
-* Start both "mobile-onboarding" and "mobile-network-hardware" applications
+* Start both ```mobile-onboarding``` and ```mobile-network-hardware``` applications
 * Create a ```mobiles.csv``` file in trafficparrot.x.y.z/data:
   ```
   mobileNumber
