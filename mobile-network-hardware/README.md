@@ -15,8 +15,12 @@ Traffic Parrot allows both mocking and passthrough behaviours, as demonstrated b
 ### Mocking
 ![Solution using Traffic Parrot](mocked.png)
 
+Use mocking to obtain responses without communicating with the real ```mobile-network-hardware``` application.
+
 ### Passthrough
 ![Solution using Traffic Parrot](passthrough.png)
+
+Use passthrough obtain responses from the real ```mobile-network-hardware``` application.
 
 ## Download the applications used in this tutorial
 You can download the ```mobile-network-hardware``` application here: https://trafficparrot.com/documentation/files/mobile-network-hardware.zip
