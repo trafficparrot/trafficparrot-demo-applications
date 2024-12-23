@@ -1,5 +1,9 @@
 # This is a sample application used for demonstrating how to create passthrough JMS IBM MQ mocks in Traffic Parrot
 
+## Download this application
+You can download this application here: https://trafficparrot.com/documentation/files/mobile-network-hardware.zip
+
+
 ## Application setup
 In order for this project to work you will have to obtain a file ```com.ibm.mq.allclient.jar```
 provided by IBM and copy it to the ```mobile-network-hardware\lib``` directory.
