@@ -34,7 +34,7 @@
             <artifactId>allclient</artifactId>
             <version>9</version>
             <scope>system</scope>
-            <!-- see README for instructions how to obtain this file: -->
+            <!-- see README.md for instructions how to obtain this file: -->
             <systemPath>${pom.basedir}${file.separator}lib${file.separator}com.ibm.mq.allclient.jar</systemPath>
         </dependency>
         <dependency>

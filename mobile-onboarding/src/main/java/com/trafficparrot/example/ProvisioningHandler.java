@@ -46,7 +46,7 @@ class ProvisioningHandler extends AbstractHandler {
         }  catch (NoClassDefFoundError  e) {
             if (e.getMessage().contains("com/ibm")) {
                 System.err.println("In order to use IBM® MQ you need jar files that will allow Food Order System to establish connections with MQ. " +
-                        "See README file for more information");
+                        "See README.md file for more information");
             } else {
                 throw e;
             }
