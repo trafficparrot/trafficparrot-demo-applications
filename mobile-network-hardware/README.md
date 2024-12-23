@@ -8,9 +8,10 @@ The ```mobile-network-hardware``` application has issues with uptime and availab
 ![Problem](problem.png)
 
 ## Solution using Traffic Parrot
-To solve this problem, we can use Traffic Parrot to simulate the ```mobile-network-hardware``` application and enable a reproducible test harness for the ```mobile-onboarding```.
+Traffic Parrot can simulate the ```mobile-network-hardware``` application
+and create a partially mocked environment for ```mobile-onboarding```.
 
-Traffic Parrot allows both mocking and passthrough behaviours, as demonstrated below.
+It can simultaneously handle both mock responses and traffic passthrough to the real backend service.
 
 ### Mocking
 ![Solution using Traffic Parrot](mocked.png)
