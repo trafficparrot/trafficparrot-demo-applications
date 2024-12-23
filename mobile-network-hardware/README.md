@@ -1,5 +1,11 @@
 # This is a sample application used for demonstrating how to create passthrough JMS IBM MQ mocks in Traffic Parrot
 
+## Video tutorial
+
+You can find a video version of this tutorial here: https://youtu.be/F_2stfDon2M
+
+[![Watch the video](https://img.youtube.com/vi/F_2stfDon2M/maxresdefault.jpg)](https://youtu.be/F_2stfDon2M)
+
 ## Problem
 The ```mobile-onboarding``` application communicates with the ```mobile-network-hardware``` application via IBM MQ request-response queues.
 
