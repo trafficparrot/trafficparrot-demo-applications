@@ -1,5 +1,17 @@
 # This is a sample application used for demonstrating how to create passthrough JMS IBM MQ mocks in Traffic Parrot
 
+## Problem
+The ```mobile-onboarding``` application communicates with the ```mobile-network-hardware``` application via IBM MQ request-response queues.
+
+The ```mobile-network-hardware``` application has issues with uptime and availability that make it unsuitable to use for consistent test results.
+
+![Problem](problem.png)
+
+## Solution using Traffic Parrot
+To solve this problem, we can use Traffic Parrot to simulate the ```mobile-network-hardware``` application and enable a reproducible test harness for the ```mobile-onboarding```.
+
+![Solution using Traffic Parrot](solution.png)
+
 ## Download the applications used in this tutorial
 You can download the ```mobile-network-hardware``` application here: https://trafficparrot.com/documentation/files/mobile-network-hardware.zip
 
