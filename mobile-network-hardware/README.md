@@ -117,7 +117,7 @@ exit
        ```
   * Response destination: ```MOCK_PROVISION_CONFIRMATIONS```
   * Response body:
-     ```json
+     ```
      {
       "status": "MOBILE_PROVISIONED",
       "mobileNumber": "{{jsonPath request.body '$.mobileNumber'}}",
