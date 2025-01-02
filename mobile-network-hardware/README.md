@@ -50,15 +50,21 @@ docker run --env LICENSE=accept --env MQ_QMGR_NAME=QM1 --env MQ_ADMIN_PASSWORD=p
 ## Add queues for this application 
 ```
 docker exec -it $(docker ps --filter ancestor=icr.io/ibm-messaging/mq:9.4.1.0-r2 --format "{{.ID}}" | head -n1) /bin/bash
+```
 
+```
 runmqsc QM1
+```
 
+```
 DEFINE QLOCAL(PROVISION_REQUESTS) LIKE(DEV.QUEUE.1)
 SET AUTHREC PROFILE(PROVISION_REQUESTS) OBJTYPE(QUEUE) PRINCIPAL('app') AUTHADD(ALL)
 DEFINE QLOCAL(PROVISION_CONFIRMATIONS) LIKE(DEV.QUEUE.1)
 SET AUTHREC PROFILE(PROVISION_CONFIRMATIONS) OBJTYPE(QUEUE) PRINCIPAL('app') AUTHADD(ALL)
 END
+```
 
+```
 exit
 ```
 
@@ -68,15 +74,18 @@ exit
   * Set up mock queues:
       ```
       docker exec -it $(docker ps --filter ancestor=icr.io/ibm-messaging/mq:9.4.1.0-r2 --format "{{.ID}}" | head -n1) /bin/bash
-      
+      ```
+      ```
       runmqsc QM1
-        
+      ```
+      ``` 
       DEFINE QLOCAL(MOCK_PROVISION_REQUESTS) LIKE(DEV.QUEUE.1)
       SET AUTHREC PROFILE(MOCK_PROVISION_REQUESTS) OBJTYPE(QUEUE) PRINCIPAL('app') AUTHADD(ALL)
       DEFINE QLOCAL(MOCK_PROVISION_CONFIRMATIONS) LIKE(DEV.QUEUE.1)
       SET AUTHREC PROFILE(MOCK_PROVISION_CONFIRMATIONS) OBJTYPE(QUEUE) PRINCIPAL('app') AUTHADD(ALL)
       END
-        
+      ```
+      ```
       exit
       ```
 * Follow these instructions to install "com.ibm.mq.allclient.jar" in Traffic Parrot https://trafficparrot.com/documentation/5.50.x/jms.html#ibm-mq-libs
