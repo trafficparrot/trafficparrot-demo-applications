@@ -98,7 +98,7 @@ exit
 * Start Traffic Parrot
 * Start both ```mobile-onboarding``` and ```mobile-network-hardware``` applications
 * Create a ```mobiles.csv``` file in trafficparrot.x.y.z/data:
-  ```
+  ```csv
   mobileNumber
   111222333
   ```
@@ -106,7 +106,7 @@ exit
   * Request destination: ```MOCK_PROVISION_REQUESTS```
   * Request priority: ```1```
   * Request matching script:
-       ```
+       ```handlebars
        {{ equal (dataSource '.csv'
        'SELECT mobileNumber
        FROM mobiles.csv
@@ -117,7 +117,7 @@ exit
        ```
   * Response destination: ```MOCK_PROVISION_CONFIRMATIONS```
   * Response body:
-     ```
+     ```json
      {
       "status": "MOBILE_PROVISIONED",
       "mobileNumber": "{{jsonPath request.body '$.mobileNumber'}}",
