@@ -46,7 +46,7 @@ class ProvisioningHandler extends AbstractHandler {
         }  catch (NoClassDefFoundError  e) {
             if (e.getMessage().contains("com/ibm")) {
                 System.err.println("In order to use IBM® MQ you need jar files that will allow Food Order System to establish connections with MQ. " +
-                        "See README file for more information");
+                        "See README.md file for more information");
             } else {
                 throw e;
             }
@@ -65,6 +65,13 @@ class ProvisioningHandler extends AbstractHandler {
             while ((message = (TextMessage) messageConsumer.receiveNoWait()) != null) {
                 String text = message.getText();
                 System.out.println(new Date() + " Received: " + text);
+                Enumeration<?> propertyNames = message.getPropertyNames();
+                System.out.println("JMS message properties:");
+                while (propertyNames.hasMoreElements()) {
+                    String propertyName = (String) propertyNames.nextElement();
+                    Object propertyValue = message.getObjectProperty(propertyName);
+                    System.out.println("   " + propertyName + ": " + propertyValue);
+                }
                 confirmations.add(new Gson().fromJson(text, Confirmation.class));
             }
             System.out.println(new Date() + " No new messages");
@@ -124,13 +131,15 @@ class ProvisioningHandler extends AbstractHandler {
         public final String status;
         public final String mobileNumber;
         public final String mobileType;
+        public final String error;
         public final String deviceId;
         public final Date date;
 
-        private Confirmation(String status, String mobileNumber, String mobileType, String deviceId, Date date) {
+        private Confirmation(String status, String mobileNumber, String mobileType, String error, String deviceId, Date date) {
             this.status = status;
             this.mobileNumber = mobileNumber;
             this.mobileType = mobileType;
+            this.error = error;
             this.deviceId = deviceId;
             this.date = date;
         }

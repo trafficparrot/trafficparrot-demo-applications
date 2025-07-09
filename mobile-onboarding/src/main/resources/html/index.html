@@ -83,7 +83,11 @@
                 } else {
                     $('#provision-confirmations').html("<ol></ol>");
                     $.each(paymentConfirmations, function (indtex, item) {
-                        $('#provision-confirmations').append("<li> Provisioned '" + item.mobileNumber + "' of type '" + item.mobileType + "' on device '" + item.deviceId + "' starting on '" + item.date + "'</li>");
+                        if (item.error) {
+                            $('#provision-confirmations').append("<li style='color: red'> Problem provisionining '" + item.mobileNumber + "' of type '" + item.mobileType + "'. Error: '" + item.error + "'</li>");
+                        } else {
+                            $('#provision-confirmations').append("<li> Provisioned '" + item.mobileNumber + "' of type '" + item.mobileType + "' on device '" + item.deviceId + "' starting on '" + item.date + "'</li>");
+                        }
                     });
                 }
             }
