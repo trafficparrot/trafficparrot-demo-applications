@@ -79,12 +79,37 @@ xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/Localhost
 xcrun simctl launch booted com.example.LocalhostTestApp
 ```
 
+## Installing Traffic Parrot Root Certificate for HTTPS Testing
+
+To test HTTPS connections with Traffic Parrot, you need to install the Traffic Parrot root certificate on your iOS simulator:
+
+### 1. Locate the Certificate
+The root certificate is included in your Traffic Parrot release:
+```bash
+trafficparrot-x.y.z/certificates/traffic-parrot-root-ca.pem
+```
+
+### 2. Install Certificate on iOS Simulator
+
+```bash
+xcrun simctl keychain booted add-root-cert /path/to/trafficparrot-x.y.z/certificates/traffic-parrot-root-ca.pem
+```
+
+This command directly installs the root certificate into the simulator's keychain and automatically trusts it.
+
+### 3. Verify HTTPS Works
+1. Launch the LocalhostTestApp
+2. Change the URL to: `https://localhost:8082/` (or your Traffic Parrot HTTPS port)
+3. Tap "Send Request"
+4. You should now be able to connect via HTTPS without certificate errors
+
 ## Usage Notes
 
 1. **On Simulator**: localhost refers to your Mac, so http://localhost:8081 will connect to a server running on your Mac
 2. **On Physical Device**: localhost refers to the device itself. Use your Mac's IP address instead (e.g., http://192.168.1.100:8081)
 3. **Large Responses**: The app will display up to 10KB of response body. Larger responses are truncated with a message indicating the full size
 4. **Logs**: The app uses NSLog for debugging. View logs in Console.app by filtering for "LocalhostTestApp"
+5. **HTTPS Testing**: Requires Traffic Parrot root certificate to be installed and trusted (see instructions above)
 
 ## Troubleshooting
 
