@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Localhost Test App</string>
+    <string name="url_hint">Enter URL (e.g., http://localhost:8081/test)</string>
+    <string name="send_request">Send GET Request</string>
+    <string name="response_placeholder">Response will appear here...</string>
+    <string name="status_ready">Ready</string>
+    <string name="status_sending">Sending request...</string>
+    <string name="status_error">Error</string>
+    <string name="error_invalid_url">Please enter a valid URL</string>
+    <string name="error_network">Network error: %s</string>
+</resources>
