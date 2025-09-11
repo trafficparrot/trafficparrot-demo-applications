@@ -52,7 +52,6 @@ The app supports HTTPS connections, including self-signed certificates commonly 
 
 If you're using Traffic Parrot for API mocking with HTTPS, you'll need to install Traffic Parrot's root CA certificate:
 
-1. **Install Traffic Parrot Root CA into Android Emulator (Automated):**
    ```bash
    # Step 1: Generate the certificate hash
    HASH=$(openssl x509 -inform PEM -subject_hash_old -in /path/to/trafficparrot-x.y.z/certificates/traffic-parrot-root-ca.pem | head -1)
@@ -62,25 +61,11 @@ If you're using Traffic Parrot for API mocking with HTTPS, you'll need to instal
    
    # Step 3: Push certificate to Android device
    ~/Library/Android/sdk/platform-tools/adb push ${HASH}.0 /sdcard/
-   
-   # Step 4: Get root access (works with Google APIs emulators)
-   ~/Library/Android/sdk/platform-tools/adb root
-   ~/Library/Android/sdk/platform-tools/adb remount
-   
-   # Step 5: Copy certificate to system certificate store
-   ~/Library/Android/sdk/platform-tools/adb shell "cp /sdcard/${HASH}.0 /system/etc/security/cacerts/"
-   
-   # Step 6: Set proper permissions
-   ~/Library/Android/sdk/platform-tools/adb shell "chmod 644 /system/etc/security/cacerts/${HASH}.0"
-   
-   # Step 7: Restart to load the certificate
-   ~/Library/Android/sdk/platform-tools/adb reboot
    ```
-
-3. **Test HTTPS with Traffic Parrot:**
-   ```
-   https://10.0.2.2:8082/test  (for emulator)
-   ```
+   
+* Open the emulator
+* Import the certificate `Settings -> Security & privacy -> More Security -> Encryption and credentials -> Install a certificate`
+* Test HTTPS with Traffic Parrot, open the app and point it at `https://10.0.2.2:8082/test`
 
 ## Important Notes
 
