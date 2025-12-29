@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>GoogleLowStockPriceIsRed</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>522efab0-cab0-4256-8a97-f388c2e7a857</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>6c03bf09-ab0a-4b8f-913a-0e86bde677de</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>0f8f14b3-39bf-4b4d-b9f7-200014d7d673</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>0</defaultValue>
+      <description></description>
+      <id>6c03bf09-ab0a-4b8f-913a-0e86bde677de</id>
+      <masked>false</masked>
+      <name>stockPrice</name>
+   </variable>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description></description>
+      <id>0f8f14b3-39bf-4b4d-b9f7-200014d7d673</id>
+      <masked>false</masked>
+      <name>stockPriceColor</name>
+   </variable>
+</TestCaseEntity>

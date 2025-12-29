@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>LargeAmazonPriceIsDisplayed</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>2507e0eb-efda-4ec3-abfc-b21b3d21eda8</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>e0de9ffe-5c0b-4c8e-9596-11c44b66b76c</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>dbf6a0ee-7e1d-4f25-bc3b-671ec2bd58ac</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>0</defaultValue>
+      <description></description>
+      <id>e0de9ffe-5c0b-4c8e-9596-11c44b66b76c</id>
+      <masked>false</masked>
+      <name>stockPrice</name>
+   </variable>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description></description>
+      <id>dbf6a0ee-7e1d-4f25-bc3b-671ec2bd58ac</id>
+      <masked>false</masked>
+      <name>stockPriceColor</name>
+   </variable>
+</TestCaseEntity>

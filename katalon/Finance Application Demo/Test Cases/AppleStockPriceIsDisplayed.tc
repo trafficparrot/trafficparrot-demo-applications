@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>AppleStockPriceIsDisplayed</name>
+   <tag></tag>
+   <comment></comment>
+   <recordOption>OTHER</recordOption>
+   <testCaseGuid>4f5a2fea-2a44-4f4e-a699-8a7617cfe9d0</testCaseGuid>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>399c2722-b110-487a-b61b-6fd08b1fd651</variableId>
+   </variableLinks>
+   <variableLinks>
+      <testDataLinkId></testDataLinkId>
+      <type>DEFAULT</type>
+      <value></value>
+      <variableId>d3e15c85-bcb4-4ebc-b937-ea09fcb89c24</variableId>
+   </variableLinks>
+   <variable>
+      <defaultValue>0</defaultValue>
+      <description></description>
+      <id>399c2722-b110-487a-b61b-6fd08b1fd651</id>
+      <masked>false</masked>
+      <name>stockPrice</name>
+   </variable>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description></description>
+      <id>d3e15c85-bcb4-4ebc-b937-ea09fcb89c24</id>
+      <masked>false</masked>
+      <name>stockPriceColor</name>
+   </variable>
+</TestCaseEntity>
