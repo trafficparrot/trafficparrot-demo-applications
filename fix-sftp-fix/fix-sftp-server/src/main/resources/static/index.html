@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FIX SFTP Server</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>FIX SFTP Server</h1>
+    <p>Hosts the SFTP endpoint and the order-processing loop.</p>
+    <p class="meta">SFTP port: <code id="sftp-port">…</code> &nbsp;·&nbsp; Root: <code id="root">…</code></p>
+</header>
+
+<section>
+    <h2>Active SSH sessions</h2>
+    <table>
+        <thead><tr><th>ID</th><th>User</th><th>Client</th><th>Connected</th></tr></thead>
+        <tbody id="sessions"><tr><td colspan="4" class="empty">No active sessions</td></tr></tbody>
+    </table>
+</section>
+
+<div class="grid">
+    <section>
+        <h2><code>inbound/</code></h2>
+        <p>Server polls here. Place a NewOrderSingle to trigger an ExecutionReport.</p>
+        <table><thead><tr><th>File</th><th>Size</th><th>Modified</th></tr></thead>
+        <tbody id="inbound"></tbody></table>
+    </section>
+    <section>
+        <h2><code>outbound/</code></h2>
+        <p>Server writes ExecutionReports here.</p>
+        <table><thead><tr><th>File</th><th>Size</th><th>Modified</th></tr></thead>
+        <tbody id="outbound"></tbody></table>
+    </section>
+    <section>
+        <h2><code>tp-inbound/</code></h2>
+        <p>Used when client routes through Traffic Parrot. TP forwards to <code>inbound/</code>.</p>
+        <table><thead><tr><th>File</th><th>Size</th><th>Modified</th></tr></thead>
+        <tbody id="tp-inbound"></tbody></table>
+    </section>
+    <section>
+        <h2><code>tp-outbound/</code></h2>
+        <p>TP writes responses here. Client polls here when going through TP.</p>
+        <table><thead><tr><th>File</th><th>Size</th><th>Modified</th></tr></thead>
+        <tbody id="tp-outbound"></tbody></table>
+    </section>
+</div>
+
+<section>
+    <h2>File contents</h2>
+    <pre id="file-view" class="file-view">Click a file above to view contents.</pre>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>

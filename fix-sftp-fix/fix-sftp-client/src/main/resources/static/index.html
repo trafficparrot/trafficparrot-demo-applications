@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FIX SFTP Client</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>FIX SFTP Client</h1>
+    <p>Builds a NewOrderSingle, uploads via SFTP, polls for ExecutionReport.</p>
+</header>
+
+<section>
+    <h2>Send NewOrderSingle</h2>
+    <form id="send-form">
+        <div class="row">
+            <label>Host <input name="host" required></label>
+            <label>Port <input name="port" type="number" required></label>
+            <label>User <input name="username" required></label>
+            <label>Password <input name="password" type="password" required></label>
+        </div>
+        <div class="row">
+            <label>Request directory <input name="requestDir" required></label>
+            <label>Response directory <input name="responseDir" required></label>
+        </div>
+        <div class="row">
+            <label>ClOrdID <input name="clOrdId" required></label>
+            <label>Symbol <input name="symbol" required></label>
+            <label>Side
+                <select name="side">
+                    <option value="1">Buy</option>
+                    <option value="2">Sell</option>
+                </select>
+            </label>
+            <label>OrderQty <input name="qty" type="number" required></label>
+            <label>Price <input name="price" required></label>
+        </div>
+        <button type="submit" id="send-btn">Send NewOrderSingle</button>
+    </form>
+</section>
+
+<section>
+    <h2>Latest send</h2>
+    <div id="latest" class="latest">No requests sent yet.</div>
+</section>
+
+<section>
+    <h2>Recent history (last 10)</h2>
+    <table>
+        <thead><tr><th>When</th><th>ClOrdID</th><th>Symbol</th><th>Reqdir</th><th>Resp</th><th>RTT (ms)</th></tr></thead>
+        <tbody id="recent"></tbody>
+    </table>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
