@@ -62,8 +62,6 @@ function tick() {
             renderSessions(s.sessions);
             renderDir('inbound', s.directories.inbound);
             renderDir('outbound', s.directories.outbound);
-            renderDir('tp-inbound', s.directories['tp-inbound']);
-            renderDir('tp-outbound', s.directories['tp-outbound']);
         })
         .catch(function () {});
 }

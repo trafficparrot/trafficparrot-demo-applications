@@ -20,8 +20,6 @@ public final class App {
         Path root = Paths.get(config.rootDir).toAbsolutePath();
         Files.createDirectories(root.resolve("inbound"));
         Files.createDirectories(root.resolve("outbound"));
-        Files.createDirectories(root.resolve("tp-inbound"));
-        Files.createDirectories(root.resolve("tp-outbound"));
 
         SftpServer sftp = new SftpServer(root, config.sftpPort, config.username, config.password);
         sftp.start();

@@ -35,16 +35,21 @@ Open <http://localhost:8082>, fill in the form (defaults work), click
 SFTP server; the server's business loop generates an `ExecutionReport` into
 `outbound/` and the client UI displays it.
 
-The server's UI at <http://localhost:8081> shows live SSH sessions and the
-contents of all four working directories.
+The server's UI at <http://localhost:8081> shows live SSH sessions and the contents
+of `inbound/` and `outbound/` — its real interface. It is deliberately unaware of
+any proxy staging directories that may live on the same filesystem.
 
 ### 2. Through Traffic Parrot — record mode
 
-Start Traffic Parrot configured as an SFTP recording proxy, then in the client UI
-change the **Request directory** to `tp-inbound` and the **Response directory** to
-`tp-outbound`. TP forwards `tp-inbound/ → inbound/` (the real server processes the
-order) and `outbound/ → tp-outbound/` (the response is captured and forwarded back
-to the client). All traffic is recorded as a stub mapping in TP.
+In a proxied run, the client is reconfigured to use a different pair of directories
+(`tp-inbound/` and `tp-outbound/`) so TP can sit between the client and the real
+server without a consumer race. TP forwards `tp-inbound/ → inbound/` (the real
+server processes the order) and `outbound/ → tp-outbound/` (the response is
+forwarded back to the client). All traffic is recorded as a stub mapping in TP.
+
+The proxy staging dirs are not part of the server's interface — they are created by
+the orchestrator before TP starts, on the same SFTP filesystem the server happens
+to host. The server itself never lists or acknowledges them.
 
 Use the orchestrator script in the `trafficparrot-service-virtualization` repo
 (`scripts/demo/sftp-fix/run-demo.sh`) to wire this up automatically.
@@ -79,13 +84,24 @@ Defaults are sensible for a single-host demo. Override via CLI flags or env vars
 
 ## File layout on the SFTP server
 
+The server exposes two directories — its real interface:
+
 ```
 <SFTP root>/
-├── inbound/      ← real server polls here
-├── outbound/     ← real server writes ExecutionReport here
-├── tp-inbound/   ← when going through TP, client uploads here
-└── tp-outbound/  ← when going through TP, client polls here
+├── inbound/      ← server polls here
+└── outbound/     ← server writes ExecutionReport here
 ```
+
+When the demo is driven through Traffic Parrot, the orchestrator additionally
+creates a pair of TP-side staging directories on the same filesystem:
+
+```
+<SFTP root>/
+├── tp-inbound/   ← client uploads here; TP polls and forwards to inbound/
+└── tp-outbound/  ← TP writes responses here; client polls
+```
+
+These belong to TP, not the server. The server's UI does not list them.
 
 ## Notes
 

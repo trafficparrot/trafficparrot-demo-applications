@@ -83,7 +83,7 @@ public final class UiServer {
                 + ",\"connectedAtMillis\":" + s.connectedAtMillis() + "}"
             ).collect(Collectors.joining(",")));
             json.append("],\"directories\":{");
-            String[] dirs = {"inbound", "outbound", "tp-inbound", "tp-outbound"};
+            String[] dirs = {"inbound", "outbound"};
             for (int i = 0; i < dirs.length; i++) {
                 if (i > 0) json.append(",");
                 json.append(jsonString(dirs[i])).append(":[");
