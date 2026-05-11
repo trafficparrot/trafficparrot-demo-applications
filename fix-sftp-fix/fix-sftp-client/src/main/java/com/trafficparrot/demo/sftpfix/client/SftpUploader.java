@@ -65,6 +65,12 @@ public final class SftpUploader {
         }
     }
 
+    public void delete(ChannelSftp sftp, String remoteDir, String fileName) {
+        try {
+            sftp.rm(remoteDir + "/" + fileName);
+        } catch (SftpException ignored) {}
+    }
+
     private void ensureDir(ChannelSftp sftp, String dir) throws SftpException {
         try {
             sftp.cd(dir);

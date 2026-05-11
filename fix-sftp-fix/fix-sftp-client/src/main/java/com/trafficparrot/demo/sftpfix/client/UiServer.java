@@ -168,6 +168,8 @@ public final class UiServer {
                     result.put("error", "timeout waiting for " + responseDir + "/" + responseFile);
                 } else {
                     result.put("incoming", response);
+                    sftp.delete(channel, responseDir, responseFile);
+                    LOG.info("Deleted {}/{}", responseDir, responseFile);
                 }
                 result.put("roundTripMillis", elapsedMillis);
             } catch (Exception e) {
