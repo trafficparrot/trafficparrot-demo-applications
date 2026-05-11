@@ -187,12 +187,28 @@ public final class UiServer {
         }
 
         private String waitForResponse(SftpUploader sftp, ChannelSftp channel, String dir, String fileName, long timeoutMillis) {
-            long deadline = System.currentTimeMillis() + timeoutMillis;
+            long start = System.currentTimeMillis();
+            long deadline = start + timeoutMillis;
+            LOG.info("Polling {}/{} (timeout {}ms)", dir, fileName, timeoutMillis);
+            long nextStatusLog = start + 2_000;
+            int attempts = 0;
             while (System.currentTimeMillis() < deadline) {
+                attempts++;
                 String body = sftp.tryRead(channel, dir, fileName);
-                if (body != null && !body.isEmpty()) return body;
+                if (body != null && !body.isEmpty()) {
+                    LOG.info("Found {}/{} after {} attempt(s), {}ms", dir, fileName, attempts, System.currentTimeMillis() - start);
+                    return body;
+                }
+                long now = System.currentTimeMillis();
+                if (now >= nextStatusLog) {
+                    LOG.info("Still waiting for {}/{} ({}ms elapsed, attempt {}); {} currently contains: {}",
+                            dir, fileName, now - start, attempts, dir, sftp.listNames(channel, dir));
+                    nextStatusLog = now + 2_000;
+                }
                 try { Thread.sleep(200); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return null; }
             }
+            LOG.warn("Timed out after {}ms waiting for {}/{}; {} currently contains: {}",
+                    timeoutMillis, dir, fileName, dir, sftp.listNames(channel, dir));
             return null;
         }
     }

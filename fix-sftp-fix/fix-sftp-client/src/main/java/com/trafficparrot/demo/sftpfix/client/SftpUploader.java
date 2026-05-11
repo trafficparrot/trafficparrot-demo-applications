@@ -9,6 +9,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 public final class SftpUploader {
 
@@ -63,6 +66,21 @@ public final class SftpUploader {
         } catch (SftpException e) {
             return null;
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<String> listNames(ChannelSftp sftp, String remoteDir) {
+        List<String> out = new ArrayList<>();
+        try {
+            Vector<ChannelSftp.LsEntry> entries = sftp.ls(remoteDir);
+            for (ChannelSftp.LsEntry e : entries) {
+                String n = e.getFilename();
+                if (".".equals(n) || "..".equals(n)) continue;
+                if (!e.getAttrs().isReg()) continue;
+                out.add(n);
+            }
+        } catch (SftpException ignored) {}
+        return out;
     }
 
     public void delete(ChannelSftp sftp, String remoteDir, String fileName) {
