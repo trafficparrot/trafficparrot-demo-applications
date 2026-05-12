@@ -2,38 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FIX SFTP Server</title>
+    <title>Trading Platform</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-    <h1>FIX SFTP Server</h1>
-    <p>Hosts the SFTP endpoint and the order-processing loop.</p>
-    <p class="meta">SFTP port: <code id="sftp-port">…</code> &nbsp;·&nbsp; Root: <code id="root">…</code></p>
+    <h1>Trading Platform</h1>
+    <p>Connects to an external SFTP server and runs the order-processing loop.</p>
+    <p class="meta">SFTP: <code id="sftp-endpoint">…</code> &nbsp;·&nbsp; request dir: <code id="request-dir">…</code> &nbsp;·&nbsp; response dir: <code id="response-dir">…</code></p>
 </header>
-
-<section>
-    <h2>Active SSH sessions</h2>
-    <table>
-        <thead><tr><th>ID</th><th>User</th><th>Client</th><th>Connected</th></tr></thead>
-        <tbody id="sessions"><tr><td colspan="4" class="empty">No active sessions</td></tr></tbody>
-    </table>
-</section>
 
 <div class="grid">
     <section>
-        <h2><code>inbound/</code></h2>
-        <p>Server polls here. Place a NewOrderSingle to trigger an ExecutionReport.</p>
+        <h2><code id="inbound-label">inbound/</code></h2>
+        <p>Polled by the processor. Place a NewOrderSingle to trigger an ExecutionReport.</p>
         <table><thead><tr><th>File</th><th>Size</th><th>Modified</th></tr></thead>
         <tbody id="inbound"></tbody></table>
     </section>
     <section>
-        <h2><code>outbound/</code></h2>
-        <p>Server writes ExecutionReports here.</p>
+        <h2><code id="outbound-label">outbound/</code></h2>
+        <p>Processor writes ExecutionReports here.</p>
         <table><thead><tr><th>File</th><th>Size</th><th>Modified</th></tr></thead>
         <tbody id="outbound"></tbody></table>
     </section>
 </div>
+
+<section>
+    <h2>Processing history</h2>
+    <p>Most recently processed orders (in memory, up to 100). Cleared on server restart.</p>
+    <table><thead><tr>
+        <th>Time</th><th>Inbound</th><th>Outbound</th>
+        <th>ClOrdID</th><th>Symbol</th><th>Qty</th><th>Price</th><th>ExecID</th>
+    </tr></thead>
+    <tbody id="history"></tbody></table>
+</section>
 
 <section>
     <h2>File contents</h2>
