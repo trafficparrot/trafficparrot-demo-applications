@@ -30,6 +30,7 @@ import static java.awt.Color.BLACK;
 import static java.awt.Component.*;
 import static java.lang.Integer.*;
 import static java.lang.String.format;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class UvIndexApplication {
@@ -87,7 +88,7 @@ public class UvIndexApplication {
                             "         <in0>%s</in0>\n" +
                             "      </urn:getUVIndexAlertByZipCode>\n" +
                             "   </soapenv:Body>\n" +
-                            "</soapenv:Envelope>", zipCode), ContentType.create("text/xml; charset=UTF-8"));
+                            "</soapenv:Envelope>", zipCode), ContentType.create("text/xml", UTF_8));
                     httpPost.setEntity(stringRequestEntity);
                     ResponseHandler<String> responseHandler = response -> {
                         int status = response.getStatusLine().getStatusCode();
