@@ -1,22 +1,20 @@
 package com.wbsoftwareconsutlancy;
 
+import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-import static javax.servlet.http.HttpServletResponse.SC_OK;
-
-class ReadyHandler extends AbstractHandler {
+class ReadyHandler extends Handler.Abstract {
 
     @Override
-    public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if ("/ready".equals(target)) {
-            response.setStatus(SC_OK);
-            baseRequest.setHandled(true);
+    public boolean handle(Request request, Response response, Callback callback) {
+        if ("/ready".equals(Request.getPathInContext(request))) {
+            response.setStatus(HttpStatus.OK_200);
+            callback.succeeded();
+            return true;
         }
+        return false;
     }
 }
