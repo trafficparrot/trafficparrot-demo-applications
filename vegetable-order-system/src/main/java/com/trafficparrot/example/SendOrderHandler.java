@@ -2,12 +2,15 @@ package com.trafficparrot.example;
 
 import com.google.gson.Gson;
 import com.rabbitmq.client.*;
+import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.io.Content;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
+import org.eclipse.jetty.util.Fields;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -15,9 +18,8 @@ import java.util.concurrent.TimeoutException;
 
 import static java.lang.Integer.parseInt;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
 
-class SendOrderHandler extends AbstractHandler {
+class SendOrderHandler extends Handler.Abstract {
     private final Properties properties;
     private final CopyOnWriteArrayList<OrderConfirmation> orderConfirmations = new CopyOnWriteArrayList<>();
 
@@ -26,26 +28,25 @@ class SendOrderHandler extends AbstractHandler {
         startOrderOrderConfirmationsThread();
     }
 
-    public void handle(String target,
-                       Request baseRequest,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException,
-            ServletException {
+    @Override
+    public boolean handle(Request request, Response response, Callback callback) throws Exception {
+        String target = Request.getPathInContext(request);
         try {
             if (target.startsWith("/send-order")) {
-                boolean status = sendOrder(request);
-                response.setStatus(SC_OK);
-                response.getWriter().print(status ? "Success!" : "ERROR!");
-                baseRequest.setHandled(true);
+                boolean status = sendOrder(Request.getParameters(request));
+                response.setStatus(HttpStatus.OK_200);
+                Content.Sink.write(response, true, status ? "Success!" : "ERROR!", callback);
+                return true;
             } else if (target.startsWith("/order-confirmations")) {
-                response.setHeader("Content-Type", "application/json; charset=utf-8");
-                response.getWriter().print(new Gson().toJson(orderConfirmations));
-                baseRequest.setHandled(true);
+                response.getHeaders().put(HttpHeader.CONTENT_TYPE, "application/json; charset=utf-8");
+                Content.Sink.write(response, true, new Gson().toJson(orderConfirmations), callback);
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServletException(e);
+            throw e;
         }
+        return false;
     }
 
     private void startOrderOrderConfirmationsThread() throws IOException, TimeoutException {
@@ -72,10 +73,10 @@ class SendOrderHandler extends AbstractHandler {
         System.out.println("Started received thread for queue '" + queueName + "'");
     }
 
-    private boolean sendOrder(HttpServletRequest request) throws IOException, TimeoutException {
+    private boolean sendOrder(Fields parameters) throws IOException, TimeoutException {
         Map<String, String> requestMessageMap = new HashMap<>();
-        requestMessageMap.put("orderItemName", request.getParameter("orderItemName"));
-        requestMessageMap.put("quantity", request.getParameter("quantity"));
+        requestMessageMap.put("orderItemName", parameters.getValue("orderItemName"));
+        requestMessageMap.put("quantity", parameters.getValue("quantity"));
         sendMessage(new Gson().toJson(requestMessageMap));
         return true;
     }
