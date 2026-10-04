@@ -2,22 +2,23 @@ package com.trafficparrot.example;
 
 import com.google.gson.Gson;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
+import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.io.Content;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
+import org.eclipse.jetty.util.Fields;
 
 import javax.jms.*;
 import javax.jms.Queue;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 
 import static com.ibm.msg.client.wmq.common.CommonConstants.*;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
 
-class SendOrderHandler extends AbstractHandler {
+class SendOrderHandler extends Handler.Abstract {
     private final Properties properties;
     private final CopyOnWriteArrayList<OrderConfirmation> orderConfirmations = new CopyOnWriteArrayList<>();
 
@@ -25,25 +26,21 @@ class SendOrderHandler extends AbstractHandler {
         this.properties = properties;
     }
 
-    public void handle(String target,
-                       Request baseRequest,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException,
-            ServletException {
+    @Override
+    public boolean handle(Request request, Response response, Callback callback) throws Exception {
+        String target = Request.getPathInContext(request);
         try {
             if (target.startsWith("/send-order")) {
-                boolean status = sendOrder(request);
-                response.setStatus(SC_OK);
-                response.getWriter().print(status ? "Success!" : "ERROR!");
-                baseRequest.setHandled(true);
+                boolean status = sendOrder(Request.getParameters(request));
+                response.setStatus(HttpStatus.OK_200);
+                Content.Sink.write(response, true, status ? "Success!" : "ERROR!", callback);
+                return true;
             } else if (target.startsWith("/order-confirmations")) {
-                response.setHeader("Content-Type", "application/json; charset=utf-8");
-                response.getWriter().print(new Gson().toJson(getOrderConfirmations()));
-                baseRequest.setHandled(true);
+                response.getHeaders().put(HttpHeader.CONTENT_TYPE, "application/json; charset=utf-8");
+                Content.Sink.write(response, true, new Gson().toJson(getOrderConfirmations()), callback);
+                return true;
             }
-        } catch (JMSException  e) {
-            throw new ServletException(e);
-        }  catch (NoClassDefFoundError  e) {
+        } catch (NoClassDefFoundError  e) {
             if (e.getMessage().contains("com/ibm")) {
                 System.err.println("In order to use IBM® MQ you need jar files that will allow Fruit Order System to establish connections with MQ. " +
                         "See README file for more information");
@@ -51,6 +48,7 @@ class SendOrderHandler extends AbstractHandler {
                 throw e;
             }
         }
+        return false;
     }
 
     private List<OrderConfirmation> getOrderConfirmations() throws JMSException {
@@ -74,10 +72,10 @@ class SendOrderHandler extends AbstractHandler {
         return orderConfirmations;
     }
 
-    private boolean sendOrder(HttpServletRequest request) throws JMSException {
+    private boolean sendOrder(Fields parameters) throws JMSException {
         Map<String, String> jmsRequest = new HashMap<>();
-        jmsRequest.put("orderItemName", request.getParameter("orderItemName"));
-        jmsRequest.put("quantity", request.getParameter("quantity"));
+        jmsRequest.put("orderItemName", parameters.getValue("orderItemName"));
+        jmsRequest.put("quantity", parameters.getValue("quantity"));
         sendMessage(new Gson().toJson(jmsRequest));
         return true;
     }
