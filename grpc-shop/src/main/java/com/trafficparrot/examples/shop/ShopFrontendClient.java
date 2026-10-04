@@ -21,7 +21,7 @@ public class ShopFrontendClient {
     private final OrderGrpc.OrderBlockingStub blockingStub;
 
     public ShopFrontendClient(String host, int port) {
-        this(ManagedChannelBuilder.forAddress(host, port).usePlaintext(true));
+        this(ManagedChannelBuilder.forAddress(host, port).usePlaintext());
     }
 
     public ShopFrontendClient(ManagedChannelBuilder<?> channelBuilder) {
