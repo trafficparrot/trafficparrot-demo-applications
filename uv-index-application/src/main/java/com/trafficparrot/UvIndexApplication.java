@@ -46,10 +46,10 @@ public class UvIndexApplication {
 
         JPanel serverDetails = new JPanel();
         serverDetails.add(new JLabel("Server host"));
-        JTextField host = new JTextField("https://iaspub.epa.gov", 20);
+        JTextField host = new JTextField("http://us-central1-traffic-parrot-production.cloudfunctions.net", 20);
         serverDetails.add(host);
         serverDetails.add(new JLabel("Server port"));
-        JTextField port = new JTextField("443", 6);
+        JTextField port = new JTextField("80", 6);
         serverDetails.add(port);
         container.add(serverDetails, PAGE_START);
 
@@ -97,8 +97,8 @@ public class UvIndexApplication {
                             System.out.println("Response: '" + entityString + "'");
                             return entityString;
                         } else {
-                            System.err.println("Response: '" + entityString + "'");
-                            return "ERROR! Unexpected response status: " + status;
+                            System.err.println("ERROR! Unexpected response status: " + status);
+                            throw new IllegalArgumentException("Problem connecting to the weather API at " + hostname + ". Unexpected response status: " + status + ".\nError response: " + entityString);
                         }
                     };
                     String response = httpclient.execute(httpPost, responseHandler);
