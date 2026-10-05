@@ -1,7 +1,7 @@
 package com.tp;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.wbsoftwareconsutlancy.FinanceApplication;
+import com.trafficparrot.example.FinanceApplication;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
 import org.junit.After;
