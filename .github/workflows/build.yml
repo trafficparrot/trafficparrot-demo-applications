@@ -20,7 +20,7 @@ concurrency:
 jobs:
   select:
     name: Pick the apps to build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
       apps: ${{ steps.pick.outputs.apps }}
@@ -40,7 +40,7 @@ jobs:
     name: ${{ matrix.app }}
     needs: select
     if: needs.select.outputs.apps != '[]'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -48,11 +48,12 @@ jobs:
       # Maven Central here and never shipped. zip: the download a release carries, named as
       # trafficparrot.com serves it. args: extra Maven arguments (fedex-tracking-application's
       # acceptance tests drive a browser against FedEx's sandbox and need a FedEx API key).
+      # thrift: the build generates code with the Thrift compiler, built here from Apache's source.
       matrix:
         include: ${{ fromJSON(needs.select.outputs.apps) }}
     env:
       APP: ${{ matrix.app }}
-      ZIP: ${{ matrix.zip }}
+      ZIP_NAME: ${{ matrix.zip }}
       MAVEN_EXTRA_ARGS: ${{ matrix.args }}
     defaults:
       run:
@@ -72,12 +73,20 @@ jobs:
         run: >-
           mvn -B org.apache.maven.plugins:maven-dependency-plugin:3.8.1:copy
           -Dartifact=com.ibm.mq:com.ibm.mq.allclient:9.4.1.0 -DoutputDirectory=lib -Dmdep.stripVersion=true
+      - name: Build the Thrift compiler
+        if: matrix.thrift
+        working-directory: .
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends bison flex
+          .github/scripts/thrift-compiler.sh "$RUNNER_TEMP/thrift"
+          echo "$RUNNER_TEMP/thrift" >> "$GITHUB_PATH"
       - name: Build and test
         run: mvn -B verify ${MAVEN_EXTRA_ARGS:+"$MAVEN_EXTRA_ARGS"}
       - name: Make the download zip
         if: matrix.zip
         working-directory: .
-        run: .github/scripts/package.sh "$APP" "$ZIP"
+        run: .github/scripts/package.sh "$APP" "$ZIP_NAME"
       - name: Keep the zip for the release
         if: matrix.zip && startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

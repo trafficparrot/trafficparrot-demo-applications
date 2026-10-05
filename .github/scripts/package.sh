@@ -4,6 +4,9 @@
 #
 #   .github/scripts/package.sh <app-folder> <zip-name>
 set -euo pipefail
+# Info-ZIP's zip and unzip take default options from these, so a caller's ZIP=<name> would
+# become an extra file argument and the zip would land somewhere else.
+unset ZIP ZIPOPT UNZIP UNZIPOPT ZIPINFO ZIPINFOOPT
 
 app="$1"
 zip="$2"
