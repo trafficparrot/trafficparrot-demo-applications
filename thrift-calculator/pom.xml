@@ -21,6 +21,28 @@
         <java.version>11</java.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- libthrift 0.24.0 brings HttpClient 5.2.1 and HttpCore 5.2, which have security advisories; move them
+                 to fixed releases. Only libthrift's HTTP transport uses them; this app talks Thrift over sockets. -->
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>5.6.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId>
+                <artifactId>httpcore5</artifactId>
+                <version>5.4.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId>
+                <artifactId>httpcore5-h2</artifactId>
+                <version>5.4.4</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.thrift</groupId>
@@ -135,7 +157,8 @@
                 <version>2.0.0</version>
                 <configuration>
                     <excludedGroups>.*trafficparrot.*</excludedGroups>
-                    <includedScopes>compile</includedScopes>
+                    <!-- compile and runtime, the scopes src/main/assembly.xml ships in lib/ -->
+                    <includedScopes>compile,runtime</includedScopes>
                     <organizeLicensesByDependencies>true</organizeLicensesByDependencies>
                     <includeTransitiveDependencies>true</includeTransitiveDependencies>
                     <failOnMissing>true</failOnMissing>
