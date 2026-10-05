@@ -1,0 +1,68 @@
+# Builds and tests every Maven app on the Java it targets, on each push to master and each pull request.
+name: Build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  app:
+    name: ${{ matrix.app }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # mq: compiles against IBM's MQ client, fetched from Maven Central here and never shipped.
+        include:
+          - { app: fruit-order-system, java: 17, mq: true }
+          - { app: vegetable-order-system, java: 17 }
+          - { app: flower-order-system, java: 17 }
+          - { app: food-order-system, java: 17, mq: true }
+          - { app: finance-application, java: 17 }
+          - { app: uv-index-application, java: 8 }
+          - { app: grpc-shop, java: 8 }
+          # Its acceptance tests drive a browser against FedEx's sandbox and need a FedEx API key.
+          - { app: fedex-tracking-application, java: 8, args: -DskipITs }
+          - { app: thrift-calculator, java: 11 }
+          - { app: finance-application-2, java: 17 }
+          - { app: mobile-network-hardware, java: 8 }
+          - { app: mobile-numbers, java: 17 }
+          - { app: mobile-onboarding, java: 17, mq: true }
+          - { app: weather-in-london-application, java: 17 }
+          - { app: wiremock-weather-application, java: 17 }
+          - { app: weather-yatspec-example, java: 17 }
+          - { app: unit-converter-application, java: 17 }
+          - { app: example-buy-euro-application, java: 17 }
+          - { app: fix-sftp-fix, java: 21 }
+          - { app: demo-multiple-apis, java: 8 }
+    env:
+      MAVEN_EXTRA_ARGS: ${{ matrix.args }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.app }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: maven
+          cache-dependency-path: ${{ matrix.app }}/**/pom.xml
+      - name: Fetch IBM's MQ client to compile against
+        if: matrix.mq
+        run: >-
+          mvn -B org.apache.maven.plugins:maven-dependency-plugin:3.8.1:copy
+          -Dartifact=com.ibm.mq:com.ibm.mq.allclient:9.4.1.0 -DoutputDirectory=lib -Dmdep.stripVersion=true
+      - name: Build and test
+        run: mvn -B verify ${MAVEN_EXTRA_ARGS:+"$MAVEN_EXTRA_ARGS"}
