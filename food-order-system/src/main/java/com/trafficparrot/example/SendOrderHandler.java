@@ -1,7 +1,7 @@
 package com.trafficparrot.example;
 
 import com.google.gson.Gson;
-import com.ibm.msg.client.jms.JmsFactoryFactory;
+import com.ibm.msg.client.jakarta.jms.JmsFactoryFactory;
 import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.io.Content;
@@ -11,12 +11,13 @@ import org.eclipse.jetty.server.Response;
 import org.eclipse.jetty.util.Callback;
 import org.eclipse.jetty.util.Fields;
 
-import javax.jms.*;
-import javax.jms.Queue;
+import jakarta.jms.*;
+import jakarta.jms.Queue;
 import java.util.*;
 import java.util.concurrent.*;
 
-import static com.ibm.msg.client.wmq.common.CommonConstants.*;
+import static com.ibm.msg.client.jakarta.jms.JmsConstants.JAKARTA_WMQ_PROVIDER;
+import static com.ibm.msg.client.jakarta.wmq.common.CommonConstants.*;
 
 class SendOrderHandler extends Handler.Abstract {
     private final Properties properties;
@@ -94,8 +95,8 @@ class SendOrderHandler extends Handler.Abstract {
     }
 
     private Connection getConnection() throws JMSException {
-        com.ibm.msg.client.jms.JmsConnectionFactory factory = JmsFactoryFactory
-                .getInstance(WMQ_PROVIDER)
+        com.ibm.msg.client.jakarta.jms.JmsConnectionFactory factory = JmsFactoryFactory
+                .getInstance(JAKARTA_WMQ_PROVIDER)
                 .createConnectionFactory();
         factory.setIntProperty(WMQ_CONNECTION_MODE, WMQ_CM_CLIENT);
         factory.setStringProperty(WMQ_HOST_NAME, properties.get("ibmmq.hostname").toString());

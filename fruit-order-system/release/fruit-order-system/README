@@ -1,3 +1,6 @@
-In order for this project to work you will have to obtain a file "com.ibm.mq.allclient.jar"
-provided by IBM and copy it to the "lib" directory.
-Follow these instructions to obtain that file: http://trafficparrot.com/documentation/3.10.x/jms.html#ibm-mq-libs
+This application needs Java 17 or later and IBM's MQ client, which is not included in this zip.
+Download com.ibm.mq.jakarta.client.jar from Maven Central and save it in the "lib" directory as "com.ibm.mq.jakarta.client.jar":
+https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.jakarta.client/10.0.0.5/com.ibm.mq.jakarta.client-10.0.0.5.jar
+It is the same jar Traffic Parrot uses: https://trafficparrot.com/documentation/latest/jms.html#ibm-mq-libs
+Then run start.sh (start.cmd on Windows) and open http://localhost:8282 to place orders.
+Tutorial: https://trafficparrot.com/tutorials/mocking-or-simulating-jms-ibm-websphere-mq.html

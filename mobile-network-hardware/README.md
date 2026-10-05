@@ -35,15 +35,17 @@ You can download the ```mobile-network-hardware``` application here: https://git
 You can download the ```mobile-onboarding``` application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-onboarding.zip
 
 ## Application setup
-Neither zip contains IBM's MQ client, so both applications need it before they will start.
+Both applications need Java 17 or later.
 
-Download ```com.ibm.mq.allclient.jar``` from Maven Central: https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.allclient/9.4.1.0/com.ibm.mq.allclient-9.4.1.0.jar
+Neither zip contains IBM's MQ client, so both applications need it before they will start. It is the same jar Traffic Parrot needs, so download it once and use it in all three places.
 
-Unzip both applications and save a copy of that file as ```com.ibm.mq.allclient.jar``` in each ```lib``` directory:
-* ```mobile-network-hardware/lib/com.ibm.mq.allclient.jar```
-* ```mobile-onboarding/lib/com.ibm.mq.allclient.jar```
+Download ```com.ibm.mq.jakarta.client.jar``` from Maven Central: https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.jakarta.client/10.0.0.5/com.ibm.mq.jakarta.client-10.0.0.5.jar
 
-That is the only file needed. The applications use the javax JMS API, so they need ```com.ibm.mq.allclient```, not the Jakarta client. Traffic Parrot needs a different IBM client, covered in the steps below.
+Unzip both applications and save a copy of that file as ```com.ibm.mq.jakarta.client.jar``` in each ```lib``` directory:
+* ```mobile-network-hardware/lib/com.ibm.mq.jakarta.client.jar```
+* ```mobile-onboarding/lib/com.ibm.mq.jakarta.client.jar```
+
+That is the only file needed. Installing the same jar in Traffic Parrot is covered in the steps below.
 
 ## Running an IBM MQ Advanced for Developers container image locally
 ```bash
@@ -97,7 +99,7 @@ exit
       ```bash
       exit
       ```
-* Install IBM's MQ client in Traffic Parrot by following https://trafficparrot.com/documentation/latest/jms.html#ibm-mq-libs (Traffic Parrot needs a different IBM jar from the ```com.ibm.mq.allclient.jar``` the demo applications use)
+* Install IBM's MQ client in Traffic Parrot by following https://trafficparrot.com/documentation/latest/jms.html#ibm-mq-libs (it is the same ```com.ibm.mq.jakarta.client.jar``` the demo applications use)
 * Open ```trafficparrot.properties``` and set property ```trafficparrot.jms.responsetransformers``` value to ```com.trafficparrot.messaging.jms.JmsPassthroughMessage```
 * Open ```jms-connections.json``` and set the password on the first connection to ```passw0rd```
 * Start Traffic Parrot

@@ -1,3 +1,0 @@
-Building mobile-onboarding from source needs IBM's MQ client in this directory as "com.ibm.mq.allclient.jar".
-Download it from Maven Central and save it as "mobile-onboarding/lib/com.ibm.mq.allclient.jar":
-https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.allclient/9.4.1.0/com.ibm.mq.allclient-9.4.1.0.jar

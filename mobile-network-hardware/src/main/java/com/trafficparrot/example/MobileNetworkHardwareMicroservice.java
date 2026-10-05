@@ -2,11 +2,11 @@ package com.trafficparrot.example;
 
 
 import com.google.gson.Gson;
-import com.ibm.mq.jms.MQQueueConnectionFactory;
-import com.ibm.msg.client.jms.JmsFactoryFactory;
+import com.ibm.mq.jakarta.jms.MQQueueConnectionFactory;
+import com.ibm.msg.client.jakarta.jms.JmsFactoryFactory;
 
-import javax.jms.Queue;
-import javax.jms.*;
+import jakarta.jms.Queue;
+import jakarta.jms.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.*;
 
-import static com.ibm.msg.client.jms.JmsConstants.WMQ_PROVIDER;
-import static com.ibm.msg.client.wmq.common.CommonConstants.*;
+import static com.ibm.msg.client.jakarta.jms.JmsConstants.JAKARTA_WMQ_PROVIDER;
+import static com.ibm.msg.client.jakarta.wmq.common.CommonConstants.*;
 
 public class MobileNetworkHardwareMicroservice {
     private final UUID deviceId = UUID.randomUUID();
@@ -31,7 +31,7 @@ public class MobileNetworkHardwareMicroservice {
             mobileOnboardingMicroservice.receiveMessages();
         } catch (NoClassDefFoundError e) {
             if (e.getMessage() != null && e.getMessage().contains("com/ibm")) {
-                System.err.println("This application needs IBM's com.ibm.mq.allclient.jar in its lib directory to connect to IBM MQ. " +
+                System.err.println("This application needs IBM's com.ibm.mq.jakarta.client.jar in its lib directory to connect to IBM MQ. " +
                         "See the README file for more information");
                 System.exit(1);
             } else {
@@ -161,8 +161,8 @@ public class MobileNetworkHardwareMicroservice {
     }
 
     private Connection getConnection() throws JMSException {
-        com.ibm.msg.client.jms.JmsConnectionFactory factory = JmsFactoryFactory
-                .getInstance(WMQ_PROVIDER)
+        com.ibm.msg.client.jakarta.jms.JmsConnectionFactory factory = JmsFactoryFactory
+                .getInstance(JAKARTA_WMQ_PROVIDER)
                 .createConnectionFactory();
         factory.setIntProperty(WMQ_CONNECTION_MODE, WMQ_CM_CLIENT);
         factory.setStringProperty(WMQ_HOST_NAME, properties.get("ibmmq.hostname").toString());

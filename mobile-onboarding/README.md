@@ -4,15 +4,15 @@ You can download this application here: https://github.com/trafficparrot/traffic
 
 ## Setup
 
-The zip does not contain IBM's MQ client. Download "com.ibm.mq.allclient.jar" from Maven Central
-and save it as "mobile-onboarding/lib/com.ibm.mq.allclient.jar" in the unzipped application:
-https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.allclient/9.4.1.0/com.ibm.mq.allclient-9.4.1.0.jar
+The application needs Java 17 or later.
 
-The application uses the javax JMS API, so it needs com.ibm.mq.allclient, not the Jakarta client.
+The zip does not contain IBM's MQ client. Download ```com.ibm.mq.jakarta.client.jar``` from Maven Central
+and save it as ```mobile-onboarding/lib/com.ibm.mq.jakarta.client.jar``` in the unzipped application:
+https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.jakarta.client/10.0.0.5/com.ibm.mq.jakarta.client-10.0.0.5.jar
+
+It is the same jar Traffic Parrot uses, so one download serves both: https://trafficparrot.com/documentation/latest/jms.html#ibm-mq-libs
 
 Start it with start.sh (start.cmd on Windows) from inside the unzipped directory, then open http://localhost:8383 to send provisioning requests.
-
-Building from source needs the same jar at "mobile-onboarding/lib/com.ibm.mq.allclient.jar" before running Maven.
 
 ## Tutorial
 

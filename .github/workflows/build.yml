@@ -44,8 +44,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       fail-fast: false
-      # .github/apps.json lists every app. mq: compiles against IBM's MQ client, fetched from
-      # Maven Central here and never shipped. zip: the download a release carries, named as
+      # .github/apps.json lists every app. zip: the download a release carries, named as
       # trafficparrot.com serves it. args: extra Maven arguments (fedex-tracking-application's
       # acceptance tests drive a browser against FedEx's sandbox and need a FedEx API key).
       # thrift: the build generates code with the Thrift compiler, built here from Apache's source.
@@ -68,11 +67,6 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: maven
           cache-dependency-path: ${{ matrix.app }}/**/pom.xml
-      - name: Fetch IBM's MQ client to compile against
-        if: matrix.mq
-        run: >-
-          mvn -B org.apache.maven.plugins:maven-dependency-plugin:3.8.1:copy
-          -Dartifact=com.ibm.mq:com.ibm.mq.allclient:9.4.1.0 -DoutputDirectory=lib -Dmdep.stripVersion=true
       - name: Build the Thrift compiler
         if: matrix.thrift
         working-directory: .
