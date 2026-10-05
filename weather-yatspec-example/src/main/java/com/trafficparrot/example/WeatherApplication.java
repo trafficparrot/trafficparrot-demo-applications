@@ -3,9 +3,6 @@ package com.trafficparrot.example;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.util.resource.Resource;
 
 import java.io.*;
 import java.util.Date;
@@ -24,11 +21,9 @@ public class WeatherApplication {
     public void start()  {
         info("Starting weather application...");
         server = new Server(port);
-        HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{
+        server.setHandler(new Handler.Sequence(
                 new WindHandler(loadProperties()),
-                new DefaultHandler()});
-        server.setHandler(handlers);
+                new DefaultHandler()));
         try {
             server.start();
         } catch (Exception e) {
