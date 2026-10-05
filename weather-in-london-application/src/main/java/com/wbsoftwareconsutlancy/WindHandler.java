@@ -7,24 +7,24 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.eclipse.jetty.io.Content;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Properties;
 
 import static java.lang.String.format;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
-import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
+import static org.eclipse.jetty.http.HttpStatus.OK_200;
+import static org.eclipse.jetty.http.HttpStatus.SERVICE_UNAVAILABLE_503;
 
-class WindHandler extends AbstractHandler {
+class WindHandler extends Handler.Abstract {
     private static final Logger LOG = LoggerFactory.getLogger(WindHandler.class);
 
     public static final String LONDON_LATITUDE = "51.507253";
@@ -35,27 +35,27 @@ class WindHandler extends AbstractHandler {
         this.properties = properties;
     }
 
-    public void handle(String target,
-                       Request baseRequest,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException,
-            ServletException {
-        if ("/wind-speed".equals(target)) {
-            try {
-                String windSpeed = parseWindSpeed(forecastIoFor(LONDON_LATITUDE, LONDON_LONGITUDE)) + "mph";
-                response.setStatus(SC_OK);
-                response.getWriter().print(windSpeed);
-            } catch (Exception e) {
-                LOG.error("Unknown problem while retrieving wind speed", e);
-                response.setStatus(SC_SERVICE_UNAVAILABLE);
-                response.getWriter().print("ERROR");
-            }
-            baseRequest.setHandled(true);
+    @Override
+    public boolean handle(Request request, Response response, Callback callback) {
+        if (!"/wind-speed".equals(Request.getPathInContext(request))) {
+            return false;
         }
+        String body;
+        try {
+            body = parseWindSpeed(forecastIoFor(LONDON_LATITUDE, LONDON_LONGITUDE)) + "mph";
+            response.setStatus(OK_200);
+        } catch (Exception e) {
+            LOG.error("Unknown problem while retrieving wind speed", e);
+            response.setStatus(SERVICE_UNAVAILABLE_503);
+            body = "ERROR";
+        }
+        Content.Sink.write(response, true, body, callback);
+        return true;
     }
 
     private String parseWindSpeed(String forecastIo) throws JSONException {
-        return new JSONObject(forecastIo).getJSONObject("currently").getString("windSpeed");
+        // get().toString(), not getString(): the forecast's windSpeed is a number, which getString now refuses
+        return new JSONObject(forecastIo).getJSONObject("currently").get("windSpeed").toString();
     }
 
     private String forecastIoFor(String latitude, String longitude) throws IOException {
