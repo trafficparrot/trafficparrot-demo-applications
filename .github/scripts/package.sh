@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
-# Makes an app's download zip, laid out as trafficparrot.com serves it, in dist/.
+# Makes an app's download zip, dist/<app>-<version>.zip, laid out as trafficparrot.com serves it.
 # Run from the repository root, after `mvn verify` in the app's folder.
 #
-#   .github/scripts/package.sh <app-folder> <zip-name>
+#   .github/scripts/package.sh <app-folder>
 set -euo pipefail
 # Info-ZIP's zip and unzip take default options from these, so a caller's ZIP=<name> would
 # become an extra file argument and the zip would land somewhere else.
 unset ZIP ZIPOPT UNZIP UNZIPOPT ZIPINFO ZIPINFOOPT
 
 app="$1"
-zip="$2"
+version="$(mvn -B -q -f "$app/pom.xml" org.apache.maven.plugins:maven-help-plugin:3.5.1:evaluate \
+  -Dexpression=project.version -DforceStdout)"
+# A released version names one set of files for good, so it is a plain release number.
+if [[ ! "$version" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+  echo "$app/pom.xml: version '$version' is not a release number (digits and dots only)" >&2
+  exit 1
+fi
+zip="$app-$version.zip"
 dist="$PWD/dist"
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT

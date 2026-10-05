@@ -15,8 +15,8 @@ Requirements:
 
 Instructions:
 1. ./mvnw clean install
-2. unzip thrift-calculator-1.1.0-release.zip
-3. cd thrift-calculator-1.1.0/
+2. unzip target/thrift-calculator-1.2.0-release.zip
+3. cd thrift-calculator-1.2.0/
 4. Start the demo server ./start-server.sh
 5. Start the demo client ./start-client.sh (it opens the calculator in your web browser at http://localhost:5580; if no browser opens, open that address yourself)
 6. Unzip Traffic Parrot
@@ -26,6 +26,6 @@ Instructions:
 10. Traffic Parrot can now be used to record the real server localhost:5572
 11. The client can either talk directly to the real server localhost:5572 or to Traffic Parrot on localhost:5562
 
-To change the client's port, create a file named thrift.calculator.client.properties next to the start scripts (in the thrift-calculator-1.1.0/ folder) containing thrift.calculator.client.http.port=<port>
+To change the client's port, create a file named thrift.calculator.client.properties next to the start scripts (in the thrift-calculator-1.2.0/ folder) containing thrift.calculator.client.http.port=<port>
 
 [Contact us](https://trafficparrot.com/contact.html?utm_source=thrift-calculator) for more details

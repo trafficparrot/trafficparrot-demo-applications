@@ -6,7 +6,7 @@
 
     <groupId>com.trafficparrot.examples</groupId>
     <artifactId>fruit-order-system</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1.0</version>
 
     <properties>
         <maven.compiler.release>17</maven.compiler.release>

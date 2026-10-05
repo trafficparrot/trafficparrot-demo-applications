@@ -11,7 +11,7 @@
 
 	<groupId>com.trafficparrot</groupId>
 	<artifactId>fedex-tracking-application</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<name>fedex-tracking-application</name>
 	<description>Demo project for FedEx Tracking</description>
 

@@ -1,6 +1,6 @@
 ## Download this application
 
-You can download this application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-onboarding.zip
+You can download this application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-onboarding-1.1.0.zip
 
 ## Setup
 

@@ -1,6 +1,9 @@
-# On a v* tag, builds every app from the tagged commit and publishes a GitHub release carrying the
-# download zips, so a page can link to
-# https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/<zip>
+# On a v* tag, builds every app from the tagged commit and publishes a GitHub release carrying each
+# released app's download, <app>-<version>.zip, so a page can link to
+# https://github.com/trafficparrot/trafficparrot-demo-applications/releases/download/<tag>/<zip>
+# or, while that version is the app's current one, .../releases/latest/download/<zip>.
+# A version, once released, never changes: release-check.sh republishes it byte for byte, and
+# stops the release when an app has changed without a new version.
 # Tags are v<UTC date>.<N>, N counting that day's releases; .github/scripts/next-tag.sh prints the next.
 name: Release
 
@@ -23,12 +26,20 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      # One folder per app, named after it.
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           path: dist
-          merge-multiple: true
+      - name: Keep released versions unchanged
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/release-check.sh dist
       - name: Publish the release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
-        run: gh release create "$TAG" dist/*.zip --repo "$GITHUB_REPOSITORY" --verify-tag --title "$TAG" --generate-notes
+        run: gh release create "$TAG" dist/*/*.zip --repo "$GITHUB_REPOSITORY" --verify-tag --title "$TAG" --generate-notes

@@ -44,15 +44,15 @@ jobs:
     timeout-minutes: 30
     strategy:
       fail-fast: false
-      # .github/apps.json lists every app. zip: the download a release carries, named as
-      # trafficparrot.com serves it. args: extra Maven arguments (fedex-tracking-application's
-      # acceptance tests drive a browser against FedEx's sandbox and need a FedEx API key).
+      # .github/apps.json lists every app. release: a release carries its download zip,
+      # <app>-<version>.zip, the version taken from the app's pom. args: extra Maven arguments
+      # (fedex-tracking-application's acceptance tests drive a browser against FedEx's sandbox
+      # and need a FedEx API key).
       # thrift: the build generates code with the Thrift compiler, built here from Apache's source.
       matrix:
         include: ${{ fromJSON(needs.select.outputs.apps) }}
     env:
       APP: ${{ matrix.app }}
-      ZIP_NAME: ${{ matrix.zip }}
       MAVEN_EXTRA_ARGS: ${{ matrix.args }}
     defaults:
       run:
@@ -78,15 +78,15 @@ jobs:
       - name: Build and test
         run: mvn -B verify ${MAVEN_EXTRA_ARGS:+"$MAVEN_EXTRA_ARGS"}
       - name: Make the download zip
-        if: matrix.zip
+        if: matrix.release
         working-directory: .
-        run: .github/scripts/package.sh "$APP" "$ZIP_NAME"
+        run: .github/scripts/package.sh "$APP"
       - name: Keep the zip for the release
-        if: matrix.zip && startsWith(github.ref, 'refs/tags/')
+        if: matrix.release && startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: ${{ matrix.zip }}
-          path: dist/${{ matrix.zip }}
+          name: ${{ matrix.app }}
+          path: dist/*.zip
           if-no-files-found: error
           compression-level: 0
           retention-days: 1

@@ -30,9 +30,9 @@ Use mocking to obtain responses without communicating with the real ```mobile-ne
 Use passthrough obtain responses from the real ```mobile-network-hardware``` application.
 
 ## Download the applications used in this tutorial
-You can download the ```mobile-network-hardware``` application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-network-hardware.zip
+You can download the ```mobile-network-hardware``` application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-network-hardware-1.0.0.zip
 
-You can download the ```mobile-onboarding``` application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-onboarding.zip
+You can download the ```mobile-onboarding``` application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-onboarding-1.1.0.zip
 
 ## Application setup
 Both applications need Java 17 or later.
