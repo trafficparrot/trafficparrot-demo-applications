@@ -13,8 +13,8 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static junit.framework.TestCase.assertEquals;
+import static org.eclipse.jetty.http.HttpStatus.INTERNAL_SERVER_ERROR_500;
 
 public class WeatherApplicationTest {
     @Rule
@@ -47,7 +47,7 @@ public class WeatherApplicationTest {
     @Test
     public void reportsErrorWhenForecastIoReturnsANonSuccessfulResponse() throws IOException {
         forecastIoService.stubFor(get(urlEqualTo("/forecast/e67b0e3784104669340c3cb089412b67/51.507253,-0.127755"))
-                .willReturn(aResponse().withStatus(SC_INTERNAL_SERVER_ERROR)));
+                .willReturn(aResponse().withStatus(INTERNAL_SERVER_ERROR_500)));
 
         HttpResponse httpResponse = Request.Get("http://localhost:" + weatherApplication.port() + "/wind-speed")
                 .execute()
