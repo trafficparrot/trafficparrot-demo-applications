@@ -13,11 +13,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <thrift.calculator.client.main.class>com.trafficparrot.example.ThriftCalculatorClientLauncher</thrift.calculator.client.main.class>
+        <thrift.calculator.client.main.class>com.trafficparrot.example.ThriftCalculatorClient</thrift.calculator.client.main.class>
         <thrift.calculator.server.main.class>com.trafficparrot.example.ThriftCalculatorServer</thrift.calculator.server.main.class>
         <thrift.version>0.24.0</thrift.version>
-        <javafx.version>11.0.2</javafx.version>
         <slf4j.version>2.0.3</slf4j.version>
+        <junit.version>5.13.4</junit.version>
         <java.version>11</java.version>
     </properties>
 
@@ -65,32 +65,10 @@
             <version>1.3.2</version>
         </dependency>
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-swing</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>linux</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>win</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>mac</classifier>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -99,6 +77,12 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+            </resource>
+            <!-- The client's web page, unfiltered so nothing in its JavaScript or CSS is taken for a Maven property -->
+            <resource>
+                <directory>src/main/web</directory>
+                <targetPath>web</targetPath>
+                <filtering>false</filtering>
             </resource>
         </resources>
 
@@ -110,6 +94,12 @@
                 <configuration>
                     <release>${java.version}</release>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.4</version>
             </plugin>
 
             <plugin>

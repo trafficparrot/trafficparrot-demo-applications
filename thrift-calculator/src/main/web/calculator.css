@@ -1,0 +1,66 @@
+html, body {
+    margin: 0;
+    background-color: #222f3e;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 500px;
+    margin: 0 auto;
+    padding-top: 5px;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 12pt;
+}
+
+.label {
+    color: #c8d6e5;
+    padding: 5pt;
+    min-height: 1.2em;
+}
+
+button {
+    background-color: #8395a7;
+    border: 0;
+    border-radius: 0;
+    color: #333333;
+    font: inherit;
+    cursor: pointer;
+}
+
+button:hover:enabled {
+    background-color: #c8d6e5;
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.pad {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.pad .equal {
+    grid-column: 4;
+    grid-row: 3 / span 3;
+}
+
+.pad .zero {
+    grid-column: 1 / span 3;
+}
+
+#host-and-port {
+    font: inherit;
+    padding: 4px 7px;
+    border: 1px solid #b5b5b5;
+    border-radius: 3px;
+}
+
+#previous {
+    padding: 4px;
+}

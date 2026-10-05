@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- Layout based on https://github.com/HenryBrown0/simple-calculator (MIT License, Copyright (c) 2018 HenryBrown0) -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thrift Remote Calculator Client</title>
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+<main class="calculator">
+    <div id="total" class="label">Total: 0</div>
+    <div id="current" class="label">Current: 0</div>
+    <div class="pad">
+        <button type="button" data-key="c">c</button>
+        <button type="button" data-key="/">/</button>
+        <button type="button" data-key="*">*</button>
+        <button type="button" data-key="+">+</button>
+        <button type="button" class="digit" data-key="7">7</button>
+        <button type="button" class="digit" data-key="8">8</button>
+        <button type="button" class="digit" data-key="9">9</button>
+        <button type="button" data-key="-">-</button>
+        <button type="button" class="digit" data-key="4">4</button>
+        <button type="button" class="digit" data-key="5">5</button>
+        <button type="button" class="digit" data-key="6">6</button>
+        <button type="button" class="equal" data-key="=">=</button>
+        <button type="button" class="digit" data-key="1">1</button>
+        <button type="button" class="digit" data-key="2">2</button>
+        <button type="button" class="digit" data-key="3">3</button>
+        <button type="button" class="digit zero" data-key="0">0</button>
+    </div>
+    <div id="message" class="label"></div>
+    <input id="host-and-port" type="text" aria-label="host:port of Thrift calculator server" spellcheck="false">
+    <button type="button" id="previous" data-key="previous">Previous</button>
+</main>
+<script src="calculator.js"></script>
+</body>
+</html>
