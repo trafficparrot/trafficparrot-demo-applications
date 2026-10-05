@@ -5,18 +5,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.trafficparrot.examples</groupId>
-    <artifactId>wiremock-weather-application</artifactId>
+    <artifactId>weather-sequence-diagram-example</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
         <jetty.version>12.1.13</jetty.version>
         <slf4j.version>2.0.20</slf4j.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>6.1.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <!-- WireMock (test only) is built against Jetty 12.0; these keep every Jetty module on the app's Jetty version -->
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
@@ -100,9 +107,16 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Living Sequence Diagrams: draws each test's HTTP traffic as a sequence diagram in an HTML report.
+                 It asks for Handlebars 4.5; WireMock, declared first, keeps the 4.3 it needs, and the report renders on it. -->
+            <groupId>io.github.lsd-consulting</groupId>
+            <artifactId>lsd-junit-jupiter</artifactId>
+            <version>2.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -115,26 +129,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.22.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- yatspec's HTML report needs JDOM 1; its XXE fix exists only in JDOM 2, which yatspec cannot load.
-                 Test only, and it parses only the report's own sequence diagram. -->
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom</artifactId>
-            <version>1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.plantuml</groupId>
-            <artifactId>plantuml</artifactId>
-            <version>8048</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.yatspec</groupId>
-            <artifactId>yatspec</artifactId>
-            <version>1.27</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -150,19 +144,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.6.0</version>
-                <configuration>
-                    <!-- yatspec's report templates read JDK collections reflectively -->
-                    <argLine>--add-opens java.base/java.util=ALL-UNNAMED</argLine>
-                </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <!-- yatspec is not on Maven Central -->
-            <id>bodar</id>
-            <url>https://repo.bodar.com/</url>
-        </repository>
-    </repositories>
 </project>

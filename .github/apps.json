@@ -14,7 +14,7 @@
   { "app": "mobile-onboarding", "java": 17, "mq": true },
   { "app": "weather-in-london-application", "java": 17 },
   { "app": "wiremock-weather-application", "java": 17 },
-  { "app": "weather-yatspec-example", "java": 17 },
+  { "app": "weather-sequence-diagram-example", "java": 21 },
   { "app": "unit-converter-application", "java": 17 },
   { "app": "example-buy-euro-application", "java": 17 },
   { "app": "fix-sftp-fix", "java": 21 },
