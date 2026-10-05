@@ -7,49 +7,43 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jetty.io.Content;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.json.JSONException;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
 import org.json.JSONObject;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Properties;
 
 import static java.lang.String.format;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
+import static org.eclipse.jetty.http.HttpStatus.OK_200;
 
-class GbpToEurHandler extends AbstractHandler {
+class GbpToEurHandler extends Handler.Abstract {
     private final Properties properties;
 
     public GbpToEurHandler(Properties properties) {
         this.properties = properties;
     }
 
-    public void handle(String target,
-                       Request baseRequest,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException,
-            ServletException {
-        if ("/gbp-to-eur".equals(target)) {
-            try {
-                String gbpToEur = parse(convertGbpToEur());
-
-                response.setContentType("text/html; charset=utf-8");
-                response.setStatus(SC_OK);
-                response.getWriter().print(format("{\"gbpToEur\": %s, \"buy\": %s}", gbpToEur, Double.parseDouble(gbpToEur) > 1.5));
-
-                baseRequest.setHandled(true);
-            } catch (JSONException e) {
-                throw new ServletException(e);
-            }
+    @Override
+    public boolean handle(Request request, Response response, Callback callback) throws Exception {
+        if (!"/gbp-to-eur".equals(Request.getPathInContext(request))) {
+            return false;
         }
+        double gbpToEur = parse(convertGbpToEur());
+
+        response.getHeaders().put(HttpHeader.CONTENT_TYPE, "text/html; charset=utf-8");
+        response.setStatus(OK_200);
+        Content.Sink.write(response, true, format("{\"gbpToEur\": %s, \"buy\": %s}", gbpToEur, gbpToEur > 1.5), callback);
+        return true;
     }
 
-    private String parse(String forecastIo) throws JSONException {
-        return new JSONObject(forecastIo).getString("Result");
+    private double parse(String forecastIo) {
+        // getDouble, not getString: org.json's getString refuses a number, and Result is one
+        return new JSONObject(forecastIo).getDouble("Result");
     }
 
     private String convertGbpToEur() throws IOException {
