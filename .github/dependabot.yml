@@ -44,6 +44,9 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+      # From 2.28.0 it is built for Java 17, following Selenide 7; fedex-tracking-application is on Java 8.
+      - dependency-name: "io.qameta.allure:allure-selenide"
+        versions: [">= 2.28.0"]
     groups:
       maven:
         patterns: ["*"]
