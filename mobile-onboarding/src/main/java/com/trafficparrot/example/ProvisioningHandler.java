@@ -2,22 +2,23 @@ package com.trafficparrot.example;
 
 import com.google.gson.Gson;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
+import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jetty.io.Content;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
+import org.eclipse.jetty.util.Fields;
 
 import javax.jms.*;
 import javax.jms.Queue;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 
 import static com.ibm.msg.client.wmq.common.CommonConstants.*;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
+import static org.eclipse.jetty.http.HttpStatus.OK_200;
 
-class ProvisioningHandler extends AbstractHandler {
+class ProvisioningHandler extends Handler.Abstract {
     private final Properties properties;
     private final CopyOnWriteArrayList<Confirmation> confirmations = new CopyOnWriteArrayList<>();
 
@@ -25,24 +26,20 @@ class ProvisioningHandler extends AbstractHandler {
         this.properties = properties;
     }
 
-    public void handle(String target,
-                       Request baseRequest,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException,
-            ServletException {
+    @Override
+    public boolean handle(Request request, Response response, Callback callback) throws Exception {
+        String target = Request.getPathInContext(request);
         try {
             if (target.startsWith("/provision-mobile")) {
-                boolean status = sendPayment(request);
-                response.setStatus(SC_OK);
-                response.getWriter().print(status ? "Success!" : "ERROR!");
-                baseRequest.setHandled(true);
+                boolean status = sendPayment(Request.getParameters(request));
+                response.setStatus(OK_200);
+                Content.Sink.write(response, true, status ? "Success!" : "ERROR!", callback);
+                return true;
             } else if (target.startsWith("/provision-confirmations")) {
-                response.setHeader("Content-Type", "application/json; charset=utf-8");
-                response.getWriter().print(new Gson().toJson(getConfirmations()));
-                baseRequest.setHandled(true);
+                response.getHeaders().put(HttpHeader.CONTENT_TYPE, "application/json; charset=utf-8");
+                Content.Sink.write(response, true, new Gson().toJson(getConfirmations()), callback);
+                return true;
             }
-        } catch (JMSException  e) {
-            throw new ServletException(e);
         }  catch (NoClassDefFoundError  e) {
             if (e.getMessage().contains("com/ibm")) {
                 System.err.println("In order to use IBM® MQ you need jar files that will allow Food Order System to establish connections with MQ. " +
@@ -51,6 +48,7 @@ class ProvisioningHandler extends AbstractHandler {
                 throw e;
             }
         }
+        return false;
     }
 
     private List<Confirmation> getConfirmations() throws JMSException {
@@ -80,10 +78,10 @@ class ProvisioningHandler extends AbstractHandler {
         return confirmations;
     }
 
-    private boolean sendPayment(HttpServletRequest request) throws JMSException {
+    private boolean sendPayment(Fields parameters) throws JMSException {
         Map<String, String> jmsRequest = new HashMap<>();
-        jmsRequest.put("mobileType", request.getParameter("mobileType"));
-        jmsRequest.put("mobileNumber", request.getParameter("mobileNumber"));
+        jmsRequest.put("mobileType", parameters.getValue("mobileType"));
+        jmsRequest.put("mobileNumber", parameters.getValue("mobileNumber"));
         sendMessage(new Gson().toJson(jmsRequest));
         return true;
     }
