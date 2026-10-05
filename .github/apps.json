@@ -9,7 +9,7 @@
   { "app": "fedex-tracking-application", "java": 8, "args": "-DskipITs", "zip": "fedex-tracking-application-1.0.0.zip" },
   { "app": "thrift-calculator", "java": 11, "thrift": true, "zip": "thrift-calculator-1.1.0-release.zip" },
   { "app": "finance-application-2", "java": 17 },
-  { "app": "mobile-network-hardware", "java": 8 },
+  { "app": "mobile-network-hardware", "java": 8, "zip": "mobile-network-hardware.zip" },
   { "app": "mobile-numbers", "java": 17 },
   { "app": "mobile-onboarding", "java": 17, "mq": true, "zip": "mobile-onboarding.zip" },
   { "app": "weather-in-london-application", "java": 17 },

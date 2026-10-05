@@ -1,5 +1,5 @@
 This application needs IBM's MQ client, which is not included in this zip.
 Download com.ibm.mq.allclient.jar from Maven Central and save it in the "lib" directory as "com.ibm.mq.allclient.jar":
 https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.allclient/9.4.1.0/com.ibm.mq.allclient-9.4.1.0.jar
-Then run start.sh (start.cmd on Windows) and open http://localhost:8383 to send provisioning requests.
+Then run start.sh (start.cmd on Windows).
 Tutorial: https://github.com/trafficparrot/trafficparrot-demo-applications/tree/master/mobile-network-hardware

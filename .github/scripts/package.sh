@@ -28,7 +28,7 @@ one() {
 }
 
 case "$app" in
-  fruit-order-system|vegetable-order-system|flower-order-system|food-order-system|mobile-onboarding)
+  fruit-order-system|vegetable-order-system|flower-order-system|food-order-system|mobile-onboarding|mobile-network-hardware)
     # The release folder as it is, with the application jar in lib/.
     cp -R "$app/release/$app" "$work/"
     cp "$(one "*-jar-with-dependencies.jar")" "$work/$app/lib/"

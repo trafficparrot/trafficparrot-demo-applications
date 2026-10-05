@@ -1,9 +1,19 @@
 ## Download this application
 
-You can download this application here: https://trafficparrot.com/documentation/files/mobile-onboarding.zip
+You can download this application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-onboarding.zip
 
 ## Setup
 
-In order for this project to work you will have to obtain a file "com.ibm.mq.allclient.jar"
-provided by IBM and copy it to the "mobile-onboarding\lib" directory.
-Follow these instructions to obtain that file: https://trafficparrot.com/documentation/5.50.x/jms.html#ibm-mq-libs
+The zip does not contain IBM's MQ client. Download "com.ibm.mq.allclient.jar" from Maven Central
+and save it as "mobile-onboarding/lib/com.ibm.mq.allclient.jar" in the unzipped application:
+https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.allclient/9.4.1.0/com.ibm.mq.allclient-9.4.1.0.jar
+
+The application uses the javax JMS API, so it needs com.ibm.mq.allclient, not the Jakarta client.
+
+Start it with start.sh (start.cmd on Windows) from inside the unzipped directory, then open http://localhost:8383 to send provisioning requests.
+
+Building from source needs the same jar at "mobile-onboarding/lib/com.ibm.mq.allclient.jar" before running Maven.
+
+## Tutorial
+
+This application is used in the IBM MQ passthrough tutorial: https://github.com/trafficparrot/trafficparrot-demo-applications/tree/master/mobile-network-hardware

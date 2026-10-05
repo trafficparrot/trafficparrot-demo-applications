@@ -25,9 +25,19 @@ public class MobileNetworkHardwareMicroservice {
     private MessageConsumer consumer;
 
     public static void main(String[] args) throws Exception {
-        MobileNetworkHardwareMicroservice mobileOnboardingMicroservice = new MobileNetworkHardwareMicroservice();
-        mobileOnboardingMicroservice.start();
-        mobileOnboardingMicroservice.receiveMessages();
+        try {
+            MobileNetworkHardwareMicroservice mobileOnboardingMicroservice = new MobileNetworkHardwareMicroservice();
+            mobileOnboardingMicroservice.start();
+            mobileOnboardingMicroservice.receiveMessages();
+        } catch (NoClassDefFoundError e) {
+            if (e.getMessage() != null && e.getMessage().contains("com/ibm")) {
+                System.err.println("This application needs IBM's com.ibm.mq.allclient.jar in its lib directory to connect to IBM MQ. " +
+                        "See the README file for more information");
+                System.exit(1);
+            } else {
+                throw e;
+            }
+        }
     }
 
     public void receiveMessages() {

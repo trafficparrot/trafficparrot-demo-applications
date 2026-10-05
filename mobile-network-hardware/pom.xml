@@ -42,9 +42,12 @@
             <version>2.0.1</version>
         </dependency>
         <dependency>
+            <!-- Compiled against, never shipped: the download zip leaves it out, and readers put
+                 IBM's jar in lib/ themselves (see README.md) -->
             <groupId>com.ibm.mq</groupId>
             <artifactId>com.ibm.mq.allclient</artifactId>
             <version>9.4.1.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

@@ -30,15 +30,20 @@ Use mocking to obtain responses without communicating with the real ```mobile-ne
 Use passthrough obtain responses from the real ```mobile-network-hardware``` application.
 
 ## Download the applications used in this tutorial
-You can download the ```mobile-network-hardware``` application here: https://trafficparrot.com/documentation/files/mobile-network-hardware.zip
+You can download the ```mobile-network-hardware``` application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-network-hardware.zip
 
-You can download the ```mobile-onboarding``` application here: https://trafficparrot.com/documentation/files/mobile-onboarding.zip 
-
+You can download the ```mobile-onboarding``` application here: https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/mobile-onboarding.zip
 
 ## Application setup
-In order for this project to work you will have to obtain a file ```com.ibm.mq.allclient.jar```
-provided by IBM and copy it to the ```mobile-network-hardware\lib``` directory.
-Follow these instructions to obtain that file: https://trafficparrot.com/documentation/5.50.x/jms.html#ibm-mq-libs
+Neither zip contains IBM's MQ client, so both applications need it before they will start.
+
+Download ```com.ibm.mq.allclient.jar``` from Maven Central: https://repo1.maven.org/maven2/com/ibm/mq/com.ibm.mq.allclient/9.4.1.0/com.ibm.mq.allclient-9.4.1.0.jar
+
+Unzip both applications and save a copy of that file as ```com.ibm.mq.allclient.jar``` in each ```lib``` directory:
+* ```mobile-network-hardware/lib/com.ibm.mq.allclient.jar```
+* ```mobile-onboarding/lib/com.ibm.mq.allclient.jar```
+
+That is the only file needed. The applications use the javax JMS API, so they need ```com.ibm.mq.allclient```, not the Jakarta client. Traffic Parrot needs a different IBM client, covered in the steps below.
 
 ## Running an IBM MQ Advanced for Developers container image locally
 ```bash
@@ -92,11 +97,11 @@ exit
       ```bash
       exit
       ```
-* Follow these instructions to install "com.ibm.mq.allclient.jar" in Traffic Parrot https://trafficparrot.com/documentation/5.50.x/jms.html#ibm-mq-libs
+* Install IBM's MQ client in Traffic Parrot by following https://trafficparrot.com/documentation/latest/jms.html#ibm-mq-libs (Traffic Parrot needs a different IBM jar from the ```com.ibm.mq.allclient.jar``` the demo applications use)
 * Open ```trafficparrot.properties``` and set property ```trafficparrot.jms.responsetransformers``` value to ```com.trafficparrot.messaging.jms.JmsPassthroughMessage```
 * Open ```jms-connections.json``` and set the password on the first connection to ```passw0rd```
 * Start Traffic Parrot
-* Start both ```mobile-onboarding``` and ```mobile-network-hardware``` applications
+* Start both ```mobile-onboarding``` and ```mobile-network-hardware``` applications with ```start.sh``` (```start.cmd``` on Windows) from inside each unzipped directory. ```mobile-onboarding``` sends to ```MOCK_PROVISION_REQUESTS``` and reads ```MOCK_PROVISION_CONFIRMATIONS```, so its traffic goes through Traffic Parrot, which mocks some requests and passes the rest on to the real ```PROVISION_REQUESTS``` and ```PROVISION_CONFIRMATIONS``` queues that ```mobile-network-hardware``` uses
 * Create a ```mobiles.csv``` file in trafficparrot.x.y.z/data:
   ```csv
   mobileNumber
@@ -137,4 +142,4 @@ exit
   * Response destination: ```MOCK_PROVISION_CONFIRMATIONS```
   * Response transformer: ```JmsPassthroughMessage```
 * Turn on JMS replay in Traffic Parrot
-* Test the passthrough by sending a few requests from the ```mobile-onboarding``` microservice
+* Test the passthrough by sending a few requests from the ```mobile-onboarding``` web page at http://localhost:8383
