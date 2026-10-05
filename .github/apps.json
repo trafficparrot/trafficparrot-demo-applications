@@ -11,7 +11,7 @@
   { "app": "finance-application-2", "java": 17 },
   { "app": "mobile-network-hardware", "java": 8 },
   { "app": "mobile-numbers", "java": 17 },
-  { "app": "mobile-onboarding", "java": 17, "mq": true },
+  { "app": "mobile-onboarding", "java": 17, "mq": true, "zip": "mobile-onboarding.zip" },
   { "app": "weather-in-london-application", "java": 17 },
   { "app": "wiremock-weather-application", "java": 17 },
   { "app": "weather-sequence-diagram-example", "java": 21 },
