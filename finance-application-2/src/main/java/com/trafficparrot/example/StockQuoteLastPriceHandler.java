@@ -8,39 +8,36 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.io.Content;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.trafficparrot.example.AppProperties.loadProperties;
 import static java.lang.String.format;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
 
-class StockQuoteLastPriceHandler extends AbstractHandler {
+class StockQuoteLastPriceHandler extends Handler.Abstract {
     public StockQuoteLastPriceHandler() {
     }
 
     @Override
-    public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if ("/stock-quote-last-price".equals(target)) {
-            try {
-                double lastPrice = parseStockQuoteLastPrice(stockQuoteFor(request.getParameter("company")));
+    public boolean handle(Request request, Response response, Callback callback) throws Exception {
+        if ("/stock-quote-last-price".equals(Request.getPathInContext(request))) {
+            double lastPrice = parseStockQuoteLastPrice(stockQuoteFor(Request.extractQueryParameters(request).getValue("company")));
 
-                response.setContentType("text/html; charset=utf-8");
-                response.setStatus(SC_OK);
-                response.getWriter().print(lastPrice);
-
-                baseRequest.setHandled(true);
-            } catch (JSONException e) {
-                throw new ServletException(e);
-            }
+            response.getHeaders().put(HttpHeader.CONTENT_TYPE, "text/html; charset=UTF-8");
+            response.setStatus(HttpStatus.OK_200);
+            Content.Sink.write(response, true, String.valueOf(lastPrice), callback);
+            return true;
         }
+        return false;
     }
 
     private double parseStockQuoteLastPrice(String markitStockQuoteJson) throws JSONException {
