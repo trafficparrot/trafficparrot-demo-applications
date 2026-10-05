@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.7</version>
+		<version>2.7.18</version>
 		<relativePath/>
 	</parent>
 
@@ -27,21 +27,21 @@
 		<!-- Dependency versions -->
 		<selenide.version>6.19.1</selenide.version>
 		<selenium.version>4.13.0</selenium.version>
-		<allure.version>2.17.3</allure.version>
-		<junit.version>5.8.2</junit.version>
-		<aspectj.version>1.9.20.1</aspectj.version>
+		<allure.version>2.35.5</allure.version>
+		<junit.version>5.14.4</junit.version>
+		<aspectj.version>1.9.25.1</aspectj.version>
 		<jcodec.version>0.2.5</jcodec.version>
 		<commons.lang3.version>3.11</commons.lang3.version>
 		<java.faker.version>1.0.2</java.faker.version>
-		<browserup.proxy.version>2.2.14</browserup.proxy.version>
+		<browserup.proxy.version>2.2.19</browserup.proxy.version>
 		<log4j.version>2.13.3</log4j.version>
 		<slf4j.version>1.7.30</slf4j.version>
 
 		<!-- Plugin versions -->
 		<failsafe.plugin.version>2.22.2</failsafe.plugin.version>
-		<allure.plugin.version>2.10.0</allure.plugin.version>
-		<versions.maven.plugin.version>2.16.1</versions.maven.plugin.version>
-		<maven.site.plugin.version>3.10.0</maven.site.plugin.version>
+		<allure.plugin.version>2.18.0</allure.plugin.version>
+		<versions.maven.plugin.version>2.22.0</versions.maven.plugin.version>
+		<maven.site.plugin.version>3.22.0</maven.site.plugin.version>
 
 		<!-- Artifact directories -->
 		<allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
