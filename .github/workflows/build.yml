@@ -1,11 +1,13 @@
-# Builds and tests every Maven app on the Java it targets, on each push to master and each pull request,
-# and makes the download zips. The release workflow calls it to build the zips from a tagged commit.
+# Builds and tests the Maven apps a push to master or a pull request changes, each on the Java it
+# targets, and makes the download zips. A change under .github/, a manual run and a release build
+# every app. The release workflow calls it to build the zips from a tagged commit.
 name: Build
 
 on:
   push:
     branches: [master]
   pull_request:
+  workflow_dispatch:
   workflow_call:
 
 permissions:
@@ -16,37 +18,38 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  select:
+    name: Pick the apps to build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      apps: ${{ steps.pick.outputs.apps }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - id: pick
+        env:
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          BEFORE: ${{ github.event.before }}
+        run: .github/scripts/changed-apps.sh >> "$GITHUB_OUTPUT"
+
   app:
     name: ${{ matrix.app }}
+    needs: select
+    if: needs.select.outputs.apps != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
+      # .github/apps.json lists every app. mq: compiles against IBM's MQ client, fetched from
+      # Maven Central here and never shipped. zip: the download a release carries, named as
+      # trafficparrot.com serves it. args: extra Maven arguments (fedex-tracking-application's
+      # acceptance tests drive a browser against FedEx's sandbox and need a FedEx API key).
       matrix:
-        # mq: compiles against IBM's MQ client, fetched from Maven Central here and never shipped.
-        # zip: the download a release carries, named as trafficparrot.com serves it.
-        include:
-          - { app: fruit-order-system, java: 17, mq: true, zip: fruit-order-system.zip }
-          - { app: vegetable-order-system, java: 17, zip: vegetable-order-system.zip }
-          - { app: flower-order-system, java: 17, zip: flower-order-system.zip }
-          - { app: food-order-system, java: 17, mq: true, zip: food-order-system.zip }
-          - { app: finance-application, java: 17, zip: finance-application-1.3.0.zip }
-          - { app: uv-index-application, java: 8, zip: uv-index-application-1.2.1.zip }
-          - { app: grpc-shop, java: 8, zip: grpc-shop-1.0-bin.zip }
-          # Its acceptance tests drive a browser against FedEx's sandbox and need a FedEx API key.
-          - { app: fedex-tracking-application, java: 8, args: -DskipITs, zip: fedex-tracking-application-1.0.0.zip }
-          - { app: thrift-calculator, java: 11, zip: thrift-calculator-1.1.0-release.zip }
-          - { app: finance-application-2, java: 17 }
-          - { app: mobile-network-hardware, java: 8 }
-          - { app: mobile-numbers, java: 17 }
-          - { app: mobile-onboarding, java: 17, mq: true }
-          - { app: weather-in-london-application, java: 17 }
-          - { app: wiremock-weather-application, java: 17 }
-          - { app: weather-yatspec-example, java: 17 }
-          - { app: unit-converter-application, java: 17 }
-          - { app: example-buy-euro-application, java: 17 }
-          - { app: fix-sftp-fix, java: 21 }
-          - { app: demo-multiple-apis, java: 8 }
+        include: ${{ fromJSON(needs.select.outputs.apps) }}
     env:
       APP: ${{ matrix.app }}
       ZIP: ${{ matrix.zip }}
