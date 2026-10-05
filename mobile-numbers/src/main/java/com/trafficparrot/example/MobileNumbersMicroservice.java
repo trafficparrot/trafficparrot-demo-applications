@@ -3,9 +3,8 @@ package com.trafficparrot.example;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 
 import java.util.Date;
 
@@ -22,13 +21,12 @@ public class MobileNumbersMicroservice {
     public void start() throws Exception {
         info("Starting GUI...");
         server = new Server(port);
-        HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{
+        server.setHandler(new Handler.Sequence(
                 new MobileNumbersHandler(),
                 new ReadyHandler(),
                 getResourceHandler("html"),
-                new DefaultHandler()});
-        server.setHandler(handlers);
+                new DefaultHandler()));
+        server.setErrorHandler(new Jetty9StyleErrorHandler());
         server.start();
         info("GUI started on http://localhost:" + port);
     }
@@ -39,9 +37,9 @@ public class MobileNumbersMicroservice {
 
     private static ResourceHandler getResourceHandler(String resourceBase) {
         ResourceHandler resourceHandler = new ResourceHandler();
-        resourceHandler.setDirectoriesListed(true);
-        resourceHandler.setWelcomeFiles(new String[]{"index.html"});
-        resourceHandler.setResourceBase(Resource.newClassPathResource(resourceBase).getName());
+        resourceHandler.setDirAllowed(true);
+        resourceHandler.setWelcomeFiles("index.html");
+        resourceHandler.setBaseResource(ResourceFactory.of(resourceHandler).newClassLoaderResource(resourceBase));
         return resourceHandler;
     }
 

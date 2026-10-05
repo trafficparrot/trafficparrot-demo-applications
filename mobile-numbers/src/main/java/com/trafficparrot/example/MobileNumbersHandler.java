@@ -10,47 +10,46 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.eclipse.jetty.http.HttpHeader;
+import org.eclipse.jetty.io.Content;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.json.JSONException;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
 import org.json.JSONObject;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.DataInput;
 import java.io.IOException;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 import static com.trafficparrot.example.AppProperties.loadProperties;
-import static java.lang.String.format;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
+import static org.eclipse.jetty.http.HttpStatus.INTERNAL_SERVER_ERROR_500;
+import static org.eclipse.jetty.http.HttpStatus.OK_200;
 
-class MobileNumbersHandler extends AbstractHandler {
-    public MobileNumbersHandler() {
-    }
-
+class MobileNumbersHandler extends Handler.Abstract {
     @Override
-    public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if ("/transfer-number".equals(target)) {
-            try {
-                String responseBody = transferNumber(request);
-
-                response.setContentType("text/html; charset=utf-8");
-                response.setStatus(SC_OK);
-                response.getWriter().print(responseBody);
-
-                baseRequest.setHandled(true);
-            } catch (JSONException e) {
-                throw new ServletException(e);
-            }
+    public boolean handle(Request request, Response response, Callback callback) throws Exception {
+        if (!"/transfer-number".equals(Request.getPathInContext(request))) {
+            return false;
         }
+        String mobileNumber = Request.getParameters(request).getValue("mobileNumber");
+        String responseBody;
+        try {
+            responseBody = transferNumber(mobileNumber);
+        } catch (IOException e) {
+            // The error page then reads "Unexpected response status: 500 with response body: ...", so a sad
+            // path shows the port number API's own answer, as it did on Jetty 9
+            Response.writeError(request, response, callback, INTERNAL_SERVER_ERROR_500, e.getMessage());
+            return true;
+        }
+
+        response.getHeaders().put(HttpHeader.CONTENT_TYPE, "text/html; charset=utf-8");
+        response.setStatus(OK_200);
+        Content.Sink.write(response, true, responseBody, callback);
+        return true;
     }
 
-    private String transferNumber(HttpServletRequest request) throws JSONException, IOException {
-        String mobileNumber = request.getParameter("mobileNumber");
-        String responseBody = transferNumber(mobileNumber);
+    private String transferNumber(String mobileNumber) throws IOException {
+        String responseBody = requestPortNumber(mobileNumber);
         // ignore on purpose to demo sad path scenarios
         JSONObject response = new JSONObject(responseBody);
         return "{\n" +
@@ -61,7 +60,7 @@ class MobileNumbersHandler extends AbstractHandler {
                 "}";
     }
 
-    private String transferNumber(String mobileNumber) throws IOException {
+    private String requestPortNumber(String mobileNumber) throws IOException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(getPortNumberUrl());
 
