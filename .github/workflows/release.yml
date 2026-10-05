@@ -1,6 +1,7 @@
 # On a v* tag, builds every app from the tagged commit and publishes a GitHub release carrying the
 # download zips, so a page can link to
 # https://github.com/trafficparrot/trafficparrot-demo-applications/releases/latest/download/<zip>
+# Tags are v<UTC date>.<N>, N counting that day's releases; .github/scripts/next-tag.sh prints the next.
 name: Release
 
 on:
