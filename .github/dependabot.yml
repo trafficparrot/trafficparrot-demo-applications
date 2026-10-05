@@ -1,7 +1,7 @@
-# Keeps the action pins in the workflows and each app's Maven dependencies current. Security
-# updates for a vulnerable dependency are a repository setting and arrive as soon as an alert
-# opens, whatever this file says; the entries here add a scheduled check for newer versions,
-# offering a release only once it is a week old, by which time a bad one has usually been pulled.
+# Keeps the action pins in the workflows and the apps' Maven dependencies current. Security
+# updates for a vulnerable dependency are a repository setting and arrive when an alert opens;
+# the entries here add a scheduled check for newer versions, offering a release only once it is
+# a week old, by which time a bad one has usually been pulled.
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -11,7 +11,9 @@ updates:
     cooldown:
       default-days: 7
 
-  # One pull request per app each month, carrying every Maven update that app has.
+  # One pull request a month across the apps, carrying their minor and patch Maven updates.
+  # Major versions are left out: each app targets a fixed Java (8 for some), and a new major
+  # usually needs a newer Java or code changes, so those are made by hand.
   # The list follows .github/apps.json.
   - package-ecosystem: maven
     directories:
@@ -30,7 +32,7 @@ updates:
       - /mobile-onboarding
       - /weather-in-london-application
       - /wiremock-weather-application
-      - /weather-yatspec-example
+      - /weather-sequence-diagram-example
       - /unit-converter-application
       - /example-buy-euro-application
       - /fix-sftp-fix
@@ -39,7 +41,9 @@ updates:
       interval: monthly
     cooldown:
       default-days: 7
-    open-pull-requests-limit: 20
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       maven:
         patterns: ["*"]
