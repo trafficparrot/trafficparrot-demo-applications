@@ -3,9 +3,8 @@ package com.trafficparrot.example;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 
 import java.io.*;
 import java.util.Date;
@@ -24,12 +23,10 @@ public class UnitConverterApplication {
     public void start() {
         info("Starting application...");
         server = new Server(port);
-        HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{
+        server.setHandler(new Handler.Sequence(
                 new UnitHandler(loadProperties()),
                 getResourceHandler("html"),
-                new DefaultHandler()});
-        server.setHandler(handlers);
+                new DefaultHandler()));
         try {
             server.start();
         } catch (Exception e) {
@@ -40,9 +37,9 @@ public class UnitConverterApplication {
 
     private static ResourceHandler getResourceHandler(String resourceBase) {
         ResourceHandler resourceHandler = new ResourceHandler();
-        resourceHandler.setDirectoriesListed(true);
-        resourceHandler.setWelcomeFiles(new String[]{"index.html"});
-        resourceHandler.setResourceBase(Resource.newClassPathResource(resourceBase).getName());
+        resourceHandler.setDirAllowed(true);
+        resourceHandler.setWelcomeFiles("index.html");
+        resourceHandler.setBaseResource(ResourceFactory.of(resourceHandler).newClassLoaderResource(resourceBase));
         return resourceHandler;
     }
 

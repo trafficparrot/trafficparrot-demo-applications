@@ -9,17 +9,17 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.eclipse.jetty.io.Content;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,10 +29,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 import static java.lang.String.format;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
-import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
+import static org.eclipse.jetty.http.HttpStatus.OK_200;
+import static org.eclipse.jetty.http.HttpStatus.SERVICE_UNAVAILABLE_503;
 
-class UnitHandler extends AbstractHandler {
+class UnitHandler extends Handler.Abstract {
     private static final Logger LOG = LoggerFactory.getLogger(UnitHandler.class);
     private final Properties properties;
 
@@ -40,23 +40,22 @@ class UnitHandler extends AbstractHandler {
         this.properties = properties;
     }
 
-    public void handle(String target,
-                       Request baseRequest,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException,
-            ServletException {
-        if ("/convert".equals(target)) {
-            try {
-                String meters = parseResult(yardsToMeters(request.getParameter("yards")));
-                response.setStatus(SC_OK);
-                response.getWriter().print(meters);
-            } catch (Exception e) {
-                LOG.error("Unknown problem while retrieving wind speed", e);
-                response.setStatus(SC_SERVICE_UNAVAILABLE);
-                response.getWriter().print("ERROR");
-            }
-            baseRequest.setHandled(true);
+    @Override
+    public boolean handle(Request request, Response response, Callback callback) {
+        if (!"/convert".equals(Request.getPathInContext(request))) {
+            return false;
         }
+        String body;
+        try {
+            body = parseResult(yardsToMeters(Request.extractQueryParameters(request).getValue("yards")));
+            response.setStatus(OK_200);
+        } catch (Exception e) {
+            LOG.error("Unknown problem while retrieving wind speed", e);
+            response.setStatus(SERVICE_UNAVAILABLE_503);
+            body = "ERROR";
+        }
+        Content.Sink.write(response, true, body, callback);
+        return true;
     }
 
     private String parseResult(String forecastIo) throws JSONException, IOException, SAXException, XPathExpressionException, ParserConfigurationException {
