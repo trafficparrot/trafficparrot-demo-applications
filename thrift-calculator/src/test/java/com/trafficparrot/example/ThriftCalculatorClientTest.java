@@ -92,7 +92,8 @@ class ThriftCalculatorClientTest {
         post("api/server", "hostAndPort", "localhost:1");
         String state = press("1", "+", "1", "=");
 
-        assertTrue(state.contains("\"message\":\"java.net.ConnectException: Connection refused\""), state);
+        // Java 11 adds " (Connection refused)" to the message; later versions do not.
+        assertTrue(state.contains("\"message\":\"java.net.ConnectException: Connection refused"), state);
     }
 
     @Test
