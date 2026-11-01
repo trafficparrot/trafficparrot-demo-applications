@@ -29,7 +29,7 @@
 		<selenium.version>4.13.0</selenium.version>
 		<allure.version>2.27.0</allure.version>
 		<junit.version>5.14.4</junit.version>
-		<aspectj.version>1.9.25.1</aspectj.version>
+		<aspectj.version>1.9.26</aspectj.version>
 		<jcodec.version>0.2.5</jcodec.version>
 		<commons.lang3.version>3.11</commons.lang3.version>
 		<java.faker.version>1.0.2</java.faker.version>
@@ -40,7 +40,7 @@
 		<!-- Plugin versions -->
 		<failsafe.plugin.version>2.22.2</failsafe.plugin.version>
 		<allure.plugin.version>2.18.0</allure.plugin.version>
-		<versions.maven.plugin.version>2.22.0</versions.maven.plugin.version>
+		<versions.maven.plugin.version>2.23.0</versions.maven.plugin.version>
 		<maven.site.plugin.version>3.22.0</maven.site.plugin.version>
 
 		<!-- Artifact directories -->
