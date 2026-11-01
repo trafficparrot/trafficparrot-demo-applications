@@ -11,7 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
-        <jetty.version>12.1.13</jetty.version>
+        <jetty.version>12.1.14</jetty.version>
         <slf4j.version>2.0.20</slf4j.version>
     </properties>
 
@@ -46,7 +46,7 @@
             <!-- slf4j-reload4j brings 1.2.22; take the newest -->
             <groupId>ch.qos.reload4j</groupId>
             <artifactId>reload4j</artifactId>
-            <version>1.2.26</version>
+            <version>1.2.27</version>
         </dependency>
     </dependencies>
 
